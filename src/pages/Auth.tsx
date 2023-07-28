@@ -25,14 +25,32 @@ const Auth = () => {
                 <Image src={logo} boxSize="30px" textAlign="center" />
             </Box>
             <Flex height="100%" flexDirection={login ? "row" : "row-reverse"}>
-                <Box width="100%" backgroundColor="teal.800"></Box>
+                <Box
+                    display={{
+                        base: "none",
+                        md: "flex",
+                        lg: "flex",
+                        xl: "flex",
+                    }}
+                    width="100%"
+                    backgroundColor="teal.800"
+                ></Box>
                 <Flex
                     width="100%"
                     justifyItems="center"
-                    alignItems="center"
+                    alignItems={{
+                        base: "end",
+                        md: "center",
+                        lg: "center",
+                        xl: "center",
+                    }}
+                    paddingY={{ base: "10" }}
                     height="100vh"
                 >
-                    <Box width="60%" marginX="auto">
+                    <Box
+                        width={{ base: "90%", md: "60%", lg: "60%", xl: "60%" }}
+                        marginX="auto"
+                    >
                         <Box marginBottom="25px">
                             <Image
                                 src={logo}
