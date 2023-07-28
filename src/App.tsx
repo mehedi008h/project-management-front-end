@@ -1,9 +1,9 @@
-import { Text } from "@chakra-ui/react";
+import { Auth } from "./pages";
 
 function App() {
     return (
         <>
-            <Text textAlign="center">Hello World</Text>
+            <Auth />
         </>
     );
 }
