@@ -1,5 +1,7 @@
+import { Text } from "@chakra-ui/react";
+
 const HomePage = () => {
-    return <div>Home</div>;
+    return <Text>Home Page</Text>;
 };
 
 export default HomePage;
