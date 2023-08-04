@@ -19,7 +19,7 @@ const Layout = () => {
                 </GridItem>
             </Show>
             <GridItem area="main">
-                <Box paddingX={2}>
+                <Box paddingX={4}>
                     <Navbar />
                     <Outlet />
                 </Box>

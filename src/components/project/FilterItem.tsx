@@ -9,7 +9,7 @@ interface Props {
 
 const FilterItem = ({ icon, text, fontSize = 14 }: Props) => {
     return (
-        <HStack spacing={3} alignItems="center">
+        <HStack spacing={2} alignItems="center">
             {icon}
             <Text fontSize={fontSize} fontFamily="monospace">
                 {text}
