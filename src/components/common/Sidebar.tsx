@@ -71,10 +71,11 @@ const Sidebar = () => {
     return (
         <Box
             height="100vh"
-            width="100%"
+            width="250px"
             paddingY={4}
             borderRight="1px"
             borderColor="gray.700"
+            position="fixed"
         >
             <Box paddingX={3} paddingY={2}>
                 <Link to={"/"}>

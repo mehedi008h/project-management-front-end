@@ -11,7 +11,7 @@ const Navbar = () => {
             width="100%"
             justifyContent="space-between"
             alignItems="center"
-            paddingRight={5}
+            marginBottom={6}
         >
             <Box
                 display={{
