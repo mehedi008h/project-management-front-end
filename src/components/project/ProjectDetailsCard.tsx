@@ -7,7 +7,12 @@ import {
     Button,
     ButtonGroup,
     Flex,
+    IconButton,
     Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -17,13 +22,14 @@ import {
     Text,
     useDisclosure,
 } from "@chakra-ui/react";
-import { CiViewList } from "react-icons/ci";
+import { CiMenuKebab, CiViewList } from "react-icons/ci";
 import { GiSandsOfTime } from "react-icons/gi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { MdOutlineTimer } from "react-icons/md";
 import { RiAttachment2 } from "react-icons/ri";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
+import { BiMenuAltRight } from "react-icons/bi";
 
 const ProjectDetailsCard = () => {
     const [developerModal, setDeveloperModal] = useState(false);
@@ -40,9 +46,19 @@ const ProjectDetailsCard = () => {
     };
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
-            <Flex justify="space-between">
+            <Flex justify="space-between" alignItems="center">
                 <Text>Project Identifier # 43534534</Text>
-                <ButtonGroup size="sm" isAttached variant="outline">
+                <ButtonGroup
+                    display={{
+                        xl: "block",
+                        lg: "block",
+                        md: "block",
+                        base: "none",
+                    }}
+                    size="sm"
+                    isAttached
+                    variant="outline"
+                >
                     <Button
                         onClick={() => handleModal("developer")}
                         fontWeight="normal"
@@ -64,6 +80,28 @@ const ProjectDetailsCard = () => {
                         Delete Project
                     </Button>
                 </ButtonGroup>
+                <Box
+                    display={{
+                        xl: "none",
+                        lg: "none",
+                        md: "none",
+                        base: "block",
+                    }}
+                >
+                    <Menu>
+                        <MenuButton
+                            as={IconButton}
+                            aria-label="Options"
+                            icon={<BiMenuAltRight />}
+                            variant="unstyled"
+                        />
+                        <MenuList>
+                            <MenuItem icon={<CiMenuKebab />} command="⌘T">
+                                New Tab
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Box>
             </Flex>
             {/* modal  */}
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -82,9 +120,27 @@ const ProjectDetailsCard = () => {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <Flex gap={6} my={5} width="100%">
+            <Flex
+                flexDirection={{
+                    xl: "row",
+                    lg: "row",
+                    md: "row",
+                    base: "column",
+                }}
+                gap={6}
+                my={5}
+                width="100%"
+            >
                 {/* image  */}
-                <Box width="450px" height="300px">
+                <Box
+                    width={{
+                        xl: "450px",
+                        lg: "450px",
+                        md: "450px",
+                        base: "100%",
+                    }}
+                    height="300px"
+                >
                     <Image
                         src={placeHolder}
                         w="100%"
@@ -100,7 +156,7 @@ const ProjectDetailsCard = () => {
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Cumque eius adipisci, quasi voluptate neque iure!
                     </Text>
-                    <Flex gap={4} my={4}>
+                    <Flex gap={4} my={4} flexWrap="wrap">
                         <Badge px={2} py={1}>
                             Spring Boot
                         </Badge>
@@ -112,15 +168,45 @@ const ProjectDetailsCard = () => {
                     <Flex gap={3}>
                         <Flex align="center" gap={1}>
                             <RiAttachment2 />
-                            Attachment (20)
+                            <Text
+                                display={{
+                                    xl: "block",
+                                    lg: "block",
+                                    md: "block",
+                                    base: "none",
+                                }}
+                            >
+                                Attachment
+                            </Text>
+                            (20)
                         </Flex>
                         <Flex align="center" gap={1}>
                             <IoChatboxEllipsesOutline color="white" />
-                            Message (20)
+                            <Text
+                                display={{
+                                    xl: "block",
+                                    lg: "block",
+                                    md: "block",
+                                    base: "none",
+                                }}
+                            >
+                                Message
+                            </Text>{" "}
+                            (20)
                         </Flex>
                         <Flex align="center" gap={1}>
                             <CiViewList />
-                            Task (20)
+                            <Text
+                                display={{
+                                    xl: "block",
+                                    lg: "block",
+                                    md: "block",
+                                    base: "none",
+                                }}
+                            >
+                                Task
+                            </Text>{" "}
+                            (20)
                         </Flex>
                     </Flex>
 
