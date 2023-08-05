@@ -14,3 +14,6 @@ export { default as FilterItem } from "./project/FilterItem";
 export { default as Heading } from "./project/Heading";
 export { default as Projects } from "./project/Projects";
 export { default as ProjectCard } from "./project/ProjectCard";
+export { default as TaskTableHeading } from "./task/TaskTableHeading";
+export { default as TableContent } from "./task/TableContent";
+export { default as Tasks } from "./task/Tasks";
