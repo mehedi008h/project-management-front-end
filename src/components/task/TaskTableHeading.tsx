@@ -2,7 +2,7 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 const TaskTableHeading = () => {
     return (
-        <Box mt={5} bg="blackAlpha.700" rounded="md">
+        <Box mt={5} bg="blackAlpha.700" rounded="md" marginBottom={2}>
             <Grid templateColumns="repeat(7, 1fr)" gap={2}>
                 <GridItem
                     colSpan={3}

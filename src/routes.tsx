@@ -4,6 +4,7 @@ import {
     ErrorPage,
     HomePage,
     Layout,
+    ProjectDetailsPage,
     ProjectPage,
     TaskPage,
 } from "./pages";
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: "/projects",
                 element: <ProjectPage />,
+            },
+            {
+                path: "/projects/:identifier",
+                element: <ProjectDetailsPage />,
             },
             {
                 path: "/tasks",

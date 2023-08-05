@@ -36,7 +36,7 @@ const ProjectCard = () => {
                 />
             </Box>
             <VStack spacing={1.5} alignItems="start">
-                <Link to={`/project/2`}>Project Management</Link>
+                <Link to={`/projects/2`}>Project Management</Link>
                 <Text fontSize={14} color="gray.600">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Sequi, dolore!
