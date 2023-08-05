@@ -1,5 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Poppins:wght@300;500&family=Roboto:wght@500&display=swap");
 
+.next_btn {
+    animation: nextMove 3s ease-in-out infinite;
+}
+
+@keyframes nextMove {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
 /* Scroll Bar */
 
 ::-webkit-scrollbar-track {

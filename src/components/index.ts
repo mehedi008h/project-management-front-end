@@ -17,3 +17,4 @@ export { default as ProjectCard } from "./project/ProjectCard";
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";
 export { default as Tasks } from "./task/Tasks";
+export { default as TaskDetails } from "./task/TaskDetails";

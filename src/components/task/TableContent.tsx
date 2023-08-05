@@ -19,6 +19,7 @@ import {
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineTimer } from "react-icons/md";
 import { GiSandsOfTime } from "react-icons/gi";
+import { TaskDetails } from "..";
 
 const TableContent = () => {
     // open & close modal
@@ -76,7 +77,7 @@ const TableContent = () => {
                                     <ModalHeader>Task Details</ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody>
-                                        <Text>Hello</Text>
+                                        <TaskDetails />
                                     </ModalBody>
                                 </ModalContent>
                             </Modal>
