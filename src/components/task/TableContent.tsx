@@ -3,12 +3,6 @@ import {
     Flex,
     Grid,
     GridItem,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay,
     Text,
     useDisclosure,
 } from "@chakra-ui/react";
@@ -19,7 +13,7 @@ import {
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineTimer } from "react-icons/md";
 import { GiSandsOfTime } from "react-icons/gi";
-import { TaskDetails } from "..";
+import { Modal, TaskDetails } from "..";
 
 const TableContent = () => {
     // open & close modal
@@ -71,16 +65,15 @@ const TableContent = () => {
                                 Details
                             </Text>
                             {/*task details modal */}
-                            <Modal isOpen={isOpen} onClose={onClose}>
-                                <ModalOverlay />
-                                <ModalContent>
-                                    <ModalHeader>Task Details</ModalHeader>
-                                    <ModalCloseButton />
-                                    <ModalBody>
-                                        <TaskDetails />
-                                    </ModalBody>
-                                </ModalContent>
-                            </Modal>
+                            <Modal
+                                isOpen={isOpen}
+                                onClose={onClose}
+                                disabled={false}
+                                title="Task Details"
+                                actionLabel="Continue"
+                                onSubmit={() => ""}
+                                body={<TaskDetails />}
+                            />
                             <IoIosArrowForward size={16} color="yellow" />{" "}
                         </Flex>
                     </Flex>

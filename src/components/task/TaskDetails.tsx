@@ -1,15 +1,7 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Divider,
-    Flex,
-    Stack,
-    Text,
-} from "@chakra-ui/react";
+import { Avatar, Box, Divider, Flex, Stack, Text } from "@chakra-ui/react";
 import { FcHighPriority } from "react-icons/fc";
 import { GiSandsOfTime } from "react-icons/gi";
-import { MdNavigateNext, MdOutlineTimer } from "react-icons/md";
+import { MdOutlineTimer } from "react-icons/md";
 import { SiStatuspage } from "react-icons/si";
 
 const TaskDetails = () => {
@@ -94,17 +86,6 @@ const TaskDetails = () => {
                 </Box>
             </Flex>
             <Divider my={2} />
-            <Button
-                size="sm"
-                w="100%"
-                fontFamily="monospace"
-                fontSize={16}
-                rightIcon={
-                    <MdNavigateNext className="next_btn" color="green" />
-                }
-            >
-                Progress
-            </Button>
         </Box>
     );
 };
