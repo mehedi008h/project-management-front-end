@@ -1,5 +1,6 @@
 import {
     Button,
+    Divider,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -13,10 +14,11 @@ import { useCallback } from "react";
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: () => void;
+    size?: string;
+    onSubmit?: () => void;
     title?: string;
     body?: React.ReactElement;
-    actionLabel: string;
+    actionLabel?: string;
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
@@ -25,17 +27,17 @@ interface Props {
 const ModalView = ({
     isOpen,
     onClose,
+    size = "md",
     onSubmit,
     title,
     body,
     actionLabel,
-
     disabled,
     secondaryAction,
     secondaryActionLabel,
 }: Props) => {
     const handleSubmit = useCallback(() => {
-        if (disabled) {
+        if (disabled || !onSubmit) {
             return;
         }
 
@@ -51,11 +53,14 @@ const ModalView = ({
     }, [secondaryAction, disabled]);
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} size={size}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>{title}</ModalHeader>
+                <ModalHeader fontFamily="monospace" fontSize={20}>
+                    {title}
+                </ModalHeader>
                 <ModalCloseButton />
+                <Divider />
                 <ModalBody>{body}</ModalBody>
                 <ModalFooter>
                     {secondaryAction && secondaryActionLabel && (
@@ -70,16 +75,18 @@ const ModalView = ({
                             {secondaryActionLabel}
                         </Button>
                     )}
-                    <Button
-                        size="sm"
-                        w="100%"
-                        fontFamily="monospace"
-                        fontSize={16}
-                        disabled={disabled}
-                        onClick={handleSubmit}
-                    >
-                        {actionLabel}
-                    </Button>
+                    {onSubmit && actionLabel && (
+                        <Button
+                            size="sm"
+                            w="100%"
+                            fontFamily="monospace"
+                            fontSize={16}
+                            disabled={disabled}
+                            onClick={handleSubmit}
+                        >
+                            {actionLabel}
+                        </Button>
+                    )}
                 </ModalFooter>
             </ModalContent>
         </Modal>

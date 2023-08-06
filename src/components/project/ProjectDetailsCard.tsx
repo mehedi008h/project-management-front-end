@@ -13,12 +13,6 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    ModalOverlay,
     Text,
     useDisclosure,
 } from "@chakra-ui/react";
@@ -30,7 +24,7 @@ import { RiAttachment2 } from "react-icons/ri";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { BiMenuAltRight } from "react-icons/bi";
-import { AssignedUserCard } from "..";
+import { AssignedUserCard, Modal } from "..";
 
 const ProjectDetailsCard = () => {
     const [developerModal, setDeveloperModal] = useState(false);
@@ -105,23 +99,13 @@ const ProjectDetailsCard = () => {
                 </Box>
             </Flex>
             {/* modal  */}
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>
-                        {developerModal ? "Assign Developer" : "Add Task"} 😎
-                    </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        {/* {
-                            developerModal ?
-                                <UsersCard users={users} projectId={project?.projectIdentifier} loading={loading}/> :
-                                <NewTask developers={project?.users} projectId={project?.projectIdentifier} onClose={onClose}/>
-                        } */}
-                        <AssignedUserCard />
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                disabled={false}
+                title="Assign Developer"
+                body={<AssignedUserCard />}
+            />
             <Flex
                 flexDirection={{
                     xl: "row",
