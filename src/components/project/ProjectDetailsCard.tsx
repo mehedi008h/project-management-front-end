@@ -30,6 +30,7 @@ import { RiAttachment2 } from "react-icons/ri";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { BiMenuAltRight } from "react-icons/bi";
+import { AssignedUserCard } from "..";
 
 const ProjectDetailsCard = () => {
     const [developerModal, setDeveloperModal] = useState(false);
@@ -117,6 +118,7 @@ const ProjectDetailsCard = () => {
                                 <UsersCard users={users} projectId={project?.projectIdentifier} loading={loading}/> :
                                 <NewTask developers={project?.users} projectId={project?.projectIdentifier} onClose={onClose}/>
                         } */}
+                        <AssignedUserCard />
                     </ModalBody>
                 </ModalContent>
             </Modal>

@@ -17,19 +17,6 @@ const TaskDetails = () => {
         <Box fontWeight="medium">
             <Flex justifyContent="space-between" alignItems="center">
                 <Text>Task ID : wefj332</Text>
-                {/*<Select*/}
-                {/*    bg='gray'*/}
-                {/*    width="-moz-fit-content"*/}
-                {/*    size="sm"*/}
-                {/*    borderColor="gray"*/}
-                {/*    color='white'*/}
-                {/*    placeholder='Status'*/}
-                {/*    value={task?.status}*/}
-                {/*>*/}
-                {/*    <option value='TO_DO'>TO_DO</option>*/}
-                {/*    <option value='PROCESSING'>PROCESSING</option>*/}
-                {/*    <option value='COMPLETED'>COMPLETED</option>*/}
-                {/*</Select>*/}
             </Flex>
 
             <Stack spacing={2}>

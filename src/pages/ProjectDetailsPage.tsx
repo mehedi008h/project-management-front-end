@@ -1,5 +1,7 @@
+import { Box } from "@chakra-ui/react";
 import {
     Container,
+    MobileTableContent,
     ProjectDetailsCard,
     TableContent,
     TaskTableHeading,
@@ -9,10 +11,26 @@ const ProjectDetailsPage = () => {
     return (
         <Container>
             <ProjectDetailsCard />
-            <TaskTableHeading />
-            <TableContent />
-            <TableContent />
-            <TableContent />
+            <Box
+                display={{
+                    base: "none",
+                    xl: "block",
+                    lg: "block",
+                    md: "block",
+                }}
+            >
+                <TaskTableHeading />
+                <TableContent />
+                <TableContent />
+                <TableContent />
+            </Box>
+            <Box
+                display={{ base: "block", xl: "none", lg: "none", md: "none" }}
+                paddingBottom={3}
+            >
+                <MobileTableContent />
+                <MobileTableContent />
+            </Box>
         </Container>
     );
 };

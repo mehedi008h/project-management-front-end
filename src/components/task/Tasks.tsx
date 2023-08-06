@@ -5,7 +5,7 @@ import {
     AccordionPanel,
     Box,
 } from "@chakra-ui/react";
-import { TableContent } from "..";
+import { MobileTableContent, TableContent } from "..";
 
 interface Props {
     header: string;
@@ -23,9 +23,30 @@ const Tasks = ({ header }: Props) => {
                 </AccordionButton>
             </h2>
             <AccordionPanel pb={4} paddingX={0}>
-                <TableContent />
-                <TableContent />
-                <TableContent />
+                <Box
+                    display={{
+                        base: "none",
+                        xl: "block",
+                        lg: "block",
+                        md: "block",
+                    }}
+                >
+                    <TableContent />
+                    <TableContent />
+                    <TableContent />
+                </Box>
+                <Box
+                    display={{
+                        base: "block",
+                        xl: "none",
+                        lg: "none",
+                        md: "none",
+                    }}
+                    paddingBottom={3}
+                >
+                    <MobileTableContent />
+                    <MobileTableContent />
+                </Box>
             </AccordionPanel>
         </AccordionItem>
     );

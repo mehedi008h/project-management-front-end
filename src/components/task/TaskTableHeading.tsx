@@ -2,8 +2,19 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 const TaskTableHeading = () => {
     return (
-        <Box mt={5} bg="blackAlpha.700" rounded="md" marginBottom={2}>
-            <Grid templateColumns="repeat(7, 1fr)" gap={2}>
+        <Box
+            mt={5}
+            bg="blackAlpha.700"
+            rounded="md"
+            marginBottom={2}
+            display={{
+                base: "none",
+                xl: "block",
+                lg: "block",
+                md: "block",
+            }}
+        >
+            <Grid templateColumns={"repeat(7, 1fr)"} gap={2}>
                 <GridItem
                     colSpan={3}
                     w="100%"
@@ -18,10 +29,10 @@ const TaskTableHeading = () => {
                     # Task Name
                 </GridItem>
                 <GridItem
+                    display="flex"
                     w="100%"
                     borderRight="1px"
                     borderColor="gray.800"
-                    display="flex"
                     alignItems="center"
                     justifyContent="start"
                     pl={3}
@@ -29,10 +40,10 @@ const TaskTableHeading = () => {
                     Status{" "}
                 </GridItem>
                 <GridItem
+                    display="flex"
                     w="100%"
                     borderRight="1px"
                     borderColor="gray.800"
-                    display="flex"
                     alignItems="center"
                     justifyContent="start"
                     pl={3}
@@ -40,10 +51,10 @@ const TaskTableHeading = () => {
                     Remaining Days{" "}
                 </GridItem>
                 <GridItem
+                    display="flex"
                     w="100%"
                     borderRight="1px"
                     borderColor="gray.800"
-                    display="flex"
                     alignItems="center"
                     justifyContent="start"
                     pl={3}
