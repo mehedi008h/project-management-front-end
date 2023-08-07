@@ -33,7 +33,7 @@ const AddProjectButton = () => {
     const {
         register,
         handleSubmit,
-        watch,
+        setValue,
         formState: { errors },
         reset,
     } = useForm<FieldValues>({
@@ -47,7 +47,13 @@ const AddProjectButton = () => {
         },
     });
 
-    const imageSrc = watch("imageSrc");
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+        });
+    };
 
     // upload photo
     const uploadAvatar = (e: any) => {
@@ -56,6 +62,7 @@ const AddProjectButton = () => {
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setAvatar(reader.result as string);
+                setCustomValue("imageSrc", reader.result as string);
             }
         };
 
@@ -72,6 +79,7 @@ const AddProjectButton = () => {
 
     const handleTags = () => {
         setTags([...tags, text]);
+        setCustomValue("tags", [...tags, text]);
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
