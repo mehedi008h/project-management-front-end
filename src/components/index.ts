@@ -1,9 +1,14 @@
 export { default as Container } from "./common/Container";
 export { default as InputField } from "./inputs/InputField";
+export { default as TextareaField } from "./inputs/TextareaField";
+export { default as ImageUpload } from "./inputs/ImageUpload";
+
 export { default as Login } from "./auth/Login";
 export { default as Signup } from "./auth/Signup";
 export { default as Sidebar } from "./common/Sidebar";
 export { default as Navbar } from "./common/Navbar";
+export { default as FormHeading } from "./common/Heading";
+
 export { default as SearchInput } from "./navbar/SearchInput";
 export { default as ProjectSelector } from "./navbar/ProjectSelector";
 export { default as NavProject } from "./navbar/NavProject";
@@ -17,7 +22,6 @@ export { default as Heading } from "./project/Heading";
 export { default as Projects } from "./project/Projects";
 export { default as ProjectCard } from "./project/ProjectCard";
 export { default as ProjectDetailsCard } from "./project/ProjectDetailsCard";
-export { default as AddProject } from "./project/AddProject";
 
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";
