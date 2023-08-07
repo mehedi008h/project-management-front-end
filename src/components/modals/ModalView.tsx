@@ -67,6 +67,7 @@ const ModalView = ({
                         <Button
                             size="sm"
                             w="100%"
+                            variant="outline"
                             fontFamily="monospace"
                             fontSize={16}
                             disabled={disabled}
@@ -83,6 +84,7 @@ const ModalView = ({
                             fontSize={16}
                             disabled={disabled}
                             onClick={handleSubmit}
+                            marginLeft={2}
                         >
                             {actionLabel}
                         </Button>

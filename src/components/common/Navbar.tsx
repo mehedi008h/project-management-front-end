@@ -1,8 +1,7 @@
 import { Avatar, Box, Flex, HStack, Image } from "@chakra-ui/react";
-import { HiOutlineFolderAdd } from "react-icons/hi";
-import { CgMenuRight } from "react-icons/cg";
-import { NavProject, SearchInput } from "..";
+import { AddProjectButton, NavProject, SearchInput } from "..";
 import logo from "../../assets/logo.png";
+import { CgMenuRight } from "react-icons/cg";
 
 const Navbar = () => {
     return (
@@ -50,17 +49,7 @@ const Navbar = () => {
                         rounded="md"
                     ></Box>
                     <SearchInput />
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        h={8}
-                        w={12}
-                        rounded="md"
-                        backgroundColor="maroon"
-                        cursor="pointer"
-                    >
-                        <HiOutlineFolderAdd size={20} />
-                    </Flex>
+                    <AddProjectButton />
                 </HStack>
                 <Avatar name="Mehedi Hasan" size="md" />
                 <Box

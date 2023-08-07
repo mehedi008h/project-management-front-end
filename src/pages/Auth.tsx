@@ -15,16 +15,23 @@ import Container from "../components/common/Container";
 import logo from "../assets/logo.png";
 import { Login, Signup } from "../components";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Auth = () => {
     const [login, setLogin] = useState(true);
     return (
         <Container>
             {/* Logo  */}
-            <Box marginBottom="25px" position="absolute" top={5} left={5}>
-                <Image src={logo} boxSize="30px" textAlign="center" />
-            </Box>
-            <Flex height="100%" flexDirection={login ? "row" : "row-reverse"}>
+            <Link to="/">
+                <Box marginBottom="25px" position="absolute" top={5} left={5}>
+                    <Image src={logo} boxSize="30px" textAlign="center" />
+                </Box>
+            </Link>
+            <Flex
+                height="100%"
+                flexDirection={login ? "row" : "row-reverse"}
+                transition="all 0.13s ease-in-out"
+            >
                 <Box
                     display={{
                         base: "none",
