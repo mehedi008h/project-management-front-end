@@ -25,6 +25,7 @@ import { RiAttachment2 } from "react-icons/ri";
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AssignedUserCard, Modal } from "..";
+import NewTask from "../task/NewTask";
 
 const ProjectDetailsCard = () => {
     const [developerModal, setDeveloperModal] = useState(false);
@@ -99,13 +100,25 @@ const ProjectDetailsCard = () => {
                 </Box>
             </Flex>
             {/* modal  */}
-            <Modal
-                isOpen={isOpen}
-                onClose={onClose}
-                disabled={false}
-                title="Assign Developer"
-                body={<AssignedUserCard />}
-            />
+            {developerModal ? (
+                <Modal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    disabled={false}
+                    title="Assign Developer"
+                    body={<AssignedUserCard />}
+                />
+            ) : (
+                <Modal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    size="xl"
+                    disabled={false}
+                    title="Assign Task"
+                    body={<NewTask />}
+                />
+            )}
+
             <Flex
                 flexDirection={{
                     xl: "row",

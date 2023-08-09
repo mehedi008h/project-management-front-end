@@ -13,7 +13,9 @@ import {
 import { HiOutlineFolderAdd } from "react-icons/hi";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FormHeading, ImageUpload, InputField, Modal, TextareaField } from "..";
-import { MdOutlineAlternateEmail } from "react-icons/md";
+import { LiaHeadingSolid } from "react-icons/lia";
+import { CiCalendarDate } from "react-icons/ci";
+import { MdOutlineUpdate } from "react-icons/md";
 
 enum STEPS {
     INFO = 0,
@@ -35,7 +37,6 @@ const AddProjectButton = () => {
         handleSubmit,
         setValue,
         formState: { errors },
-        reset,
     } = useForm<FieldValues>({
         defaultValues: {
             name: "",
@@ -117,7 +118,7 @@ const AddProjectButton = () => {
                     label="Project Name"
                     placeHolder="Project Name"
                     register={register}
-                    icon={<MdOutlineAlternateEmail />}
+                    icon={<LiaHeadingSolid />}
                     errors={errors}
                     required
                 />
@@ -128,7 +129,7 @@ const AddProjectButton = () => {
                         label="Start Date"
                         placeHolder="Start Date"
                         register={register}
-                        icon={<MdOutlineAlternateEmail />}
+                        icon={<CiCalendarDate />}
                         errors={errors}
                         required
                     />
@@ -138,7 +139,7 @@ const AddProjectButton = () => {
                         label="End Date"
                         placeHolder="End Date"
                         register={register}
-                        icon={<MdOutlineAlternateEmail />}
+                        icon={<MdOutlineUpdate />}
                         errors={errors}
                         required
                     />
