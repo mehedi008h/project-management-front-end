@@ -2,6 +2,8 @@ export { default as Container } from "./common/Container";
 export { default as InputField } from "./inputs/InputField";
 export { default as TextareaField } from "./inputs/TextareaField";
 export { default as ImageUpload } from "./inputs/ImageUpload";
+export { default as SelectField } from "./inputs/SelectField";
+export { default as SelectTags } from "./inputs/SelectTags";
 
 export { default as Login } from "./auth/Login";
 export { default as Signup } from "./auth/Signup";
@@ -22,6 +24,7 @@ export { default as Heading } from "./project/Heading";
 export { default as Projects } from "./project/Projects";
 export { default as ProjectCard } from "./project/ProjectCard";
 export { default as ProjectDetailsCard } from "./project/ProjectDetailsCard";
+export { default as ProjectDetailsBtn } from "./project/ProjectDetailsBtn";
 
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";

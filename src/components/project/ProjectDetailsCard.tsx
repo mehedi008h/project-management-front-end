@@ -1,123 +1,28 @@
-import { useState } from "react";
 import {
     Avatar,
     AvatarGroup,
     Badge,
     Box,
-    Button,
-    ButtonGroup,
     Flex,
-    IconButton,
     Image,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
     Text,
-    useDisclosure,
 } from "@chakra-ui/react";
-import { CiMenuKebab, CiViewList } from "react-icons/ci";
+import { CiViewList } from "react-icons/ci";
 import { GiSandsOfTime } from "react-icons/gi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { MdOutlineTimer } from "react-icons/md";
 import { RiAttachment2 } from "react-icons/ri";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
-import { BiMenuAltRight } from "react-icons/bi";
-import { AssignedUserCard, Modal } from "..";
-import NewTask from "../task/NewTask";
+import { ProjectDetailsBtn } from "..";
 
 const ProjectDetailsCard = () => {
-    const [developerModal, setDeveloperModal] = useState(false);
-    // open & close modal
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
-    const handleModal = (type: string) => {
-        onOpen();
-        if (type === "task") {
-            setDeveloperModal(false);
-        } else {
-            setDeveloperModal(true);
-        }
-    };
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
             <Flex justify="space-between" alignItems="center">
                 <Text>Project Identifier # 43534534</Text>
-                <ButtonGroup
-                    display={{
-                        xl: "block",
-                        lg: "block",
-                        md: "block",
-                        base: "none",
-                    }}
-                    size="sm"
-                    isAttached
-                    variant="outline"
-                >
-                    <Button
-                        onClick={() => handleModal("developer")}
-                        fontWeight="normal"
-                        fontSize={14}
-                    >
-                        Assign Developer
-                    </Button>
-                    <Button
-                        onClick={() => handleModal("task")}
-                        fontWeight="normal"
-                        fontSize={14}
-                    >
-                        Add Task
-                    </Button>
-                    <Button fontWeight="normal" fontSize={14}>
-                        Update Project
-                    </Button>
-                    <Button fontWeight="normal" fontSize={14}>
-                        Delete Project
-                    </Button>
-                </ButtonGroup>
-                <Box
-                    display={{
-                        xl: "none",
-                        lg: "none",
-                        md: "none",
-                        base: "block",
-                    }}
-                >
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            aria-label="Options"
-                            icon={<BiMenuAltRight />}
-                            variant="unstyled"
-                        />
-                        <MenuList>
-                            <MenuItem icon={<CiMenuKebab />} command="⌘T">
-                                New Tab
-                            </MenuItem>
-                        </MenuList>
-                    </Menu>
-                </Box>
+                <ProjectDetailsBtn />
             </Flex>
-            {/* modal  */}
-            {developerModal ? (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    disabled={false}
-                    title="Assign Developer"
-                    body={<AssignedUserCard />}
-                />
-            ) : (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    size="xl"
-                    disabled={false}
-                    title="Assign Task"
-                    body={<NewTask />}
-                />
-            )}
 
             <Flex
                 flexDirection={{

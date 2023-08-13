@@ -62,21 +62,22 @@ const ModalView = ({
                 <ModalCloseButton />
                 <Divider />
                 <ModalBody>{body}</ModalBody>
-                <ModalFooter>
-                    {secondaryAction && secondaryActionLabel && (
-                        <Button
-                            size="sm"
-                            w="100%"
-                            variant="outline"
-                            fontFamily="monospace"
-                            fontSize={16}
-                            disabled={disabled}
-                            onClick={handleSecondaryAction}
-                        >
-                            {secondaryActionLabel}
-                        </Button>
-                    )}
-                    {onSubmit && actionLabel && (
+                {onSubmit && actionLabel && (
+                    <ModalFooter>
+                        {secondaryAction && secondaryActionLabel && (
+                            <Button
+                                size="sm"
+                                w="100%"
+                                variant="outline"
+                                fontFamily="monospace"
+                                fontSize={16}
+                                disabled={disabled}
+                                onClick={handleSecondaryAction}
+                            >
+                                {secondaryActionLabel}
+                            </Button>
+                        )}
+
                         <Button
                             size="sm"
                             w="100%"
@@ -88,8 +89,8 @@ const ModalView = ({
                         >
                             {actionLabel}
                         </Button>
-                    )}
-                </ModalFooter>
+                    </ModalFooter>
+                )}
             </ModalContent>
         </Modal>
     );
