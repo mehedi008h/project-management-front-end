@@ -1,6 +1,10 @@
 import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 
-const AssignedUserCard = () => {
+interface Props {
+    btnText: string;
+}
+
+const AssignedUserCard = ({ btnText }: Props) => {
     return (
         <Stack spacing={2} my={2}>
             <Flex
@@ -21,7 +25,7 @@ const AssignedUserCard = () => {
                     </Box>
                 </Flex>
                 <Button size="sm" variant="outline" onClick={() => ""}>
-                    Assign
+                    {btnText}
                 </Button>
             </Flex>
         </Stack>

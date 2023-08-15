@@ -94,7 +94,7 @@ const ProjectDetailsBtn = () => {
                     onClose={onClose}
                     disabled={false}
                     title="Assign Developer"
-                    body={<AssignedUserCard />}
+                    body={<AssignedUserCard btnText="Assign" />}
                 />
             )}
             {/* modal  assignTask*/}

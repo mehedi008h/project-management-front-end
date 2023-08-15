@@ -11,6 +11,7 @@ import {
     AiOutlineSetting,
 } from "react-icons/ai";
 import logo from "../../assets/logo.png";
+import { InviteBtn } from "..";
 
 const Sidebar = () => {
     const routes = [
@@ -116,6 +117,9 @@ const Sidebar = () => {
                         </Link>
                     ))}
                 </Flex>
+            </Box>
+            <Box position="absolute" bottom={5} px={5} w="100%">
+                <InviteBtn />
             </Box>
         </Box>
     );

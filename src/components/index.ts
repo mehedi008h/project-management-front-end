@@ -5,6 +5,9 @@ export { default as ImageUpload } from "./inputs/ImageUpload";
 export { default as SelectField } from "./inputs/SelectField";
 export { default as SelectTags } from "./inputs/SelectTags";
 
+export { default as InviteBtn } from "./sidebar/InviteBtn";
+export { default as InviteNewMember } from "./sidebar/InviteNewMember";
+
 export { default as Login } from "./auth/Login";
 export { default as Signup } from "./auth/Signup";
 export { default as Sidebar } from "./common/Sidebar";
