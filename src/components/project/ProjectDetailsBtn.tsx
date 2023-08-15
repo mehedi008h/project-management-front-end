@@ -13,21 +13,17 @@ import {
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
-import { AssignedUserCard, Modal } from "..";
+import { AlertDialog, AssignedUserCard, Modal } from "..";
 import NewTask from "../task/NewTask";
 
 const ProjectDetailsBtn = () => {
-    const [developerModal, setDeveloperModal] = useState(false);
+    const [modalType, setModalType] = useState("");
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleModal = (type: string) => {
         onOpen();
-        if (type === "task") {
-            setDeveloperModal(false);
-        } else {
-            setDeveloperModal(true);
-        }
+        setModalType(type);
     };
 
     return (
@@ -44,14 +40,14 @@ const ProjectDetailsBtn = () => {
                 variant="outline"
             >
                 <Button
-                    onClick={() => handleModal("developer")}
+                    onClick={() => handleModal("assignDeveloper")}
                     fontWeight="normal"
                     fontSize={14}
                 >
                     Assign Developer
                 </Button>
                 <Button
-                    onClick={() => handleModal("task")}
+                    onClick={() => handleModal("assignTask")}
                     fontWeight="normal"
                     fontSize={14}
                 >
@@ -60,7 +56,11 @@ const ProjectDetailsBtn = () => {
                 <Button fontWeight="normal" fontSize={14}>
                     Update Project
                 </Button>
-                <Button fontWeight="normal" fontSize={14}>
+                <Button
+                    onClick={() => handleModal("deleteProject")}
+                    fontWeight="normal"
+                    fontSize={14}
+                >
                     Delete Project
                 </Button>
             </ButtonGroup>
@@ -86,8 +86,9 @@ const ProjectDetailsBtn = () => {
                     </MenuList>
                 </Menu>
             </Box>
-            {/* modal  */}
-            {developerModal ? (
+
+            {/* modal  assignDeveloper*/}
+            {modalType === "assignDeveloper" && (
                 <Modal
                     isOpen={isOpen}
                     onClose={onClose}
@@ -95,7 +96,9 @@ const ProjectDetailsBtn = () => {
                     title="Assign Developer"
                     body={<AssignedUserCard />}
                 />
-            ) : (
+            )}
+            {/* modal  assignTask*/}
+            {modalType === "assignTask" && (
                 <Modal
                     isOpen={isOpen}
                     onClose={onClose}
@@ -103,6 +106,15 @@ const ProjectDetailsBtn = () => {
                     disabled={false}
                     title="Assign Task"
                     body={<NewTask />}
+                />
+            )}
+            {/* modal  deleteProject*/}
+            {modalType === "deleteProject" && (
+                <AlertDialog
+                    title="Delete Project ?"
+                    body="Your project will be deleted"
+                    isOpen={isOpen}
+                    onClose={onClose}
                 />
             )}
         </>

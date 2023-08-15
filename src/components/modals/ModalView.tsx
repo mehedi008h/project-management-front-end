@@ -56,7 +56,7 @@ const ModalView = ({
         <Modal isOpen={isOpen} onClose={onClose} size={size}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader fontFamily="monospace" fontSize={20}>
+                <ModalHeader fontFamily="monospace" fontSize="2xl">
                     {title}
                 </ModalHeader>
                 <ModalCloseButton />
@@ -72,6 +72,7 @@ const ModalView = ({
                                 fontFamily="monospace"
                                 fontSize={16}
                                 disabled={disabled}
+                                marginRight={2}
                                 onClick={handleSecondaryAction}
                             >
                                 {secondaryActionLabel}
@@ -85,7 +86,6 @@ const ModalView = ({
                             fontSize={16}
                             disabled={disabled}
                             onClick={handleSubmit}
-                            marginLeft={2}
                         >
                             {actionLabel}
                         </Button>
