@@ -1,7 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import { Container, Widgets } from "../components";
 
 const HomePage = () => {
-    return <Text>Home Page</Text>;
+    return (
+        <Container>
+            <Widgets />
+        </Container>
+    );
 };
 
 export default HomePage;

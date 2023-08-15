@@ -18,7 +18,7 @@ const Sidebar = () => {
         {
             label: "Dashboard",
             icon: RxDashboard,
-            href: "/dashboard",
+            href: "/",
             color: "teal",
         },
         {

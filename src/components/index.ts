@@ -37,3 +37,6 @@ export { default as TaskDetails } from "./task/TaskDetails";
 export { default as AssignedUserCard } from "./user/AssignedUserCard";
 export { default as Modal } from "./modals/ModalView";
 export { default as AlertDialog } from "./modals/AlertDialogModal";
+
+export { default as StatusCard } from "./dashboard/StatusCard";
+export { default as Widgets } from "./dashboard/Widgets";
