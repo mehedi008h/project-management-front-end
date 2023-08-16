@@ -45,3 +45,5 @@ export { default as Graph } from "./dashboard/Graph";
 export { default as IncompleteTaskGraph } from "./dashboard/IncompleteTaskGraph";
 export { default as TaskAreachart } from "./dashboard/TaskAreachart";
 export { default as AssignTaskgraph } from "./dashboard/AssignTaskgraph";
+
+export { default as ProfileBar } from "./profile/ProfileBar";

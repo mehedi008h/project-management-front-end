@@ -5,3 +5,5 @@ export { default as HomePage } from "./HomePage";
 export { default as ProjectPage } from "./ProjectPage";
 export { default as ProjectDetailsPage } from "./ProjectDetailsPage";
 export { default as TaskPage } from "./TaskPage";
+export { default as ProfilePage } from "./profile/ProfilePage";
+export { default as ProfileLayout } from "./profile/ProfileLayout";

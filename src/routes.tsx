@@ -4,6 +4,8 @@ import {
     ErrorPage,
     HomePage,
     Layout,
+    ProfileLayout,
+    ProfilePage,
     ProjectDetailsPage,
     ProjectPage,
     TaskPage,
@@ -36,6 +38,16 @@ const router = createBrowserRouter([
     {
         path: "/auth",
         element: <Auth />,
+    },
+    {
+        path: "/profile",
+        element: <ProfileLayout />,
+        children: [
+            {
+                index: true,
+                element: <ProfilePage />,
+            },
+        ],
     },
 ]);
 
