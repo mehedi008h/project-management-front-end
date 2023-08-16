@@ -1,5 +1,10 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { IncompleteTaskGraph, TaskStatusGraph } from "..";
+import {
+    AssignTaskgraph,
+    IncompleteTaskGraph,
+    TaskAreachart,
+    TaskStatusGraph,
+} from "..";
 
 const Graph = () => {
     return (
@@ -13,7 +18,6 @@ const Graph = () => {
             gap={8}
             marginTop={5}
             width="100%"
-            height="100%"
         >
             <GridItem
                 border="1px"
@@ -32,6 +36,24 @@ const Graph = () => {
                 width="100%"
             >
                 <IncompleteTaskGraph />
+            </GridItem>
+            <GridItem
+                border="1px"
+                rounded="md"
+                borderColor="gray.600"
+                height="420px"
+                width="100%"
+            >
+                <AssignTaskgraph />
+            </GridItem>
+            <GridItem
+                border="1px"
+                rounded="md"
+                borderColor="gray.600"
+                height="420px"
+                width="100%"
+            >
+                <TaskAreachart />
             </GridItem>
         </Grid>
     );
