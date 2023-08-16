@@ -40,3 +40,6 @@ export { default as AlertDialog } from "./modals/AlertDialogModal";
 
 export { default as StatusCard } from "./dashboard/StatusCard";
 export { default as Widgets } from "./dashboard/Widgets";
+export { default as TaskStatusGraph } from "./dashboard/TaskStatusGraph";
+export { default as Graph } from "./dashboard/Graph";
+export { default as IncompleteTaskGraph } from "./dashboard/IncompleteTaskGraph";

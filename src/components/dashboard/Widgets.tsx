@@ -26,9 +26,7 @@ const Widgets = () => {
                 <StatusCard
                     text="Incompleted Tasks"
                     count={120}
-                    icon={
-                        <IoCheckmarkDoneCircleSharp size={25} color="green" />
-                    }
+                    icon={<IoCheckmarkDoneCircleSharp size={25} color="red" />}
                 />
             </GridItem>
             <GridItem>
@@ -36,18 +34,12 @@ const Widgets = () => {
                     text="Overdue Tasks"
                     count={120}
                     icon={
-                        <IoCheckmarkDoneCircleSharp size={25} color="green" />
+                        <IoCheckmarkDoneCircleSharp size={25} color="maroon" />
                     }
                 />
             </GridItem>
             <GridItem>
-                <StatusCard
-                    text="All Tasks"
-                    count={120}
-                    icon={
-                        <IoCheckmarkDoneCircleSharp size={25} color="green" />
-                    }
-                />
+                <StatusCard text="All Tasks" count={120} />
             </GridItem>
         </Grid>
     );
