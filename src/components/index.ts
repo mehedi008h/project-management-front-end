@@ -20,6 +20,7 @@ export { default as NavProject } from "./navbar/NavProject";
 export { default as ProjectAvatarGroup } from "./navbar/ProjectAvatarGroup";
 export { default as SelectOption } from "./navbar/SelectOption";
 export { default as AddProjectButton } from "./navbar/AddProjectButton";
+export { default as ProfileAvatar } from "./navbar/ProfileAvatar";
 
 export { default as FilterMenu } from "./project/FilterMenu";
 export { default as FilterItem } from "./project/FilterItem";

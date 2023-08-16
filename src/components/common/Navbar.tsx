@@ -1,5 +1,5 @@
-import { Avatar, Box, Flex, HStack, Image } from "@chakra-ui/react";
-import { AddProjectButton, NavProject, SearchInput } from "..";
+import { Box, Flex, HStack, Image } from "@chakra-ui/react";
+import { AddProjectButton, NavProject, ProfileAvatar, SearchInput } from "..";
 import logo from "../../assets/logo.png";
 import { CgMenuRight } from "react-icons/cg";
 
@@ -51,7 +51,7 @@ const Navbar = () => {
                     <SearchInput />
                     <AddProjectButton />
                 </HStack>
-                <Avatar name="Mehedi Hasan" size="md" />
+                <ProfileAvatar />
                 <Box
                     display={{
                         base: "flex",
