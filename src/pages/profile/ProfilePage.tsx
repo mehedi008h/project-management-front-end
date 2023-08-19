@@ -3,6 +3,9 @@ import { BiMessageRoundedDetail } from "react-icons/bi";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { Awards, InfoItem, Skills } from "../../components";
+import { AiOutlinePhone } from "react-icons/ai";
+import { CiLocationOn } from "react-icons/ci";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 const ProfilePage = () => {
     return (
@@ -38,22 +41,26 @@ const ProfilePage = () => {
                 {/* description  */}
                 <Box width="100%">
                     <Text fontSize={20}>Mehedi Hasan</Text>
-                    <Text mt={2} color="gray.300" fontSize="sm">
+                    <Text mt={2} color="gray.400" fontSize="sm">
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Cumque eius adipisci, quasi voluptate neque iure!
                     </Text>
                     <VStack mt={3} spacing={2}>
                         <InfoItem
-                            text="mehedi08h@gmail.com"
-                            icon={<BiMessageRoundedDetail size="22" />}
+                            text="Microsoft Corporation"
+                            icon={<HiOutlineOfficeBuilding size="22" />}
                         />
                         <InfoItem
                             text="mehedi08h@gmail.com"
                             icon={<BiMessageRoundedDetail size="22" />}
                         />
                         <InfoItem
-                            text="mehedi08h@gmail.com"
-                            icon={<BiMessageRoundedDetail size="22" />}
+                            text="01990473473"
+                            icon={<AiOutlinePhone size="22" />}
+                        />
+                        <InfoItem
+                            text="Dhanmondi, Dhaka"
+                            icon={<CiLocationOn size="22" />}
                         />
                     </VStack>
                 </Box>

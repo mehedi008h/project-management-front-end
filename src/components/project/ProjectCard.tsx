@@ -14,18 +14,24 @@ import { BiMessageRoundedDots } from "react-icons/bi";
 import image from "../../assets/no-image-placeholder.webp";
 import { Link } from "react-router-dom";
 
-const ProjectCard = () => {
+interface Props {
+    portfolio?: boolean;
+}
+
+const ProjectCard = ({ portfolio = false }: Props) => {
     return (
-        <Box
+        <Flex
             border="1px"
+            flexDirection={portfolio ? "row" : "column"}
             borderColor="gray.600"
             rounded="md"
             w="100%"
             padding={3}
             _hover={{ borderColor: "teal.900" }}
             transition="all 0.15s ease-in-out"
+            gap={3}
         >
-            <Box w="100%" h="200px" marginBottom={3}>
+            <Box w={portfolio ? "300px" : "100%"} h="200px">
                 <Image
                     h="100%"
                     w="100%"
@@ -80,7 +86,7 @@ const ProjectCard = () => {
                 </Flex>
             </VStack>
             <Progress color="red" value={64} size="xs" marginTop={3} />
-        </Box>
+        </Flex>
     );
 };
 

@@ -1,36 +1,41 @@
 import { Avatar, Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
+import { AiOutlineProject } from "react-icons/ai";
 import { BsCalendarWeek } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
+import { GoHome } from "react-icons/go";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { TbMoodEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const ProfileBar = () => {
     const routes = [
         {
             label: "Home",
-            icon: BsCalendarWeek,
+            icon: GoHome,
             href: "/",
             color: "teal",
         },
         {
             label: "My Profile",
-            icon: BsCalendarWeek,
+            icon: CgProfile,
             href: "/profile",
             color: "teal",
         },
         {
             label: "Portfolio",
-            icon: BsCalendarWeek,
+            icon: AiOutlineProject,
             href: "/profile/portfolio",
             color: "violet",
         },
         {
             label: "Edit Profile",
-            icon: BsCalendarWeek,
+            icon: TbMoodEdit,
             color: "pink",
             href: "/profile/edit",
         },
         {
             label: "Change Password",
-            icon: BsCalendarWeek,
+            icon: RiLockPasswordLine,
             color: "skyblue",
             href: "/profile/change-password",
         },

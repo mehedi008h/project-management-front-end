@@ -13,9 +13,9 @@ const InfoItem = ({ text, icon }: Props) => {
             gap={3}
             flex={1}
             fontWeight="medium"
-            cursor="pointer"
             color="gray.200"
             width="100%"
+            fontSize={14}
         >
             {icon}
             <Text>{text}</Text>

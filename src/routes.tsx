@@ -10,6 +10,7 @@ import {
     ProjectPage,
     TaskPage,
 } from "./pages";
+import PortfolioPage from "./pages/profile/PortfolioPage";
 
 const router = createBrowserRouter([
     {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <ProfilePage />,
+            },
+            {
+                path: "/profile/portfolio",
+                element: <PortfolioPage />,
             },
         ],
     },
