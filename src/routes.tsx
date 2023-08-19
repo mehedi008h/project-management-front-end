@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
     Auth,
+    CalendarPage,
     ChangePassword,
     ErrorPage,
     HomePage,
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: "/tasks",
                 element: <TaskPage />,
+            },
+            {
+                path: "/calendar",
+                element: <CalendarPage />,
             },
         ],
     },

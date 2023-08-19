@@ -8,3 +8,4 @@ export { default as TaskPage } from "./TaskPage";
 export { default as ProfilePage } from "./profile/ProfilePage";
 export { default as ProfileLayout } from "./profile/ProfileLayout";
 export { default as ChangePassword } from "./profile/ChangePassword";
+export { default as CalendarPage } from "./CalendarPage";
