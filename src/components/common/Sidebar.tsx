@@ -107,7 +107,7 @@ const Sidebar = () => {
                                 rounded="md"
                                 _hover={{
                                     color: "white",
-                                    backgroundColor: "gray.600",
+                                    backgroundColor: "black",
                                 }}
                                 transition="all"
                             >

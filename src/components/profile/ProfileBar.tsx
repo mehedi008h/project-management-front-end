@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 const ProfileBar = () => {
     const routes = [
         {
+            label: "Home",
+            icon: BsCalendarWeek,
+            href: "/",
+            color: "teal",
+        },
+        {
             label: "My Profile",
             icon: BsCalendarWeek,
             href: "/profile",
@@ -65,7 +71,7 @@ const ProfileBar = () => {
                             width="100%"
                             _hover={{
                                 color: "white",
-                                backgroundColor: "gray.600",
+                                backgroundColor: "#121212",
                             }}
                             transition="all"
                         >

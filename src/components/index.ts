@@ -48,3 +48,7 @@ export { default as TaskAreachart } from "./dashboard/TaskAreachart";
 export { default as AssignTaskgraph } from "./dashboard/AssignTaskgraph";
 
 export { default as ProfileBar } from "./profile/ProfileBar";
+export { default as InfoItem } from "./profile/InfoItem";
+export { default as Awards } from "./profile/Awards";
+export { default as Award } from "./profile/Award";
+export { default as Skills } from "./profile/Skills";
