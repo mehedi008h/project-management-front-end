@@ -66,7 +66,7 @@ const ModalView = ({
                     <ModalFooter>
                         {secondaryAction && secondaryActionLabel && (
                             <Button
-                                size="sm"
+                                size="md"
                                 w="100%"
                                 variant="outline"
                                 fontFamily="monospace"
@@ -80,7 +80,7 @@ const ModalView = ({
                         )}
 
                         <Button
-                            size="sm"
+                            size="md"
                             w="100%"
                             fontFamily="monospace"
                             fontSize={16}

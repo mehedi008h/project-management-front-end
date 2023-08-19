@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
     Auth,
+    EditProfile,
     ErrorPage,
     HomePage,
     Layout,
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             {
                 path: "/profile/portfolio",
                 element: <PortfolioPage />,
+            },
+            {
+                path: "/profile/update",
+                element: <EditProfile />,
             },
         ],
     },

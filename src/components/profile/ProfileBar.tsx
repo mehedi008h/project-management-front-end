@@ -4,8 +4,8 @@ import { BsCalendarWeek } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { GoHome } from "react-icons/go";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { TbMoodEdit } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { EditProfileBtn } from "..";
 
 const ProfileBar = () => {
     const routes = [
@@ -27,12 +27,7 @@ const ProfileBar = () => {
             href: "/profile/portfolio",
             color: "violet",
         },
-        {
-            label: "Edit Profile",
-            icon: TbMoodEdit,
-            color: "pink",
-            href: "/profile/edit",
-        },
+
         {
             label: "Change Password",
             icon: RiLockPasswordLine,
@@ -60,7 +55,8 @@ const ProfileBar = () => {
             <Text mt={-2} fontSize={14} color="gray.600">
                 Software Engineer
             </Text>
-            <Divider />
+            <EditProfileBtn />
+            <Divider mt={3} />
             <Flex flexDirection="column" gap={1} w="100%">
                 {routes.map((route) => (
                     <Link key={route.href} to={route.href}>
