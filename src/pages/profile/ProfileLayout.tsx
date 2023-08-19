@@ -1,10 +1,10 @@
 import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Navbar, ProfileBar } from "../../components";
+import { MobileProfileMenu, Navbar, ProfileBar } from "../../components";
 
 const ProfileLayout = () => {
     return (
-        <Box px={3} width="100%">
+        <Box px={3} width="100%" h="100vh" className="profile_bg">
             <Navbar />
             <Grid
                 templateAreas={{
@@ -25,6 +25,7 @@ const ProfileLayout = () => {
                     </GridItem>
                 </Show>
                 <GridItem area="main" w="100%">
+                    <MobileProfileMenu />
                     <Box px={{ base: 0, lg: 4, md: 4, xl: 4 }}>
                         <Outlet />
                     </Box>

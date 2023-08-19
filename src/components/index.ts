@@ -54,3 +54,4 @@ export { default as Awards } from "./profile/Awards";
 export { default as Award } from "./profile/Award";
 export { default as Skills } from "./profile/Skills";
 export { default as EditProfileBtn } from "./profile/EditProfileBtn";
+export { default as MobileProfileMenu } from "./profile/MobileProfileMenu";

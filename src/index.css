@@ -31,3 +31,7 @@
     background-clip: padding-box;
     border-radius: 5px;
 }
+
+.profile_bg {
+    background-image: url("./assets/pattern.svg");
+}
