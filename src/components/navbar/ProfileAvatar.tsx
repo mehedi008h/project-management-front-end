@@ -19,7 +19,7 @@ const ProfileAvatar = () => {
                 <MenuButton>
                     <Avatar name="Mehedi Hasan" size="md" cursor="pointer" />
                 </MenuButton>
-                <MenuList>
+                <MenuList px={5}>
                     <MenuGroup title="Profile">
                         <HStack px={2} my={2}>
                             <Avatar

@@ -7,4 +7,4 @@ export { default as ProjectDetailsPage } from "./ProjectDetailsPage";
 export { default as TaskPage } from "./TaskPage";
 export { default as ProfilePage } from "./profile/ProfilePage";
 export { default as ProfileLayout } from "./profile/ProfileLayout";
-export { default as EditProfile } from "./profile/EditProfile";
+export { default as ChangePassword } from "./profile/ChangePassword";

@@ -1,9 +1,16 @@
-import { Avatar, Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Button,
+    Divider,
+    Flex,
+    Text,
+    VStack,
+} from "@chakra-ui/react";
 import { AiOutlineProject } from "react-icons/ai";
-import { BsCalendarWeek } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { GoHome } from "react-icons/go";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiVipDiamondFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { EditProfileBtn } from "..";
 
@@ -34,21 +41,35 @@ const ProfileBar = () => {
             color: "skyblue",
             href: "/profile/change-password",
         },
-        {
-            label: "Portfolio",
-            icon: BsCalendarWeek,
-            color: "maroon",
-            href: "/portfolio",
-        },
     ];
     return (
         <VStack
             backgroundColor="black"
-            p={3}
+            px={3}
+            pt={8}
+            pb={3}
+            mb={3}
             rounded="md"
             justifyContent="center"
         >
-            <Avatar name="M" size="2xl" />
+            <Box position="relative">
+                <Avatar name="M" size="2xl" />
+                <Flex
+                    gap={2}
+                    alignItems="center"
+                    bg="transparent"
+                    border="2px solid gray"
+                    px={3}
+                    py={1}
+                    rounded="full"
+                    position="absolute"
+                    top={0}
+                    right={-8}
+                    color="silver"
+                >
+                    <RiVipDiamondFill /> 233
+                </Flex>
+            </Box>
             <Text mt={2} fontSize={20}>
                 Mehedi Hasan
             </Text>
