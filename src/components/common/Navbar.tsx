@@ -1,7 +1,12 @@
 import { Box, Flex, HStack, Image } from "@chakra-ui/react";
-import { AddProjectButton, NavProject, ProfileAvatar, SearchInput } from "..";
+import {
+    AddProjectButton,
+    MobileNavDrawer,
+    NavProject,
+    ProfileAvatar,
+    SearchInput,
+} from "..";
 import logo from "../../assets/logo.png";
-import { CgMenuRight } from "react-icons/cg";
 
 const Navbar = () => {
     return (
@@ -52,23 +57,7 @@ const Navbar = () => {
                     <AddProjectButton />
                 </HStack>
                 <ProfileAvatar />
-                <Box
-                    display={{
-                        base: "flex",
-                        xl: "none",
-                        md: "none",
-                        lg: "none",
-                    }}
-                    justifyContent="center"
-                    alignItems="center"
-                    h={10}
-                    w={10}
-                    rounded="md"
-                    border="1px"
-                    borderColor="gray.500"
-                >
-                    <CgMenuRight size={25} />
-                </Box>
+                <MobileNavDrawer />
             </HStack>
         </Flex>
     );
