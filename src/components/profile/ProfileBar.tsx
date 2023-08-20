@@ -12,7 +12,8 @@ import { CgProfile } from "react-icons/cg";
 import { GoHome } from "react-icons/go";
 import { RiLockPasswordLine, RiVipDiamondFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { EditProfileBtn } from "..";
+import { EditProfileBtn, Invitation } from "..";
+import { PiMicrosoftTeamsLogoDuotone } from "react-icons/pi";
 
 const ProfileBar = () => {
     const routes = [
@@ -40,6 +41,12 @@ const ProfileBar = () => {
             icon: RiLockPasswordLine,
             color: "skyblue",
             href: "/profile/change-password",
+        },
+        {
+            label: "Teams",
+            icon: PiMicrosoftTeamsLogoDuotone,
+            color: "skyblue",
+            href: "/profile/invitation",
         },
     ];
     return (
@@ -102,6 +109,7 @@ const ProfileBar = () => {
                         </Flex>
                     </Link>
                 ))}
+                <Invitation />
                 <Button marginTop={8}>Logout</Button>
             </Flex>
         </VStack>
