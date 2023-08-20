@@ -46,7 +46,7 @@ const ProfileBar = () => {
             label: "Teams",
             icon: PiMicrosoftTeamsLogoDuotone,
             color: "skyblue",
-            href: "/profile/invitation",
+            href: "/profile/teams",
         },
     ];
     return (

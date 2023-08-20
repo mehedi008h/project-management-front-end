@@ -11,6 +11,7 @@ import {
     ProjectDetailsPage,
     ProjectPage,
     TaskPage,
+    TeamsPage,
 } from "./pages";
 import PortfolioPage from "./pages/profile/PortfolioPage";
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             {
                 path: "/profile/change-password",
                 element: <ChangePassword />,
+            },
+            {
+                path: "/profile/teams",
+                element: <TeamsPage />,
             },
         ],
     },
