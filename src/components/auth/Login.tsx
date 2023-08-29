@@ -2,10 +2,22 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FiLock } from "react-icons/fi";
 import { Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 
 import { InputField } from "..";
+import { User } from "../../domain/user";
+import { authApi } from "../../service/apiClient";
 
 const Login = () => {
+    const {
+        data: respone,
+        isLoading,
+        mutate,
+    } = useMutation<User, Error, User>({
+        mutationFn: (login) => {
+            return authApi.post("/auth/login", login);
+        },
+    });
     const {
         register,
         handleSubmit,
@@ -17,8 +29,11 @@ const Login = () => {
         },
     });
 
+    console.log("Data Load:", respone);
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Data: " + JSON.stringify(data));
+        mutate(data as User);
     };
     return (
         <VStack>
@@ -50,6 +65,8 @@ const Login = () => {
                     onClick={handleSubmit(onSubmit)}
                     bgGradient="linear(to-l, teal.600, teal.400)"
                     borderRadius="full"
+                    isLoading={isLoading}
+                    disabled={isLoading}
                 >
                     Login
                 </Button>

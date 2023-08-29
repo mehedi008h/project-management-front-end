@@ -59,3 +59,4 @@ export { default as Skills } from "./profile/Skills";
 export { default as EditProfileBtn } from "./profile/EditProfileBtn";
 export { default as MobileProfileMenu } from "./profile/MobileProfileMenu";
 export { default as Invitation } from "./profile/Invitation";
+export { default as AddEvent } from "./calendar/AddEvent";

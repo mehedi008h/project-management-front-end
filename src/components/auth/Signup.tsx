@@ -4,8 +4,21 @@ import { Button, HStack, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { InputField } from "..";
+import { useMutation } from "@tanstack/react-query";
+import { User } from "../../domain/user";
+import { authApi } from "../../service/apiClient";
 
 const Signup = () => {
+    const {
+        data: response,
+        isLoading,
+        mutate,
+    } = useMutation<User, Error, User>({
+        mutationFn: (register) => {
+            return authApi.post("/auth/register", register);
+        },
+    });
+
     const {
         register,
         handleSubmit,
@@ -16,13 +29,15 @@ const Signup = () => {
             lastName: "",
             email: "",
             password: "",
-            rePassword: "",
         },
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Data: " + JSON.stringify(data));
+        mutate(data as User);
     };
+    console.log("Response: " + JSON.stringify(response));
+
     return (
         <VStack spacing={4}>
             <HStack>
@@ -66,23 +81,15 @@ const Signup = () => {
                 errors={errors}
                 required
             />
-            <InputField
-                id="rePassword"
-                type="password"
-                placeHolder="Repassword"
-                register={register}
-                icon={<FiLock />}
-                password
-                errors={errors}
-                required
-            />
 
             <Button
+                onClick={handleSubmit(onSubmit)}
                 width="60%"
                 marginTop="10px"
-                onClick={handleSubmit(onSubmit)}
                 bgGradient="linear(to-l, teal.600, teal.400)"
                 borderRadius="full"
+                isLoading={isLoading}
+                disabled={isLoading}
             >
                 Signup
             </Button>

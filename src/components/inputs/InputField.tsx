@@ -57,6 +57,8 @@ const InputField = ({
                     border="1px"
                     backgroundColor="transparent"
                     variant="filled"
+                    color="gray.600"
+                    fontSize={15}
                     _focus={{ borderColor: `${errors[id] ? "red" : "teal"}` }}
                     _hover={{ borderColor: "teal" }}
                 />

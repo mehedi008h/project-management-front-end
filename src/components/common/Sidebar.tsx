@@ -111,7 +111,7 @@ const Sidebar = () => {
                                 }}
                                 transition="all"
                             >
-                                <route.icon color={route.color} size={22} />
+                                <route.icon size={22} />
                                 {route.label}
                             </Flex>
                         </Link>
