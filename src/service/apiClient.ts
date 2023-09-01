@@ -30,7 +30,7 @@ class APIClient<T> {
     getAll = async () => {
         return axiosInstance
             .get<FetchResponses<T>>(this.endpoint)
-            .then((res) => res.data);
+            .then((res) => res.data.data);
     };
 
     get = async () => {

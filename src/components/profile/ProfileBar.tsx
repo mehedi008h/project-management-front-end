@@ -14,8 +14,10 @@ import { RiLockPasswordLine, RiVipDiamondFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { EditProfileBtn, Invitation } from "..";
 import { PiMicrosoftTeamsLogoDuotone } from "react-icons/pi";
+import useAuth from "../../hooks/useAuth";
 
 const ProfileBar = () => {
+    const { data: user } = useAuth();
     const routes = [
         {
             label: "Home",
@@ -60,7 +62,7 @@ const ProfileBar = () => {
             justifyContent="center"
         >
             <Box position="relative">
-                <Avatar name="M" size="2xl" />
+                <Avatar name={user?.firstName} size="2xl" />
                 <Flex
                     gap={2}
                     alignItems="center"
@@ -74,14 +76,14 @@ const ProfileBar = () => {
                     right={-8}
                     color="silver"
                 >
-                    <RiVipDiamondFill /> 233
+                    <RiVipDiamondFill /> {user?.diamond}
                 </Flex>
             </Box>
             <Text mt={2} fontSize={20}>
-                Mehedi Hasan
+                {`${user?.firstName}  ${user?.lastName}`}
             </Text>
             <Text mt={-2} fontSize={14} color="gray.600">
-                Software Engineer
+                {user?.work}
             </Text>
             <EditProfileBtn />
             <Divider mt={3} />

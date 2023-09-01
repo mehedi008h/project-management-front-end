@@ -1,10 +1,19 @@
-import { Avatar, AvatarGroup } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Skeleton } from "@chakra-ui/react";
 
 interface Props {
     size: string;
+    loading: boolean;
 }
 
-const ProjectAvatarGroup = ({ size }: Props) => {
+const ProjectAvatarGroup = ({ size, loading }: Props) => {
+    if (loading)
+        return (
+            <AvatarGroup size={size} max={4}>
+                {[1, 2, 3, 4, 5].map((item) => (
+                    <Skeleton key={item} boxSize={6} rounded="full" />
+                ))}
+            </AvatarGroup>
+        );
     return (
         <AvatarGroup size={size} max={4}>
             <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />

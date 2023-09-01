@@ -13,12 +13,14 @@ import { FilterItem, ProjectAvatarGroup } from "..";
 import { BiMessageRoundedDots } from "react-icons/bi";
 import image from "../../assets/no-image-placeholder.webp";
 import { Link } from "react-router-dom";
+import { Project } from "../../domain/project";
 
 interface Props {
     portfolio?: boolean;
+    project: Project;
 }
 
-const ProjectCard = ({ portfolio = false }: Props) => {
+const ProjectCard = ({ portfolio = false, project }: Props) => {
     return (
         <Flex
             border="1px"
@@ -37,41 +39,31 @@ const ProjectCard = ({ portfolio = false }: Props) => {
                     w="100%"
                     objectFit="cover"
                     rounded="md"
-                    src={image}
-                    alt="Dan Abramov"
+                    src={project.photo.url ? image : image}
+                    alt={project.title}
                 />
             </Box>
             <VStack spacing={1.5} alignItems="start">
-                <Link to={`/projects/2`}>Project Management</Link>
+                <Link to={`/projects/${project.projectIdentifier}`}>
+                    {project.title}
+                </Link>
                 <Text fontSize={14} color="gray.600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Sequi, dolore!
+                    {project.description}
                 </Text>
-                <HStack spacing={3} flexWrap="wrap">
-                    <Badge
-                        variant="subtle"
-                        colorScheme="green"
-                        fontWeight="medium"
-                        p={1}
-                    >
-                        IOS
-                    </Badge>
-                    <Badge
-                        variant="subtle"
-                        colorScheme="green"
-                        fontWeight="medium"
-                        p={1}
-                    >
-                        React Native
-                    </Badge>
-                    <Badge
-                        variant="subtle"
-                        colorScheme="green"
-                        fontWeight="medium"
-                        p={1}
-                    >
-                        Spring Boot
-                    </Badge>
+                <HStack spacing={3} flexWrap="wrap" my={1}>
+                    {project.tags.map((tag, i) => (
+                        <Badge
+                            key={i}
+                            variant="subtle"
+                            colorScheme="gray"
+                            fontWeight="medium"
+                            px={3}
+                            py={1}
+                            rounded="full"
+                        >
+                            {tag}
+                        </Badge>
+                    ))}
                 </HStack>
                 <Flex
                     justifyContent="space-between"
@@ -82,7 +74,7 @@ const ProjectCard = ({ portfolio = false }: Props) => {
                         <FilterItem icon={<IoIosAttach />} text="2" />
                         <FilterItem icon={<BiMessageRoundedDots />} text="5" />
                     </HStack>
-                    <ProjectAvatarGroup size="xs" />
+                    <ProjectAvatarGroup size="xs" loading={false} />
                 </Flex>
             </VStack>
             <Progress color="red" value={64} size="xs" marginTop={3} />
