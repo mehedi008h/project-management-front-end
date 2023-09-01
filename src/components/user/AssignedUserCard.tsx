@@ -1,10 +1,12 @@
 import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import { User } from "../../domain/user";
 
 interface Props {
     btnText: string;
+    user?: User;
 }
 
-const AssignedUserCard = ({ btnText }: Props) => {
+const AssignedUserCard = ({ btnText, user }: Props) => {
     return (
         <Stack spacing={2} my={2}>
             <Flex
@@ -16,15 +18,22 @@ const AssignedUserCard = ({ btnText }: Props) => {
                 _hover={{ bg: "blackAlpha.400" }}
             >
                 <Flex alignItems="center" gap={2}>
-                    <Avatar name="Mehedi Hasan" />
+                    <Avatar name={user?.firstName} />
                     <Box>
-                        <Text>Mehedi Hasan</Text>
-                        <Text fontSize={12} color="gray.500">
-                            mehedi08h@gmail.com
+                        <Flex alignItems="center" gap={1}>
+                            <Text>
+                                {`${user?.firstName}  ${user?.lastName}`}
+                            </Text>
+                            <Text fontSize={12} color="gray.500">
+                                (@{user?.username})
+                            </Text>
+                        </Flex>
+                        <Text fontSize={13} color="gray.500">
+                            {user?.email}
                         </Text>
                     </Box>
                 </Flex>
-                <Button size="sm" variant="outline" onClick={() => ""}>
+                <Button size="sm" variant="outline">
                     {btnText}
                 </Button>
             </Flex>

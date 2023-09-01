@@ -1,8 +1,12 @@
 import { Avatar, Box, Flex, HStack, Text } from "@chakra-ui/react";
 import { AiOutlineMessage } from "react-icons/ai";
 import { BiGitBranch } from "react-icons/bi";
+import { User } from "../../domain/user";
 
-const UserCard = () => {
+interface Props {
+    user: User;
+}
+const UserCard = ({ user }: Props) => {
     return (
         <Flex
             flexDirection="row"
@@ -13,11 +17,13 @@ const UserCard = () => {
             rounded="md"
             width="100%"
         >
-            <Avatar name="M" size="xl" />
+            <Avatar name={user.firstName} size="xl" />
             <Box>
-                <Text fontSize={20}>Mehedi Hasan</Text>
+                <Text fontSize={20}>
+                    {user.firstName} {user.lastName}
+                </Text>
                 <Text fontSize={14} color="gray.500" marginTop={-1}>
-                    Software Engineer
+                    {user.work}
                 </Text>
 
                 <HStack spacing={5} mt={2}>
