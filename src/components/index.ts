@@ -13,6 +13,7 @@ export { default as Signup } from "./auth/Signup";
 export { default as Sidebar } from "./common/Sidebar";
 export { default as Navbar } from "./common/Navbar";
 export { default as FormHeading } from "./common/Heading";
+export { default as HomeLoading } from "./common/HomeLoading";
 
 export { default as SearchInput } from "./navbar/SearchInput";
 export { default as ProjectSelector } from "./navbar/ProjectSelector";

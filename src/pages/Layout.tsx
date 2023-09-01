@@ -1,6 +1,6 @@
-import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import { Container, Navbar, Sidebar } from "../components";
+import { Container, HomeLoading, Navbar, Sidebar } from "../components";
 import useAuth from "../hooks/useAuth";
 import { Auth } from ".";
 const Layout = () => {
@@ -8,7 +8,7 @@ const Layout = () => {
     return (
         <Container>
             {isLoading ? (
-                <Text>Loading ...</Text>
+                <HomeLoading />
             ) : (
                 <>
                     {user ? (
