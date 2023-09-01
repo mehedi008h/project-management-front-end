@@ -33,9 +33,15 @@ class APIClient<T> {
             .then((res) => res.data.data);
     };
 
-    get = async () => {
+    getMe = async () => {
         return axiosInstance
             .get<FetchResponse<T>>(this.endpoint)
+            .then((res) => res.data.data);
+    };
+
+    get = async (id: number | string) => {
+        return axiosInstance
+            .get<FetchResponse<T>>(this.endpoint + "/" + id)
             .then((res) => res.data.data);
     };
 }

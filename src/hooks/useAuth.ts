@@ -6,7 +6,7 @@ const apiClient = new APIClient<User>("/auth/me");
 const useAuth = () =>
     useQuery({
         queryKey: ["user"],
-        queryFn: () => apiClient.get(),
+        queryFn: () => apiClient.getMe(),
     });
 
 export default useAuth;

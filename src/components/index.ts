@@ -65,3 +65,4 @@ export { default as Invitation } from "./profile/Invitation";
 export { default as AddEvent } from "./calendar/AddEvent";
 
 export { default as ProjectSkeleton } from "./loader/ProjectSkeleton";
+export { default as ProjectDetailsSkeleton } from "./loader/ProjectDetailsSkeleton";

@@ -15,12 +15,17 @@ import { RiAttachment2 } from "react-icons/ri";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { ProjectDetailsBtn } from "..";
+import { Project } from "../../domain/project";
 
-const ProjectDetailsCard = () => {
+interface Props {
+    project: Project | undefined;
+}
+
+const ProjectDetailsCard = ({ project }: Props) => {
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
             <Flex justify="space-between" alignItems="center">
-                <Text>Project Identifier # 43534534</Text>
+                <Text>Project Identifier # {project?.projectIdentifier}</Text>
                 <ProjectDetailsBtn />
             </Flex>
 
@@ -55,18 +60,24 @@ const ProjectDetailsCard = () => {
                 </Box>
                 {/* description  */}
                 <Box width="100%">
-                    <Text fontSize={20}>Project Name</Text>
+                    <Text fontSize={20}>{project?.title}</Text>
                     <Text mt={2} color="gray.300" fontSize="sm">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Cumque eius adipisci, quasi voluptate neque iure!
+                        {project?.description}
                     </Text>
                     <Flex gap={4} my={4} flexWrap="wrap">
-                        <Badge px={2} py={1}>
-                            Spring Boot
-                        </Badge>
-                        <Badge px={2} py={1}>
-                            Spring Boot
-                        </Badge>
+                        {project?.tags.map((tag, i) => (
+                            <Badge
+                                key={i}
+                                variant="subtle"
+                                colorScheme="gray"
+                                fontWeight="medium"
+                                px={3}
+                                py={1}
+                                rounded="full"
+                            >
+                                {tag}
+                            </Badge>
+                        ))}
                     </Flex>
 
                     <Flex gap={3}>
@@ -118,13 +129,19 @@ const ProjectDetailsCard = () => {
                         <Badge px={2} py={1}>
                             <Flex alignItems="center" gap={2}>
                                 <GiSandsOfTime size={15} />
-                                12-12-12
+                                <Text textTransform="uppercase">
+                                    {" "}
+                                    {project?.startDate}
+                                </Text>
                             </Flex>
                         </Badge>
                         <Badge px={2} py={1} colorScheme="green">
                             <Flex alignItems="center" gap={2}>
                                 <MdOutlineTimer size={15} />
-                                <Text textTransform="uppercase">12-12-12</Text>
+                                <Text textTransform="uppercase">
+                                    {" "}
+                                    {project?.endDate}
+                                </Text>
                             </Flex>
                         </Badge>
                     </Flex>

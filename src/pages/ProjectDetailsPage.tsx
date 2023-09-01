@@ -3,14 +3,25 @@ import {
     Container,
     MobileTableContent,
     ProjectDetailsCard,
+    ProjectDetailsSkeleton,
     TableContent,
     TaskTableHeading,
 } from "../components";
+import { useParams } from "react-router-dom";
+import useProject from "../hooks/useProject";
 
 const ProjectDetailsPage = () => {
+    const { projectIdentifier } = useParams();
+    const { data: project, isLoading } = useProject(projectIdentifier!);
+
     return (
         <Container>
-            <ProjectDetailsCard />
+            {isLoading ? (
+                <ProjectDetailsSkeleton />
+            ) : (
+                <ProjectDetailsCard project={project} />
+            )}
+
             <Box
                 display={{
                     base: "none",
