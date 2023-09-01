@@ -6,7 +6,7 @@ import { useState } from "react";
 import { VStack, useDisclosure } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AlertDialog, InputField, Modal } from "../components";
-import { DateSelectArg, EventApi, EventClickArg } from "fullcalendar/index.js";
+import { DateSelectArg, EventClickArg } from "fullcalendar/index.js";
 import { MdTitle } from "react-icons/md";
 
 const CalendarPage = () => {
@@ -67,7 +67,7 @@ const CalendarPage = () => {
         console.log("Event clicked", clickInfo.event.title);
     };
 
-    const handleEvents = (events: EventApi[]) => {};
+    const handleEvents = () => {};
 
     const bodyContent = (
         <VStack>

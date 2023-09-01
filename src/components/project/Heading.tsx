@@ -2,7 +2,7 @@ import { Flex, Spinner, Text } from "@chakra-ui/react";
 
 interface Props {
     text: string;
-    total: number;
+    total: number | undefined;
     loading?: boolean;
 }
 

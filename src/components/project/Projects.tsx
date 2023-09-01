@@ -1,15 +1,24 @@
-import { Grid, GridItem, VStack } from "@chakra-ui/react";
-import { Heading, ProjectCard, ProjectSkeleton } from "..";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { Heading, ProjectConatiner } from "..";
 import useProjects from "../../hooks/useProjects";
+import { toast } from "react-hot-toast";
+import { Status } from "../../enums/status.enum";
 
 const Projects = () => {
-    const { data: projects, isLoading } = useProjects();
+    const { data: projects, isLoading, error } = useProjects();
 
-    const loading = (
-        <>
-            <ProjectSkeleton />
-            <ProjectSkeleton />
-        </>
+    // show error message
+    if (error) toast.error(error.message);
+
+    // todo projects
+    const todos = projects?.filter((project) => project.status === Status.TODO);
+    // progress projects
+    const progress = projects?.filter(
+        (project) => project.status === Status.PROGRESS
+    );
+    // completed projects
+    const completed = projects?.filter(
+        (project) => project.status === Status.COMPLETED
     );
     return (
         <Grid
@@ -24,67 +33,43 @@ const Projects = () => {
         >
             {/* todo project  */}
             <GridItem>
-                <Heading text="Todo" total={10} loading={isLoading} />
-                <VStack spacing={3}>
-                    {isLoading ? (
-                        loading
-                    ) : (
-                        <>
-                            {projects
-                                ?.filter((project) => project.status === "Todo")
-                                .map((project) => (
-                                    <ProjectCard
-                                        key={project.id}
-                                        project={project}
-                                    />
-                                ))}
-                        </>
-                    )}
-                </VStack>
+                <Heading
+                    text="Todo"
+                    total={todos ? todos?.length : 0}
+                    loading={isLoading}
+                />
+
+                <ProjectConatiner
+                    loading={isLoading}
+                    projects={todos}
+                    text="No Project"
+                />
             </GridItem>
             {/* progress project  */}
             <GridItem>
-                <Heading text="In Progress" total={10} loading={isLoading} />
-                <VStack spacing={3}>
-                    {isLoading ? (
-                        loading
-                    ) : (
-                        <>
-                            {projects
-                                ?.filter(
-                                    (project) => project.status === "Progress"
-                                )
-                                .map((project) => (
-                                    <ProjectCard
-                                        key={project.id}
-                                        project={project}
-                                    />
-                                ))}
-                        </>
-                    )}
-                </VStack>
+                <Heading
+                    text="In Progress"
+                    total={progress ? progress.length : 0}
+                    loading={isLoading}
+                />
+                <ProjectConatiner
+                    loading={isLoading}
+                    projects={progress}
+                    text="No Project In Progress"
+                />
             </GridItem>
             {/* completed project  */}
             <GridItem>
-                <Heading text="Completed" total={10} loading={isLoading} />
-                <VStack spacing={3}>
-                    {isLoading ? (
-                        loading
-                    ) : (
-                        <>
-                            {projects
-                                ?.filter(
-                                    (project) => project.status === "Completed"
-                                )
-                                .map((project) => (
-                                    <ProjectCard
-                                        key={project.id}
-                                        project={project}
-                                    />
-                                ))}
-                        </>
-                    )}
-                </VStack>
+                <Heading
+                    text="Completed"
+                    total={completed ? completed.length : 0}
+                    loading={isLoading}
+                />
+                <ProjectConatiner
+                    loading={isLoading}
+                    projects={completed}
+                    text="No Completed Project yet"
+                />
             </GridItem>
         </Grid>
     );

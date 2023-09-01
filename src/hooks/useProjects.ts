@@ -4,7 +4,7 @@ import { Project } from "../domain/project";
 
 const apiClient = new APIClient<Project>("/project");
 const useProjects = () =>
-    useQuery({
+    useQuery<Project[], Error>({
         queryKey: ["projects"],
         queryFn: () => apiClient.getAll(),
     });

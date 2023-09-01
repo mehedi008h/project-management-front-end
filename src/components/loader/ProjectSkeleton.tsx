@@ -42,8 +42,8 @@ const ProjectSkeleton = ({ portfolio = false }: Props) => {
                     width="100%"
                 />
                 <HStack spacing={3} flexWrap="wrap" my={1}>
-                    {[1, 2, 3, 4].map((i) => (
-                        <Skeleton key={i} height="6px" rounded="full" />
+                    {[1, 2, 3, 4].map((item) => (
+                        <Skeleton key={item} height="6px" rounded="full" />
                     ))}
                 </HStack>
                 <Flex

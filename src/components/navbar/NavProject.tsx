@@ -14,7 +14,7 @@ const NavProject = () => {
                 <ProjectSelector />
             </Box>
             <Box>
-                <ProjectAvatarGroup size="sm" />
+                <ProjectAvatarGroup size="sm" loading={false} />
             </Box>
         </Flex>
     );
