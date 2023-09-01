@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
-    Auth,
     CalendarPage,
     ChangePassword,
     ErrorPage,
@@ -42,10 +41,6 @@ const router = createBrowserRouter([
                 element: <CalendarPage />,
             },
         ],
-    },
-    {
-        path: "/auth",
-        element: <Auth />,
     },
     {
         path: "/profile",

@@ -1,34 +1,53 @@
 import {
     Avatar,
     Box,
+    Flex,
     HStack,
     Menu,
     MenuButton,
-    MenuDivider,
     MenuGroup,
     MenuItem,
     MenuList,
+    SkeletonCircle,
     Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const ProfileAvatar = () => {
+    const { data: user, isLoading } = useAuth();
+
     return (
         <>
             <Menu>
                 <MenuButton>
-                    <Avatar name="Mehedi Hasan" size="md" cursor="pointer" />
+                    {isLoading ? (
+                        <SkeletonCircle size="11" />
+                    ) : (
+                        <Avatar
+                            name="Mehedi Hasan"
+                            size="md"
+                            cursor="pointer"
+                        />
+                    )}
                 </MenuButton>
                 <MenuList px={5}>
                     <MenuGroup title="Profile">
                         <HStack px={2} my={2}>
                             <Avatar
-                                name="Mehedi Hasan"
+                                name={user?.firstName}
                                 size="md"
                                 cursor="pointer"
                             />
                             <Box>
-                                <Text>Mehedi Hasan</Text>
+                                <Flex alignItems="center" gap={1}>
+                                    <Text>
+                                        {`${user?.firstName}  ${user?.lastName}`}
+                                    </Text>
+                                    <Text fontSize={12} color="gray.500">
+                                        (@{user?.username})
+                                    </Text>
+                                </Flex>
                                 <Text fontSize={12} color="gray.500">
                                     Software Engineer
                                 </Text>
@@ -38,11 +57,6 @@ const ProfileAvatar = () => {
                             <MenuItem>My Account</MenuItem>
                         </Link>
                         <MenuItem>Logout</MenuItem>
-                    </MenuGroup>
-                    <MenuDivider />
-                    <MenuGroup title="Help">
-                        <MenuItem>Docs</MenuItem>
-                        <MenuItem>FAQ</MenuItem>
                     </MenuGroup>
                 </MenuList>
             </Menu>

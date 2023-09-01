@@ -2,20 +2,23 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FiLock, FiUser } from "react-icons/fi";
 import { Button, HStack, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { InputField } from "..";
 import { useMutation } from "@tanstack/react-query";
 import { User } from "../../domain/user";
-import { authApi } from "../../service/apiClient";
+import { axiosInstance } from "../../service/apiClient";
 
 const Signup = () => {
     const {
         data: response,
         isLoading,
+        isSuccess,
+        error,
         mutate,
     } = useMutation<User, Error, User>({
         mutationFn: (register) => {
-            return authApi.post("/auth/register", register);
+            return axiosInstance.post("/auth/register", register);
         },
     });
 
@@ -37,6 +40,9 @@ const Signup = () => {
         mutate(data as User);
     };
     console.log("Response: " + JSON.stringify(response));
+
+    if (isSuccess) toast.success("Successfully Login");
+    if (error) toast.error(error.message);
 
     return (
         <VStack spacing={4}>

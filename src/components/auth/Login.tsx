@@ -3,19 +3,22 @@ import { FiLock } from "react-icons/fi";
 import { Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 import { InputField } from "..";
 import { User } from "../../domain/user";
-import { authApi } from "../../service/apiClient";
+import { axiosInstance } from "../../service/apiClient";
 
 const Login = () => {
     const {
         data: respone,
         isLoading,
+        isSuccess,
+        error,
         mutate,
     } = useMutation<User, Error, User>({
         mutationFn: (login) => {
-            return authApi.post("/auth/login", login);
+            return axiosInstance.post("/auth/login", login);
         },
     });
     const {
@@ -28,6 +31,9 @@ const Login = () => {
             password: "",
         },
     });
+
+    if (isSuccess) toast.success("Successfully Login");
+    if (error) toast.error(error.message);
 
     console.log("Data Load:", respone);
 
