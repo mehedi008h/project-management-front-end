@@ -153,7 +153,7 @@ const ProjectDetailsCard = ({ project, developers }: Props) => {
                             {developers &&
                                 developers.map((developer) => (
                                     <Avatar
-                                        key={developer.id}
+                                        key={developer._id}
                                         name={developer.firstName}
                                     />
                                 ))}

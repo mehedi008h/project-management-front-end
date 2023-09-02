@@ -13,13 +13,19 @@ import {
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
-import { AlertDialog, AssignedUserCard, Modal } from "..";
+import { AlertDialog, Modal, UserCardContainer } from "..";
 import NewTask from "../task/NewTask";
+import { toast } from "react-hot-toast";
+import useTeammates from "../../hooks/useTeammates";
 
 const ProjectDetailsBtn = () => {
     const [modalType, setModalType] = useState("");
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const { data: users, isLoading, error } = useTeammates();
+
+    if (error) toast.error(error.message);
 
     const handleModal = (type: string) => {
         onOpen();
@@ -94,7 +100,13 @@ const ProjectDetailsBtn = () => {
                     onClose={onClose}
                     disabled={false}
                     title="Assign Developer"
-                    body={<AssignedUserCard btnText="Assign" />}
+                    body={
+                        <UserCardContainer
+                            users={users}
+                            loading={isLoading}
+                            btnText="Assign"
+                        />
+                    }
                 />
             )}
             {/* modal  assignTask*/}

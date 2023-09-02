@@ -50,10 +50,10 @@ class APIClient<T> {
             .get<FetchResponse<T>>(this.endpoint + "/" + id)
             .then((res) => res.data.data);
     };
-    put = async (id: number | string, values: T) => {
+    put = async (values: T) => {
         return axiosInstance
-            .put<FetchResponse<T>>(this.endpoint + "/" + id, values)
-            .then((res) => res.data.data);
+            .put<FetchResponse<T>>(this.endpoint, values)
+            .then((res) => res.data);
     };
 }
 

@@ -1,17 +1,18 @@
 import { Box, Spinner } from "@chakra-ui/react";
 import { AssignedUserCard, SearchInput } from "..";
-import useUsers from "../../hooks/useUsers";
-import { toast } from "react-hot-toast";
+import { User } from "../../domain/user";
 
-const InviteNewMember = () => {
-    const { data: users, isLoading, error } = useUsers();
+interface Props {
+    loading: boolean;
+    users: User[] | undefined;
+    btnText: string;
+}
 
-    if (error) toast.error(error.message);
-
+const UserCardContainer = ({ loading, users, btnText }: Props) => {
     return (
         <Box pb={5}>
             <SearchInput />
-            {isLoading ? (
+            {loading ? (
                 <Box w="100%" textAlign="center">
                     <Spinner color="red" mt={10} />
                 </Box>
@@ -24,8 +25,8 @@ const InviteNewMember = () => {
                 >
                     {users?.map((user) => (
                         <AssignedUserCard
-                            key={user._id}
-                            btnText="Invite"
+                            key={user.id}
+                            btnText={btnText}
                             user={user}
                         />
                     ))}
@@ -35,4 +36,4 @@ const InviteNewMember = () => {
     );
 };
 
-export default InviteNewMember;
+export default UserCardContainer;

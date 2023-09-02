@@ -33,6 +33,7 @@ export { default as ProjectCard } from "./project/ProjectCard";
 export { default as ProjectDetailsCard } from "./project/ProjectDetailsCard";
 export { default as ProjectDetailsBtn } from "./project/ProjectDetailsBtn";
 export { default as ProjectConatiner } from "./project/ProjectConatiner";
+export { default as UserCardContainer } from "./project/UserCardContainer";
 
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";
