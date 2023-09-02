@@ -16,12 +16,14 @@ import { RiAttachment2 } from "react-icons/ri";
 import placeHolder from "../../assets/no-image-placeholder.webp";
 import { ProjectDetailsBtn } from "..";
 import { Project } from "../../domain/project";
+import { User } from "../../domain/user";
 
 interface Props {
     project: Project | undefined;
+    developers: User[] | undefined;
 }
 
-const ProjectDetailsCard = ({ project }: Props) => {
+const ProjectDetailsCard = ({ project, developers }: Props) => {
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
             <Flex justify="space-between" alignItems="center">
@@ -148,7 +150,13 @@ const ProjectDetailsCard = ({ project }: Props) => {
                     <Box my={5}>
                         <Text>Assigned Developer</Text>
                         <AvatarGroup size="sm" max={4} mt={2}>
-                            <Avatar name="Mehedi" />
+                            {developers &&
+                                developers.map((developer) => (
+                                    <Avatar
+                                        key={developer.id}
+                                        name={developer.firstName}
+                                    />
+                                ))}
                         </AvatarGroup>
                     </Box>
                 </Box>

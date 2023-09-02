@@ -6,7 +6,7 @@ const apiClient = new APIClient<Project>("/project");
 const useProject = (projectIdentifier: string) =>
     useQuery({
         queryKey: ["project", projectIdentifier],
-        queryFn: () => apiClient.get(projectIdentifier),
+        queryFn: () => apiClient.getById(projectIdentifier),
     });
 
 export default useProject;
