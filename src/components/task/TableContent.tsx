@@ -13,11 +13,25 @@ import {
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineTimer } from "react-icons/md";
 import { GiSandsOfTime } from "react-icons/gi";
+import { Tooltip } from "react-tooltip";
 import { Modal, TaskDetails } from "..";
+import { Task } from "../../domain/task";
+import { Status } from "../../enums/status.enum";
+import moment from "moment";
+import { Priority } from "../../enums/priority.enum";
 
-const TableContent = () => {
+interface Props {
+    task?: Task;
+}
+
+const TableContent = ({ task }: Props) => {
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    // calculate days
+    const a = moment(task?.endDate);
+    const b = moment(task?.startDate);
+    const remaining = a.diff(b, "days");
 
     return (
         <Grid
@@ -32,7 +46,13 @@ const TableContent = () => {
                 w="100%"
                 h="10"
                 borderRight="4px"
-                borderColor="yellow.300"
+                borderColor={
+                    task?.priority === Priority.LOW
+                        ? "green"
+                        : task?.priority === Priority.MEDIUM
+                        ? "yellow"
+                        : "red"
+                }
                 display="flex"
                 alignItems="center"
                 justifyContent="start"
@@ -46,13 +66,30 @@ const TableContent = () => {
                     alignItems="center"
                 >
                     <Flex gap={2} alignItems="center">
-                        <Text>e5456</Text>
-                        <IoCheckmarkDoneCircleSharp size={16} color="green" />
-                        <Text>Project manager</Text>
+                        <Text>{task?.taskIdentifier}</Text>
+
+                        <IoCheckmarkDoneCircleSharp
+                            id="status"
+                            size={16}
+                            color={
+                                task?.status === Status.COMPLETED
+                                    ? "green"
+                                    : task?.status === Status.PROGRESS
+                                    ? "yellow"
+                                    : "red"
+                            }
+                        />
+                        <Tooltip
+                            anchorId="status"
+                            place="top"
+                            content={task?.status.toUpperCase()}
+                        />
+
+                        <Text>{task?.title.substring(0, 28)}</Text>
                     </Flex>
                     <Flex pr={4} gap="3">
                         <Flex gap={1} alignItems="center">
-                            <IoChatboxEllipsesOutline size={16} color="green" />{" "}
+                            <IoChatboxEllipsesOutline size={16} color="green" />
                             <Text>20</Text>
                         </Flex>
                         <Flex
@@ -72,9 +109,13 @@ const TableContent = () => {
                                 title="Task Details"
                                 actionLabel="Continue"
                                 onSubmit={() => ""}
-                                body={<TaskDetails />}
+                                body={<TaskDetails task={task} />}
                             />
-                            <IoIosArrowForward size={16} color="yellow" />{" "}
+                            <IoIosArrowForward
+                                size={16}
+                                color="green"
+                                className="next_btn"
+                            />
                         </Flex>
                     </Flex>
                 </Flex>
@@ -88,16 +129,15 @@ const TableContent = () => {
                 justifyContent="start"
                 px={3}
             >
-                <Flex
-                    w="100%"
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Badge px={4} py={1} colorScheme="yellow">
-                        Progress
-                    </Badge>
+                <Flex w="100%" alignItems="center" gap={1}>
+                    {task?.tags.map((tag, i) => (
+                        <Badge key={i} colorScheme="yellow">
+                            {tag}
+                        </Badge>
+                    ))}
                 </Flex>
             </GridItem>
+            {/* remaining days  */}
             <GridItem
                 w="100%"
                 borderRight="1px"
@@ -110,10 +150,11 @@ const TableContent = () => {
                 <Badge px={4} py={1}>
                     <Flex alignItems="center" gap={2}>
                         <GiSandsOfTime size={15} />
-                        12 days
+                        {remaining} days
                     </Flex>
                 </Badge>
             </GridItem>
+            {/* assign data  */}
             <GridItem
                 w="100%"
                 borderRight="1px"
@@ -127,10 +168,13 @@ const TableContent = () => {
                 <Badge px={2} py={1} colorScheme="green">
                     <Flex alignItems="center" gap={2}>
                         <MdOutlineTimer size={15} />
-                        <Text textTransform="uppercase">12-12-1222</Text>
+                        <Text textTransform="uppercase">
+                            {moment(task?.startDate).format("MMM Do YY")}
+                        </Text>
                     </Flex>
                 </Badge>
             </GridItem>
+            {/* end date  */}
             <GridItem
                 w="100%"
                 display="flex"
@@ -141,7 +185,9 @@ const TableContent = () => {
                 <Badge px={2} py={1} colorScheme="red">
                     <Flex alignItems="center" gap={2}>
                         <MdOutlineTimer size={15} />
-                        <Text textTransform="uppercase">12222</Text>
+                        <Text textTransform="uppercase">
+                            {moment(task?.endDate).format("MMM Do YY")}
+                        </Text>
                     </Flex>
                 </Badge>
             </GridItem>

@@ -1,14 +1,50 @@
-import { Avatar, Box, Divider, Flex, Stack, Text } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Button,
+    Divider,
+    Flex,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
 import { FcHighPriority } from "react-icons/fc";
 import { GiSandsOfTime } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
 import { SiStatuspage } from "react-icons/si";
+import moment from "moment";
+import { Task } from "../../domain/task";
+import { Link } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
 
-const TaskDetails = () => {
+interface Props {
+    task?: Task;
+}
+
+const TaskDetails = ({ task }: Props) => {
+    // calculate days
+    const a = moment(task?.endDate);
+    const b = moment(task?.startDate);
+    const remaining = a.diff(b, "days");
     return (
         <Box fontWeight="medium">
             <Flex justifyContent="space-between" alignItems="center">
-                <Text>Task ID : wefj332</Text>
+                <Text>Task ID : {task?.taskIdentifier}</Text>
+                <Link to={`/projects/${task?.projectIdentifier}`}>
+                    <Button
+                        size="sm"
+                        fontFamily="monospace"
+                        fontSize={16}
+                        rightIcon={
+                            <IoIosArrowForward
+                                size={16}
+                                color="green"
+                                className="next_btn"
+                            />
+                        }
+                    >
+                        Go to project
+                    </Button>
+                </Link>
             </Flex>
 
             <Stack spacing={2}>
@@ -18,11 +54,10 @@ const TaskDetails = () => {
                     fontWeight="semibold"
                     color="teal.500"
                 >
-                    Project Name
+                    {task?.title}
                 </Text>
                 <Text fontSize={14} color="gray.300">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Nam, hic.
+                    {task?.description}
                 </Text>
                 {/*remaining days */}
                 <Flex justifyContent="space-between" alignItems="center">
@@ -30,7 +65,7 @@ const TaskDetails = () => {
                         <GiSandsOfTime size={15} />
                         <Text>Remaining days :</Text>
                     </Flex>
-                    <Text>12 days</Text>
+                    <Text>{remaining} days</Text>
                 </Flex>
                 {/*assign date */}
                 <Flex
@@ -42,7 +77,9 @@ const TaskDetails = () => {
                         <MdOutlineTimer size={15} />
                         <Text>Assign Date :</Text>
                     </Flex>
-                    <Text>12-12-12</Text>
+                    <Text>
+                        {moment(task?.startDate).format("MMMM Do YYYY")}
+                    </Text>
                 </Flex>
                 {/*due date */}
                 <Flex
@@ -54,7 +91,7 @@ const TaskDetails = () => {
                         <MdOutlineTimer size={15} />
                         <Text>Due Date :</Text>
                     </Flex>
-                    <Text>12-12-12</Text>
+                    <Text>{moment(task?.endDate).format("MMMM Do YYYY")}</Text>
                 </Flex>
                 {/*priority */}
                 <Flex justifyContent="space-between" alignItems="center">
@@ -62,7 +99,7 @@ const TaskDetails = () => {
                         <FcHighPriority size={15} />
                         <Text>Task Priority :</Text>
                     </Flex>
-                    <Text>HIGH</Text>
+                    <Text>{task?.priority.toUpperCase()}</Text>
                 </Flex>
                 {/*status */}
                 <Flex justifyContent="space-between" alignItems="center">
@@ -70,7 +107,7 @@ const TaskDetails = () => {
                         <SiStatuspage color="white" size={15} />
                         <Text>Task Status :</Text>
                     </Flex>
-                    <Text>Progress</Text>
+                    <Text>{task?.status.toUpperCase()}</Text>
                 </Flex>
             </Stack>
             <Divider my={2} />

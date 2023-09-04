@@ -1,28 +1,71 @@
-import { Button, HStack, VStack } from "@chakra-ui/react";
+import { useState } from "react";
+import { Badge, Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { InputField, SelectField, SelectTags, TextareaField } from "..";
 import { LiaHeadingSolid } from "react-icons/lia";
 import { CiCalendarDate } from "react-icons/ci";
 import { MdOutlineUpdate } from "react-icons/md";
+
+import { InputField, SelectField, TextareaField } from "..";
+import useProjectStore from "../../store/useProjectStore";
+import useProject from "../../hooks/useProject";
+import useProjectDeveloper from "../../hooks/useProjectDeveloper";
+import useAssignTask from "../../hooks/useAssignTask";
+import { Task } from "../../domain/task";
+
 const NewTask = () => {
+    const [tags, setTags] = useState<string[]>([]);
+    // get project identifier from zustand store
+    const project = useProjectStore();
+
+    const {
+        mutate,
+
+        isLoading: createtaskLoading,
+    } = useAssignTask(project.projectId);
+
+    // fetch project & project developers
+    const { data, isLoading } = useProject(project.projectId!);
+    const { data: developers, isLoading: developerLoading } =
+        useProjectDeveloper(project.projectId!);
+
     const {
         register,
+        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
-            password: "",
+            startDate: "",
+            endDate: "",
+            description: "",
+            developer: "",
+            tags: "",
         },
     });
 
+    const setCustomValue = (id: string, value: any) => {
+        setValue(id, value, {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true,
+        });
+    };
+
+    const handleTags = (text: string) => {
+        setTags([...tags, text]);
+        setCustomValue("tags", [...tags, text]);
+    };
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Data: " + JSON.stringify(data));
+        mutate(data as Task);
     };
+
     return (
         <VStack spacing={5}>
             <InputField
-                id="name"
+                id="title"
                 type="text"
                 label="Task Title"
                 placeHolder="Task Title"
@@ -68,17 +111,45 @@ const NewTask = () => {
                 errors={errors}
                 required
             >
-                <option value="Mehedi">Mehedi</option>
-                <option value="Mehedi">Rafiq</option>
-                <option value="Mehedi">Masum</option>
+                <option value="">Choose Developer</option>
+                {developers?.map((developer) => (
+                    <option value={developer._id}>
+                        {developer.firstName} {developer.lastName}
+                    </option>
+                ))}
             </SelectField>
-            <SelectTags />
+            <Box textAlign="start" width={"100%"}>
+                <Text mb="8px">Working Tech</Text>
+                <HStack w="100%" flexWrap="wrap" spacing={3}>
+                    {data?.tags.map((tag, i) => (
+                        <Badge
+                            onClick={() => handleTags(tag)}
+                            colorScheme={
+                                tags.find((selectedTag) => selectedTag === tag)
+                                    ? "teal"
+                                    : "gray"
+                            }
+                            variant="solid"
+                            color="gray.200"
+                            px={2}
+                            py={1}
+                            rounded="full"
+                            cursor="pointer"
+                            key={i}
+                        >
+                            {tag}
+                        </Badge>
+                    ))}
+                </HStack>
+            </Box>
             <Button
                 size="md"
                 w="100%"
                 fontFamily="monospace"
                 fontSize={16}
                 onClick={handleSubmit(onSubmit)}
+                isLoading={createtaskLoading}
+                disabled={createtaskLoading}
                 marginBottom={3}
             >
                 Assign

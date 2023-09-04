@@ -1,29 +1,23 @@
-import {
-    Avatar,
-    AvatarGroup,
-    Badge,
-    Box,
-    Flex,
-    Image,
-    Text,
-} from "@chakra-ui/react";
+import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { CiViewList } from "react-icons/ci";
 import { GiSandsOfTime } from "react-icons/gi";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { MdOutlineTimer } from "react-icons/md";
 import { RiAttachment2 } from "react-icons/ri";
+import moment from "moment";
 
 import placeHolder from "../../assets/no-image-placeholder.webp";
-import { ProjectDetailsBtn } from "..";
+import { ProjectAvatarGroup, ProjectDetailsBtn } from "..";
 import { Project } from "../../domain/project";
 import { User } from "../../domain/user";
 
 interface Props {
     project: Project | undefined;
     developers: User[] | undefined;
+    loading: boolean;
 }
 
-const ProjectDetailsCard = ({ project, developers }: Props) => {
+const ProjectDetailsCard = ({ project, developers, loading }: Props) => {
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
             <Flex justify="space-between" alignItems="center">
@@ -132,8 +126,9 @@ const ProjectDetailsCard = ({ project, developers }: Props) => {
                             <Flex alignItems="center" gap={2}>
                                 <GiSandsOfTime size={15} />
                                 <Text textTransform="uppercase">
-                                    {" "}
-                                    {project?.startDate}
+                                    {moment(project?.startDate).format(
+                                        "MMMM Do YY"
+                                    )}
                                 </Text>
                             </Flex>
                         </Badge>
@@ -141,23 +136,20 @@ const ProjectDetailsCard = ({ project, developers }: Props) => {
                             <Flex alignItems="center" gap={2}>
                                 <MdOutlineTimer size={15} />
                                 <Text textTransform="uppercase">
-                                    {" "}
-                                    {project?.endDate}
+                                    {moment(project?.endDate).format(
+                                        "MMMM Do YY"
+                                    )}
                                 </Text>
                             </Flex>
                         </Badge>
                     </Flex>
                     <Box my={5}>
-                        <Text>Assigned Developer</Text>
-                        <AvatarGroup size="sm" max={4} mt={2}>
-                            {developers &&
-                                developers.map((developer) => (
-                                    <Avatar
-                                        key={developer._id}
-                                        name={developer.firstName}
-                                    />
-                                ))}
-                        </AvatarGroup>
+                        <Text mb={3}>Assigned Developer</Text>
+                        <ProjectAvatarGroup
+                            developers={developers}
+                            loading={loading}
+                            size="sm"
+                        />
                     </Box>
                 </Box>
             </Flex>

@@ -14,6 +14,7 @@ import { BiMessageRoundedDots } from "react-icons/bi";
 import image from "../../assets/no-image-placeholder.webp";
 import { Link } from "react-router-dom";
 import { Project } from "../../domain/project";
+import useProjectDeveloper from "../../hooks/useProjectDeveloper";
 
 interface Props {
     portfolio?: boolean;
@@ -21,6 +22,9 @@ interface Props {
 }
 
 const ProjectCard = ({ portfolio = false, project }: Props) => {
+    const { data: developers, isLoading } = useProjectDeveloper(
+        project.projectIdentifier!
+    );
     return (
         <Flex
             border="1px"
@@ -74,7 +78,11 @@ const ProjectCard = ({ portfolio = false, project }: Props) => {
                         <FilterItem icon={<IoIosAttach />} text="2" />
                         <FilterItem icon={<BiMessageRoundedDots />} text="5" />
                     </HStack>
-                    <ProjectAvatarGroup size="xs" loading={false} />
+                    <ProjectAvatarGroup
+                        developers={developers}
+                        loading={isLoading}
+                        size="xs"
+                    />
                 </Flex>
             </VStack>
             <Progress color="red" value={64} size="xs" marginTop={3} />

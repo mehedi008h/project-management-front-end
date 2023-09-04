@@ -2,7 +2,6 @@ import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { User } from "../../domain/user";
 import useProjectStore from "../../store/useProjectStore";
 import useAssignDeveloper from "../../hooks/useAssignDeveloper";
-import { toast } from "react-hot-toast";
 
 interface Props {
     btnText: string;
@@ -13,11 +12,7 @@ const AssignedUserCard = ({ btnText, user }: Props) => {
     // get project identifier from zustand store
     const projectId = useProjectStore();
     console.log("Project Ids: " + projectId.projectId);
-    const { mutate, error, isLoading, data } = useAssignDeveloper(
-        projectId.projectId
-    );
-
-    if (error) toast.error(error.message);
+    const { mutate, isLoading, data } = useAssignDeveloper(projectId.projectId);
 
     const handleAction = () => {
         mutate(user as User);
@@ -42,7 +37,7 @@ const AssignedUserCard = ({ btnText, user }: Props) => {
                                 {`${user?.firstName}  ${user?.lastName}`}
                             </Text>
                             <Text fontSize={12} color="gray.500">
-                                (@{user?.username})
+                                (@{user?._id})
                             </Text>
                         </Flex>
                         <Text fontSize={13} color="gray.500">

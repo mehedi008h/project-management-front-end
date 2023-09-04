@@ -3,12 +3,10 @@ import APIClient, { FetchResponse } from "../service/apiClient";
 import { User } from "../domain/user";
 import { toast } from "react-hot-toast";
 
-const useAssignDeveloper = (projectIdentifier: string) => {
-    const apiClient = new APIClient<User>(
-        `/project/assign-developer/${projectIdentifier}`
-    );
+const useRegister = () => {
+    const apiClient = new APIClient<User>("/auth/register");
     return useMutation<FetchResponse<User>, FetchResponse<Error>, User>({
-        mutationFn: (user) => apiClient.put(user),
+        mutationFn: (data) => apiClient.post(data),
         onSuccess: (response) => {
             response.data;
             if (response.statusCode === 200) {
@@ -23,4 +21,4 @@ const useAssignDeveloper = (projectIdentifier: string) => {
     });
 };
 
-export default useAssignDeveloper;
+export default useRegister;

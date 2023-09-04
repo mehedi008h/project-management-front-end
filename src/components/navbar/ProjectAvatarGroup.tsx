@@ -1,11 +1,13 @@
 import { Avatar, AvatarGroup, Skeleton } from "@chakra-ui/react";
+import { User } from "../../domain/user";
 
 interface Props {
     size: string;
     loading: boolean;
+    developers?: User[] | undefined;
 }
 
-const ProjectAvatarGroup = ({ size, loading }: Props) => {
+const ProjectAvatarGroup = ({ size, loading, developers }: Props) => {
     if (loading)
         return (
             <AvatarGroup size={size} max={4}>
@@ -16,11 +18,10 @@ const ProjectAvatarGroup = ({ size, loading }: Props) => {
         );
     return (
         <AvatarGroup size={size} max={4}>
-            <Avatar name="Ryan Florence" />
-            <Avatar name="Segun Adebayo" />
-            <Avatar name="Kent Dodds" />
-            <Avatar name="Prosper Otemuyiwa" />
-            <Avatar name="Christian Nwamba" />
+            {developers &&
+                developers.map((developer) => (
+                    <Avatar key={developer._id} name={developer.firstName} />
+                ))}
         </AvatarGroup>
     );
 };

@@ -12,6 +12,15 @@ export interface FetchResponse<T> {
     message: string | null;
     data: T;
 }
+export interface ErrorResponse {
+    response: {
+        data: {
+            statusCode: number;
+            httpStatus: string;
+            message: string | null;
+        };
+    };
+}
 
 export const axiosInstance = axios.create({
     baseURL: " http://localhost:8000/api/v1",
@@ -53,6 +62,11 @@ class APIClient<T> {
     put = async (values: T) => {
         return axiosInstance
             .put<FetchResponse<T>>(this.endpoint, values)
+            .then((res) => res.data);
+    };
+    post = async (values: T) => {
+        return axiosInstance
+            .post<FetchResponse<T>>(this.endpoint, values)
             .then((res) => res.data);
     };
 }

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import {
     Container,
     MobileTableContent,
@@ -19,23 +19,26 @@ const ProjectDetailsPage = () => {
 
     // fetch project, project tasks and project developers data
     const { data: project, isLoading } = useProject(projectIdentifier!);
-    const { data: tasks } = useProjectTasks(projectIdentifier!);
-    const { data: developers } = useProjectDeveloper(projectIdentifier!);
+    const { data: tasks, isLoading: taskLoading } = useProjectTasks(
+        projectIdentifier!
+    );
+    const { data: developers, isLoading: developerLoading } =
+        useProjectDeveloper(projectIdentifier!);
 
     // store project identifier in zustand
     const projectId = useProjectStore();
     if (projectIdentifier) projectId.projectId = projectIdentifier;
-
-    console.log("====================================");
-    console.log("Dara is:", tasks);
-    console.log("====================================");
 
     return (
         <Container>
             {isLoading ? (
                 <ProjectDetailsSkeleton />
             ) : (
-                <ProjectDetailsCard project={project} developers={developers} />
+                <ProjectDetailsCard
+                    project={project}
+                    developers={developers}
+                    loading={developerLoading}
+                />
             )}
 
             <Box
@@ -47,16 +50,33 @@ const ProjectDetailsPage = () => {
                 }}
             >
                 <TaskTableHeading />
-                <TableContent />
-                <TableContent />
-                <TableContent />
+                {taskLoading ? (
+                    <Box w="100%" textAlign="center">
+                        <Spinner color="red" mt={10} />
+                    </Box>
+                ) : (
+                    <>
+                        {tasks?.map((task) => (
+                            <TableContent key={task._id} task={task} />
+                        ))}
+                    </>
+                )}
             </Box>
             <Box
                 display={{ base: "block", xl: "none", lg: "none", md: "none" }}
                 paddingBottom={3}
             >
-                <MobileTableContent />
-                <MobileTableContent />
+                {taskLoading ? (
+                    <Box w="100%" textAlign="center">
+                        <Spinner color="red" mt={10} />
+                    </Box>
+                ) : (
+                    <>
+                        {tasks?.map((task) => (
+                            <MobileTableContent key={task._id} task={task} />
+                        ))}
+                    </>
+                )}
             </Box>
         </Container>
     );

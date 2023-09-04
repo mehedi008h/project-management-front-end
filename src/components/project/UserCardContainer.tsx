@@ -25,7 +25,7 @@ const UserCardContainer = ({ loading, users, btnText }: Props) => {
                 >
                     {users?.map((user) => (
                         <AssignedUserCard
-                            key={user.id}
+                            key={user._id}
                             btnText={btnText}
                             user={user}
                         />

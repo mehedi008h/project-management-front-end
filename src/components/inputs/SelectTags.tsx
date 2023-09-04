@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const SelectTags = () => {
     const [tags, setTags] = useState<string[]>([]);
+
     return (
         <Box textAlign="start" width={"100%"}>
             <Text mb="8px">Working Tech</Text>
@@ -16,7 +17,6 @@ const SelectTags = () => {
                                     ? "teal"
                                     : "gray"
                             }
-                            _hover={{ color: "teal" }}
                             variant="solid"
                             color="gray.200"
                             px={2}
