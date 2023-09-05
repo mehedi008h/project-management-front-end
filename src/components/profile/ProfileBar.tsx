@@ -62,7 +62,11 @@ const ProfileBar = () => {
             justifyContent="center"
         >
             <Box position="relative">
-                <Avatar name={user?.firstName} size="2xl" />
+                <Avatar
+                    name={user?.firstName}
+                    src={user?.photo.url}
+                    size="2xl"
+                />
                 <Flex
                     gap={2}
                     alignItems="center"

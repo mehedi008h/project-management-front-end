@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     Button,
     Flex,
@@ -19,23 +19,30 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 enum STEPS {
     INFO = 0,
     DESCRIPTION = 1,
-    TAG = 2,
+    SKILL = 2,
     IMAGES = 3,
 }
 import { TbMoodEdit } from "react-icons/tb";
 import { AiOutlinePhone } from "react-icons/ai";
+import useProfileUpdate from "../../hooks/useProfileUpdate";
+import { User } from "../../domain/user";
+import useAuth from "../../hooks/useAuth";
 
 const EditProfileBtn = () => {
+    const { data: user, isLoading: userLoading } = useAuth();
     const [step, setStep] = useState(STEPS.INFO);
-    const [skills, setSkills] = useState<string[]>([]);
+    const [skills, setSkills] = useState<string[]>([...user?.skills]);
     const [text, setText] = useState("");
     // image state
-    const [avatar, setAvatar] = useState("");
+    const [avatar, setAvatar] = useState(user?.photo.url);
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const { mutate, isLoading } = useProfileUpdate();
     const {
         register,
         handleSubmit,
+        reset,
         setValue,
         formState: { errors },
     } = useForm<FieldValues>({
@@ -44,11 +51,26 @@ const EditProfileBtn = () => {
             lastName: "",
             phone: "",
             address: "",
+            work: "",
             description: "",
-            imageSrc: avatar,
+            photo: avatar,
             skills: skills,
         },
     });
+
+    useEffect(() => {
+        if (user) {
+            reset({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                description: user.description,
+                phone: user.phone,
+                address: user.address,
+                work: user.work,
+                skills: user.skills,
+            });
+        }
+    }, [user, reset]);
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -65,7 +87,7 @@ const EditProfileBtn = () => {
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setAvatar(reader.result as string);
-                setCustomValue("imageSrc", reader.result as string);
+                setCustomValue("photo", reader.result as string);
             }
         };
 
@@ -82,7 +104,7 @@ const EditProfileBtn = () => {
 
     const handleTags = () => {
         setSkills([...skills, text]);
-        setCustomValue("tags", [...skills, text]);
+        setCustomValue("skills", [...skills, text]);
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -90,7 +112,9 @@ const EditProfileBtn = () => {
             return onNext();
         }
         console.log("Data: " + JSON.stringify(data));
+        mutate({ ...data } as User);
     };
+
     const actionLabel = useMemo(() => {
         if (step === STEPS.IMAGES) {
             return "Create";
@@ -202,18 +226,20 @@ const EditProfileBtn = () => {
             </Flex>
         );
     }
-    if (step === STEPS.TAG) {
+    if (step === STEPS.SKILL) {
         bodyContent = (
             <Flex flexDirection="column" gap={8}>
                 <FormHeading
                     title="Which of these best describes your skills?"
-                    subtitle="Pick some categories"
+                    subtitle="Add some skills"
                 />
                 <HStack>
                     <Input
                         onChange={(e) => setText(e.target.value)}
                         borderColor={"teal.200"}
                         border="1px"
+                        color="gray.600"
+                        fontSize={15}
                         backgroundColor="transparent"
                         variant="filled"
                         _focus={{ borderColor: "teal" }}
@@ -269,7 +295,8 @@ const EditProfileBtn = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 size="2xl"
-                disabled={false}
+                loading={isLoading}
+                disabled={isLoading}
                 title="Update Profile"
                 actionLabel={actionLabel}
                 onSubmit={handleSubmit(onSubmit)}

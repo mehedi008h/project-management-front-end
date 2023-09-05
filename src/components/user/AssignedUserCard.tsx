@@ -37,7 +37,7 @@ const AssignedUserCard = ({ btnText, user }: Props) => {
                                 {`${user?.firstName}  ${user?.lastName}`}
                             </Text>
                             <Text fontSize={12} color="gray.500">
-                                (@{user?._id})
+                                (@{user?.username})
                             </Text>
                         </Flex>
                         <Text fontSize={13} color="gray.500">

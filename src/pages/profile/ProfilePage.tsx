@@ -6,8 +6,10 @@ import { Awards, InfoItem, Skills } from "../../components";
 import { AiOutlinePhone } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import useAuth from "../../hooks/useAuth";
 
 const ProfilePage = () => {
+    const { data: user } = useAuth();
     return (
         <Box bg="blackAlpha.500" p={3} borderRadius="md" w="100%">
             <Flex
@@ -31,7 +33,7 @@ const ProfilePage = () => {
                     height="200px"
                 >
                     <Image
-                        src={placeHolder}
+                        src={user?.photo.url ? user.photo.url : placeHolder}
                         w="100%"
                         h="100%"
                         rounded="md"
@@ -40,35 +42,44 @@ const ProfilePage = () => {
                 </Box>
                 {/* description  */}
                 <Box width="100%">
-                    <Text fontSize={20}>Mehedi Hasan</Text>
+                    <Text fontSize={20}>
+                        {user?.firstName} {user?.lastName}
+                    </Text>
                     <Text mt={2} color="gray.400" fontSize="sm">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Cumque eius adipisci, quasi voluptate neque iure!
+                        {user?.description}
                     </Text>
                     <VStack mt={3} spacing={2}>
-                        <InfoItem
-                            text="Microsoft Corporation"
-                            icon={<HiOutlineOfficeBuilding size="22" />}
-                        />
-                        <InfoItem
-                            text="mehedi08h@gmail.com"
-                            icon={<BiMessageRoundedDetail size="22" />}
-                        />
-                        <InfoItem
-                            text="01990473473"
-                            icon={<AiOutlinePhone size="22" />}
-                        />
-                        <InfoItem
-                            text="Dhanmondi, Dhaka"
-                            icon={<CiLocationOn size="22" />}
-                        />
+                        {user?.work && (
+                            <InfoItem
+                                text={user?.work}
+                                icon={<HiOutlineOfficeBuilding size="22" />}
+                            />
+                        )}
+                        {user?.email && (
+                            <InfoItem
+                                text={user?.email}
+                                icon={<BiMessageRoundedDetail size="22" />}
+                            />
+                        )}
+                        {user?.phone && (
+                            <InfoItem
+                                text={user?.phone}
+                                icon={<AiOutlinePhone size="22" />}
+                            />
+                        )}
+                        {user?.address && (
+                            <InfoItem
+                                text={user?.address}
+                                icon={<CiLocationOn size="22" />}
+                            />
+                        )}
                     </VStack>
                 </Box>
             </Flex>
             <Divider my={5} />
             <Awards />
             <Divider my={5} />
-            <Skills />
+            <Skills skills={user?.skills} />
         </Box>
     );
 };

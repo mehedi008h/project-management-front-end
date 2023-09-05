@@ -1,42 +1,36 @@
-import { Box, Flex, Spinner, useDisclosure } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import { FcInvite } from "react-icons/fc";
-import { AssignedUserCard, Empty, Modal } from "..";
-import useInvitations from "../../hooks/useInvitations";
-import { toast } from "react-hot-toast";
+import { Modal } from "..";
 
 const Invitation = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { data: users, isLoading, error } = useInvitations();
-
-    // send error message
-    if (error) toast.error(error.message);
 
     // modal body
-    const body = (
-        <Box>
-            {isLoading ? (
-                <Box w="100%" textAlign="center">
-                    <Spinner color="red" mt={10} />
-                </Box>
-            ) : (
-                <Box
-                    className="hide-scroll-bar"
-                    mt={2}
-                    maxHeight="60vh"
-                    overflowY="scroll"
-                >
-                    {users?.length === 0 && <Empty text="No Invitations" />}
-                    {users?.map((user) => (
-                        <AssignedUserCard
-                            key={user.id}
-                            btnText="Accept"
-                            user={user}
-                        />
-                    ))}
-                </Box>
-            )}
-        </Box>
-    );
+    // const body = (
+    //     <Box>
+    //         {isLoading ? (
+    //             <Box w="100%" textAlign="center">
+    //                 <Spinner color="red" mt={10} />
+    //             </Box>
+    //         ) : (
+    //             <Box
+    //                 className="hide-scroll-bar"
+    //                 mt={2}
+    //                 maxHeight="60vh"
+    //                 overflowY="scroll"
+    //             >
+    //                 {users?.length === 0 && <Empty text="No Invitations" />}
+    //                 {users?.map((user) => (
+    //                     <AssignedUserCard
+    //                         key={user._id}
+    //                         btnText="Accept"
+    //                         user={user}
+    //                     />
+    //                 ))}
+    //             </Box>
+    //         )}
+    //     </Box>
+    // );
     return (
         <>
             <Flex
@@ -64,7 +58,6 @@ const Invitation = () => {
                 onClose={onClose}
                 disabled={false}
                 title="Invitation"
-                body={body}
             />
         </>
     );

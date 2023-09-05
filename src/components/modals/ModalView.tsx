@@ -18,6 +18,7 @@ interface Props {
     onSubmit?: () => void;
     title?: string;
     body?: React.ReactElement;
+    loading?: boolean;
     actionLabel?: string;
     disabled?: boolean;
     secondaryAction?: () => void;
@@ -32,6 +33,7 @@ const ModalView = ({
     title,
     body,
     actionLabel,
+    loading,
     disabled,
     secondaryAction,
     secondaryActionLabel,
@@ -84,6 +86,7 @@ const ModalView = ({
                             w="100%"
                             fontFamily="monospace"
                             fontSize={16}
+                            isLoading={loading}
                             disabled={disabled}
                             onClick={handleSubmit}
                         >

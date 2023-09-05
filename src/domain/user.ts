@@ -10,10 +10,11 @@ export interface User {
     description: string;
     diamond: number;
     photo: {
-        publicId: string;
+        public_id: string;
         url: string;
     };
     work: string;
+    skills: string[];
     active: true;
     invitations: string[];
     teamMates: string[];

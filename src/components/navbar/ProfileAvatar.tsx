@@ -24,11 +24,18 @@ const ProfileAvatar = () => {
                     {isLoading ? (
                         <SkeletonCircle size="11" />
                     ) : (
-                        <Avatar
-                            name="Mehedi Hasan"
-                            size="md"
-                            cursor="pointer"
-                        />
+                        <Box
+                            bgGradient="linear(to-r, teal.500, green.500)"
+                            p={0.5}
+                            rounded="full"
+                        >
+                            <Avatar
+                                name={user?.firstName}
+                                src={user?.photo.url && user.photo.url}
+                                size="md"
+                                cursor="pointer"
+                            />
+                        </Box>
                     )}
                 </MenuButton>
                 <MenuList px={5}>
@@ -36,6 +43,7 @@ const ProfileAvatar = () => {
                         <HStack px={2} my={2}>
                             <Avatar
                                 name={user?.firstName}
+                                src={user?.photo.url && user.photo.url}
                                 size="md"
                                 cursor="pointer"
                             />

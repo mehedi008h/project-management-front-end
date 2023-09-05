@@ -32,6 +32,8 @@ const SelectField = ({
                     {...register(id, { required })}
                     borderColor={`${errors[id] ? "red" : "teal.200"}`}
                     border="1px"
+                    color="gray.600"
+                    fontSize={15}
                     backgroundColor="transparent"
                     variant="filled"
                     _focus={{ borderColor: `${errors[id] ? "red" : "teal"}` }}
