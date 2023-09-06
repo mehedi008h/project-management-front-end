@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
     Button,
     Flex,
@@ -10,13 +10,22 @@ import {
     VStack,
     useDisclosure,
 } from "@chakra-ui/react";
-import { HiOutlineFolderAdd } from "react-icons/hi";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { FormHeading, ImageUpload, InputField, Modal, TextareaField } from "..";
+import {
+    FormHeading,
+    ImageUpload,
+    InputField,
+    Modal,
+    SelectField,
+    TextareaField,
+} from "..";
 import { LiaHeadingSolid } from "react-icons/lia";
 import { CiCalendarDate } from "react-icons/ci";
 import { MdOutlineUpdate } from "react-icons/md";
-import useCreateProject from "../../hooks/useCreateProject";
+import useProjectStore from "../../store/useProjectStore";
+import useProject from "../../hooks/useProject";
+import { Status } from "../../enums/status.enum";
+import useProjectUpdate from "../../hooks/useProjectUpdate";
 import { Project } from "../../domain/project";
 
 enum STEPS {
@@ -26,27 +35,39 @@ enum STEPS {
     IMAGES = 3,
 }
 
-const AddProjectButton = () => {
+const UpdateProjectBtn = () => {
+    // get project identifier from zustand
+    const projectStore = useProjectStore();
+    const { data: project } = useProject(projectStore.projectId!);
+
     const [step, setStep] = useState(STEPS.INFO);
-    const [tags, setTags] = useState<string[]>([]);
+    const [tags, setTags] = useState<string[]>([...project?.tags]);
     const [text, setText] = useState("");
     // image state
-    const [avatar, setAvatar] = useState("");
+    const [avatar, setAvatar] = useState(project?.photo.url);
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { mutate, isLoading } = useCreateProject();
+
+    const { mutate, isLoading: updateProjectLoading } = useProjectUpdate(
+        projectStore.projectId
+    );
+
     const {
         register,
         handleSubmit,
+        reset,
         setValue,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
+            _id: "",
+            projectIdentifier: "",
             title: "",
             description: "",
             photo: avatar,
             startDate: "",
             endDate: "",
+            status: "",
             tags: tags,
         },
     });
@@ -73,14 +94,6 @@ const AddProjectButton = () => {
         reader.readAsDataURL(e.target.files[0]);
     };
 
-    const onBack = () => {
-        setStep((value) => value - 1);
-    };
-
-    const onNext = () => {
-        setStep((value) => value + 1);
-    };
-
     const handleTags = () => {
         setTags([...tags, text]);
         setCustomValue("tags", [...tags, text]);
@@ -93,6 +106,22 @@ const AddProjectButton = () => {
         console.log("Data: " + JSON.stringify(data));
         mutate(data as Project);
     };
+
+    useEffect(() => {
+        if (project) {
+            reset({
+                _id: project._id,
+                projectIdentifier: project.projectIdentifier,
+                title: project.title,
+                startDate: project.startDate,
+                endDate: project.endDate,
+                description: project.description,
+                status: project.status,
+                tags: project.tags,
+            });
+        }
+    }, [project, reset]);
+
     const actionLabel = useMemo(() => {
         if (step === STEPS.IMAGES) {
             return "Create";
@@ -100,6 +129,14 @@ const AddProjectButton = () => {
 
         return "Next";
     }, [step]);
+
+    const onBack = () => {
+        setStep((value) => value - 1);
+    };
+
+    const onNext = () => {
+        setStep((value) => value + 1);
+    };
 
     const secondaryActionLabel = useMemo(() => {
         if (step === STEPS.INFO) {
@@ -112,7 +149,7 @@ const AddProjectButton = () => {
     let bodyContent = (
         <Flex flexDirection="column" gap={8}>
             <FormHeading
-                title="Share some basics about your project"
+                title="Update some basics about your project"
                 subtitle="What amenities do you have?"
             />
             <VStack spacing={5}>
@@ -171,6 +208,20 @@ const AddProjectButton = () => {
                     title="How would you describe your project?"
                     subtitle="Short and sweet works best!"
                 />
+                <SelectField
+                    id="status"
+                    label="Project Status"
+                    register={register}
+                    errors={errors}
+                    required
+                >
+                    <option value={project?.status}>{project?.status}</option>
+                    {[Status.TODO, Status.PROGRESS, Status.COMPLETED].map(
+                        (status) => (
+                            <option value={status}>{status}</option>
+                        )
+                    )}
+                </SelectField>
                 <TextareaField
                     id="description"
                     label="Description"
@@ -228,32 +279,25 @@ const AddProjectButton = () => {
         );
     }
     return (
-        <Flex
-            onClick={onOpen}
-            justifyContent="center"
-            alignItems="center"
-            h={8}
-            w={12}
-            rounded="md"
-            backgroundColor="maroon"
-            cursor="pointer"
-        >
-            <HiOutlineFolderAdd size={20} />
+        <>
+            <Button onClick={onOpen} fontWeight="normal" fontSize={14}>
+                Update Project
+            </Button>
             <Modal
                 isOpen={isOpen}
                 onClose={onClose}
                 size="2xl"
                 disabled={false}
-                loading={isLoading}
-                title="Create Project"
+                loading={updateProjectLoading}
+                title="Update Project"
                 actionLabel={actionLabel}
                 onSubmit={handleSubmit(onSubmit)}
                 secondaryActionLabel={secondaryActionLabel}
                 secondaryAction={step === STEPS.INFO ? undefined : onBack}
                 body={bodyContent}
             />
-        </Flex>
+        </>
     );
 };
 
-export default AddProjectButton;
+export default UpdateProjectBtn;

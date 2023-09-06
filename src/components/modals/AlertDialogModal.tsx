@@ -15,9 +15,18 @@ interface Props {
     onClose: () => void;
     title: string;
     body: string;
+    handleAction: () => void;
+    loading: boolean;
 }
 
-const AlertDialogModal = ({ isOpen, onClose, title, body }: Props) => {
+const AlertDialogModal = ({
+    isOpen,
+    onClose,
+    title,
+    body,
+    handleAction,
+    loading,
+}: Props) => {
     const cancelRef = React.useRef(null);
     return (
         <>
@@ -45,6 +54,7 @@ const AlertDialogModal = ({ isOpen, onClose, title, body }: Props) => {
                             size="sm"
                             ref={cancelRef}
                             onClick={onClose}
+                            isDisabled={loading}
                         >
                             No
                         </Button>
@@ -54,6 +64,9 @@ const AlertDialogModal = ({ isOpen, onClose, title, body }: Props) => {
                             size="sm"
                             colorScheme="red"
                             ml={3}
+                            onClick={handleAction}
+                            isLoading={loading}
+                            isDisabled={loading}
                         >
                             Yes
                         </Button>

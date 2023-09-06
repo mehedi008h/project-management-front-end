@@ -45,13 +45,18 @@ const ProjectDetailsCard = ({ project, developers, loading }: Props) => {
                         base: "100%",
                     }}
                     height="300px"
+                    border="1px"
+                    borderColor="gray.600"
+                    borderRadius="md"
                 >
                     <Image
-                        src={placeHolder}
+                        src={
+                            project?.photo.url ? project.photo.url : placeHolder
+                        }
                         w="100%"
                         h="100%"
                         rounded="md"
-                        objectFit="cover"
+                        objectFit="contain"
                     />
                 </Box>
                 {/* description  */}

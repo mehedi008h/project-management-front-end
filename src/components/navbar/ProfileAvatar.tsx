@@ -11,11 +11,16 @@ import {
     SkeletonCircle,
     Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useLogout from "../../hooks/useLogout";
 
 const ProfileAvatar = () => {
+    const navigate = useNavigate();
     const { data: user, isLoading } = useAuth();
+    const { mutate: logout, isSuccess, isLoading: logoutLoding } = useLogout();
+
+    if (isSuccess) navigate("/");
 
     return (
         <>
@@ -64,7 +69,9 @@ const ProfileAvatar = () => {
                         <Link to="/profile">
                             <MenuItem>My Account</MenuItem>
                         </Link>
-                        <MenuItem>Logout</MenuItem>
+                        <MenuItem onClick={() => logout()}>
+                            {logoutLoding ? "Loading" : "Logout"}
+                        </MenuItem>
                     </MenuGroup>
                 </MenuList>
             </Menu>

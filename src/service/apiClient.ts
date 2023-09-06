@@ -69,6 +69,11 @@ class APIClient<T> {
             .post<FetchResponse<T>>(this.endpoint, values)
             .then((res) => res.data);
     };
+    delete = async () => {
+        return axiosInstance
+            .delete<FetchResponse<T>>(this.endpoint)
+            .then((res) => res.data);
+    };
 }
 
 export default APIClient;

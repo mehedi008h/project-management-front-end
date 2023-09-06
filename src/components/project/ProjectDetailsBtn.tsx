@@ -13,23 +13,35 @@ import {
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
-import { AlertDialog, Modal, UserCardContainer } from "..";
+import { AlertDialog, Modal, UpdateProjectBtn } from "..";
 import NewTask from "../task/NewTask";
-import { toast } from "react-hot-toast";
-import useTeammates from "../../hooks/useTeammates";
+import useProjectDelete from "../../hooks/useProjectDelete";
+import useProjectStore from "../../store/useProjectStore";
+import { useNavigate } from "react-router-dom";
 
 const ProjectDetailsBtn = () => {
     const [modalType, setModalType] = useState("");
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const { data: users, isLoading, error } = useTeammates();
+    // get project identifier from zustand
+    const projectStore = useProjectStore();
 
-    if (error) toast.error(error.message);
+    // delete project
+    const { mutate, isLoading } = useProjectDelete(projectStore.projectId);
+    const navigate = useNavigate();
 
     const handleModal = (type: string) => {
         onOpen();
         setModalType(type);
+    };
+
+    const handleDelete = () => {
+        mutate();
+        if (!isLoading) {
+            navigate("/projects");
+            onClose();
+        }
     };
 
     return (
@@ -59,9 +71,7 @@ const ProjectDetailsBtn = () => {
                 >
                     Add Task
                 </Button>
-                <Button fontWeight="normal" fontSize={14}>
-                    Update Project
-                </Button>
+                <UpdateProjectBtn />
                 <Button
                     onClick={() => handleModal("deleteProject")}
                     fontWeight="normal"
@@ -100,13 +110,6 @@ const ProjectDetailsBtn = () => {
                     onClose={onClose}
                     disabled={false}
                     title="Assign Developer"
-                    body={
-                        <UserCardContainer
-                            users={users}
-                            loading={isLoading}
-                            btnText="Assign"
-                        />
-                    }
                 />
             )}
             {/* modal  assignTask*/}
@@ -127,6 +130,8 @@ const ProjectDetailsBtn = () => {
                     body="Your project will be deleted"
                     isOpen={isOpen}
                     onClose={onClose}
+                    handleAction={handleDelete}
+                    loading={isLoading}
                 />
             )}
         </>

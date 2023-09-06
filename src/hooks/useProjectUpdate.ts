@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient, { ErrorResponse, FetchResponse } from "../service/apiClient";
-import { User } from "../domain/user";
 import { toast } from "react-hot-toast";
+import { Project } from "../domain/project";
 
-const useLogin = () => {
+const useProjectUpdate = (projectIdentifier: string) => {
     const queryClient = useQueryClient();
-    const apiClient = new APIClient<User>("/auth/login");
-    return useMutation<FetchResponse<User>, ErrorResponse, User>({
-        mutationFn: (data) => apiClient.post(data),
+    const apiClient = new APIClient<Project>("/project/update");
+    return useMutation<FetchResponse<Project>, ErrorResponse, Project>({
+        mutationFn: (data) => apiClient.put(data),
         onSuccess: (response) => {
             response.data;
-            queryClient.invalidateQueries(["user"]);
+            queryClient.invalidateQueries(["project", projectIdentifier]);
             if (response.statusCode == 200) {
                 toast.success(response.message);
             } else {
@@ -23,4 +23,4 @@ const useLogin = () => {
     });
 };
 
-export default useLogin;
+export default useProjectUpdate;

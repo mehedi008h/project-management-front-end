@@ -3,7 +3,7 @@ import { ChangeEventHandler } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
 
 interface Props {
-    avatar: string;
+    avatar?: string;
     uploadAvatar: ChangeEventHandler<HTMLInputElement>;
 }
 

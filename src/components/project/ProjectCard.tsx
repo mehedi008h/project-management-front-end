@@ -41,9 +41,9 @@ const ProjectCard = ({ portfolio = false, project }: Props) => {
                 <Image
                     h="100%"
                     w="100%"
-                    objectFit="cover"
+                    objectFit="contain"
                     rounded="md"
-                    src={project.photo.url ? image : image}
+                    src={project.photo.url ? project.photo.url : image}
                     alt={project.title}
                 />
             </Box>
