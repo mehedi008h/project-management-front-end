@@ -1,6 +1,10 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 
-const TaskTableHeading = () => {
+interface Props {
+    projectLeader?: boolean;
+}
+
+const TaskTableHeading = ({ projectLeader }: Props) => {
     return (
         <Box
             mt={5}
@@ -28,17 +32,20 @@ const TaskTableHeading = () => {
                 >
                     # Task Name
                 </GridItem>
-                <GridItem
-                    display="flex"
-                    w="100%"
-                    borderRight="1px"
-                    borderColor="gray.800"
-                    alignItems="center"
-                    justifyContent="start"
-                    pl={3}
-                >
-                    Status{" "}
-                </GridItem>
+                {!projectLeader && (
+                    <GridItem
+                        display="flex"
+                        w="100%"
+                        borderRight="1px"
+                        borderColor="gray.800"
+                        alignItems="center"
+                        justifyContent="start"
+                        pl={3}
+                    >
+                        Status{" "}
+                    </GridItem>
+                )}
+
                 <GridItem
                     display="flex"
                     w="100%"
@@ -64,12 +71,27 @@ const TaskTableHeading = () => {
                 <GridItem
                     w="100%"
                     display="flex"
+                    borderRight="1px"
+                    borderColor="gray.800"
                     alignItems="center"
                     justifyContent="start"
                     pl={3}
                 >
                     Due Date{" "}
                 </GridItem>
+                {projectLeader && (
+                    <GridItem
+                        display="flex"
+                        w="100%"
+                        borderRight="1px"
+                        borderColor="gray.800"
+                        alignItems="center"
+                        justifyContent="start"
+                        pl={3}
+                    >
+                        Action{" "}
+                    </GridItem>
+                )}
             </Grid>
         </Box>
     );

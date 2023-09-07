@@ -1,4 +1,4 @@
-import { Box, InputGroup, Select, Text } from "@chakra-ui/react";
+import { Box, HStack, InputGroup, Select, Tag, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
@@ -6,6 +6,7 @@ import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 interface Props {
     id: string;
     label?: string;
+    value?: string;
     disabled?: boolean;
     required?: boolean;
     register: UseFormRegister<FieldValues>;
@@ -16,6 +17,7 @@ interface Props {
 const SelectField = ({
     id,
     label,
+    value,
     disabled,
     required,
     register,
@@ -24,7 +26,14 @@ const SelectField = ({
 }: Props) => {
     return (
         <Box textAlign="start" width={"100%"}>
-            <Text mb="8px">{label}</Text>
+            <HStack alignItems="center" mb="8px">
+                <Text>{label}</Text>
+                {value && (
+                    <Tag fontFamily="monospace" colorScheme="messenger">
+                        {value}
+                    </Tag>
+                )}
+            </HStack>
             <InputGroup>
                 <Select
                     id={id}

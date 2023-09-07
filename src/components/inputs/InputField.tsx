@@ -1,9 +1,11 @@
 import {
     Box,
+    HStack,
     Input,
     InputGroup,
     InputLeftElement,
     InputRightElement,
+    Tag,
     Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -13,6 +15,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 interface Props {
     id: string;
     label?: string;
+    value?: string;
     placeHolder: string;
     type?: string;
     disabled?: boolean;
@@ -26,6 +29,7 @@ interface Props {
 const InputField = ({
     id,
     label,
+    value,
     placeHolder,
     type,
     disabled,
@@ -39,7 +43,14 @@ const InputField = ({
     const handleClick = () => setShow(!show);
     return (
         <Box textAlign="start" width={"100%"}>
-            <Text mb="8px">{label}</Text>
+            <HStack alignItems="center" mb="8px">
+                <Text>{label}</Text>
+                {value && (
+                    <Tag fontFamily="monospace" colorScheme="messenger">
+                        {value}
+                    </Tag>
+                )}
+            </HStack>
             <InputGroup>
                 <InputLeftElement
                     pointerEvents="none"

@@ -1,46 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge, Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LiaHeadingSolid } from "react-icons/lia";
 import { CiCalendarDate } from "react-icons/ci";
 import { MdOutlineUpdate } from "react-icons/md";
+import moment from "moment";
 
 import { InputField, SelectField, TextareaField } from "..";
 import useProjectStore from "../../store/useProjectStore";
 import useProject from "../../hooks/useProject";
 import useProjectDeveloper from "../../hooks/useProjectDeveloper";
-import useAssignTask from "../../hooks/useAssignTask";
+import { Priority } from "../../enums/priority.enum";
+import useTask from "../../hooks/useTask";
+import useTaskUpdate from "../../hooks/useTaskUpdate";
 import { Task } from "../../domain/task";
 
-const NewTask = () => {
-    const [tags, setTags] = useState<string[]>([]);
+const UpdateTask = () => {
     // get project identifier from zustand store
     const project = useProjectStore();
 
-    const {
-        mutate,
-
-        isLoading: createtaskLoading,
-    } = useAssignTask(project.projectId);
-
     // fetch project & project developers
-    const { data } = useProject(project.projectId!);
+    const { data: projectDetails } = useProject(project.projectId);
+    const { data: task } = useTask(project.taskId);
     const { data: developers, isLoading: developerLoading } =
-        useProjectDeveloper(project.projectId!);
+        useProjectDeveloper(project.projectId);
+
+    const { mutate: updateTask, isLoading: taskUpdateLoading } = useTaskUpdate(
+        project.projectId
+    );
+
+    const [tags, setTags] = useState<string[]>([]);
 
     const {
         register,
         setValue,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
+            _id: "",
+            taskIdentifier: "",
             title: "",
             startDate: "",
             endDate: "",
             description: "",
             developer: "",
             tags: "",
+            priority: "",
         },
     });
 
@@ -65,8 +72,24 @@ const NewTask = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         console.log("Data: " + JSON.stringify(data));
-        mutate(data as Task);
+        updateTask(data as Task);
     };
+
+    useEffect(() => {
+        if (task) {
+            reset({
+                _id: task._id,
+                taskIdentifier: task.taskIdentifier,
+                title: task.title,
+                startDate: task.startDate,
+                endDate: task.endDate,
+                description: task.description,
+                developer: task.developer,
+                tags: task.tags,
+                priority: task.priority,
+            });
+        }
+    }, [task, reset]);
 
     return (
         <VStack spacing={5}>
@@ -85,6 +108,7 @@ const NewTask = () => {
                     id="startDate"
                     type="date"
                     label="Start Date"
+                    value={moment(task?.startDate).format("Do MMM YYYY")}
                     placeHolder="Start Date"
                     register={register}
                     icon={<CiCalendarDate />}
@@ -95,6 +119,7 @@ const NewTask = () => {
                     id="endDate"
                     type="date"
                     label="End Date"
+                    value={moment(task?.endDate).format("Do MMM YYYY")}
                     placeHolder="End Date"
                     register={register}
                     icon={<MdOutlineUpdate />}
@@ -109,25 +134,41 @@ const NewTask = () => {
                 errors={errors}
                 required
             />
-
-            <SelectField
-                id="developer"
-                label="Developer"
-                register={register}
-                errors={errors}
-                required
-            >
-                <option value="">Choose Developer</option>
-                {developers?.map((developer) => (
-                    <option value={developer._id}>
-                        {developer.firstName} {developer.lastName}
-                    </option>
-                ))}
-            </SelectField>
+            <HStack w="100%">
+                <SelectField
+                    id="developer"
+                    label="Developer"
+                    register={register}
+                    errors={errors}
+                    required
+                >
+                    <option value="">Choose Developer</option>
+                    {developers?.map((developer) => (
+                        <option value={developer._id}>
+                            {developer.firstName} {developer.lastName}
+                        </option>
+                    ))}
+                </SelectField>
+                <SelectField
+                    id="priority"
+                    label="Task Priority"
+                    value={task?.priority}
+                    register={register}
+                    errors={errors}
+                    required
+                >
+                    <option value="">Choose Priority</option>
+                    {[Priority.LOW, Priority.MEDIUM, Priority.HIGH]?.map(
+                        (priority) => (
+                            <option value={priority}>{priority}</option>
+                        )
+                    )}
+                </SelectField>
+            </HStack>
             <Box textAlign="start" width={"100%"}>
                 <Text mb="8px">Working Tech</Text>
                 <HStack w="100%" flexWrap="wrap" spacing={3}>
-                    {data?.tags.map((tag, i) => (
+                    {projectDetails?.tags.map((tag, i) => (
                         <Badge
                             onClick={() => handleTags(tag)}
                             colorScheme={
@@ -154,14 +195,14 @@ const NewTask = () => {
                 fontFamily="monospace"
                 fontSize={16}
                 onClick={handleSubmit(onSubmit)}
-                isLoading={createtaskLoading}
-                disabled={createtaskLoading}
+                isDisabled={taskUpdateLoading}
+                isLoading={taskUpdateLoading}
                 marginBottom={3}
             >
-                Assign
+                Update Task
             </Button>
         </VStack>
     );
 };
 
-export default NewTask;
+export default UpdateTask;

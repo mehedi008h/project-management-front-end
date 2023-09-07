@@ -14,7 +14,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineTimer } from "react-icons/md";
 import { GiSandsOfTime } from "react-icons/gi";
 import { Tooltip } from "react-tooltip";
-import { Modal, TaskDetails } from "..";
+import { Modal, TaskAction, TaskDetails } from "..";
 import { Task } from "../../domain/task";
 import { Status } from "../../enums/status.enum";
 import moment from "moment";
@@ -22,9 +22,10 @@ import { Priority } from "../../enums/priority.enum";
 
 interface Props {
     task?: Task;
+    projectLeader?: boolean;
 }
 
-const TableContent = ({ task }: Props) => {
+const TableContent = ({ task, projectLeader }: Props) => {
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -120,23 +121,26 @@ const TableContent = ({ task }: Props) => {
                     </Flex>
                 </Flex>
             </GridItem>
-            <GridItem
-                w="100%"
-                borderRight="1px"
-                borderColor="gray.800"
-                display="flex"
-                alignItems="center"
-                justifyContent="start"
-                px={3}
-            >
-                <Flex w="100%" alignItems="center" gap={1}>
-                    {task?.tags.map((tag, i) => (
-                        <Badge key={i} colorScheme="yellow">
-                            {tag}
-                        </Badge>
-                    ))}
-                </Flex>
-            </GridItem>
+            {!projectLeader && (
+                <GridItem
+                    w="100%"
+                    borderRight="1px"
+                    borderColor="gray.800"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="start"
+                    px={3}
+                >
+                    <Flex w="100%" alignItems="center" gap={1}>
+                        {task?.tags.map((tag, i) => (
+                            <Badge key={i} colorScheme="yellow">
+                                {tag}
+                            </Badge>
+                        ))}
+                    </Flex>
+                </GridItem>
+            )}
+
             {/* remaining days  */}
             <GridItem
                 w="100%"
@@ -180,6 +184,8 @@ const TableContent = ({ task }: Props) => {
                 display="flex"
                 alignItems="center"
                 justifyContent="start"
+                borderRight="1px"
+                borderColor="gray.800"
                 pl={3}
             >
                 <Badge px={2} py={1} colorScheme="red">
@@ -191,6 +197,9 @@ const TableContent = ({ task }: Props) => {
                     </Flex>
                 </Badge>
             </GridItem>
+            {projectLeader && (
+                <TaskAction taskIdentifier={task?.taskIdentifier} />
+            )}
         </Grid>
     );
 };

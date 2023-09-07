@@ -13,12 +13,12 @@ const ProjectSelector = () => {
                 display="flex"
                 alignItems="start"
             >
-                <SelectOption button />
+                <SelectOption arrow />
             </MenuButton>
 
             <MenuList w="100%" marginTop={5}>
-                <SelectOption button={false} />
-                <SelectOption button={false} />
+                <SelectOption arrow={false} />
+                <SelectOption arrow={false} />
             </MenuList>
         </Menu>
     );

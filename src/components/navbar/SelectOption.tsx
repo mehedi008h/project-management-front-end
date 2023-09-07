@@ -1,10 +1,10 @@
 import { Box, HStack, Image, MenuItem, Text } from "@chakra-ui/react";
 
 interface Props {
-    button: boolean;
+    arrow: boolean;
 }
 
-const SelectOption = ({ button }: Props) => {
+const SelectOption = ({ arrow = true }: Props) => {
     return (
         <MenuItem minH="48px" w="100%">
             <HStack>
@@ -16,7 +16,7 @@ const SelectOption = ({ button }: Props) => {
                     mr="12px"
                 />
                 <Box>
-                    {button ? (
+                    {arrow ? (
                         <Text fontWeight="medium" w="75%" overflow="hidden">
                             Fluffybuns the Destroyer dfgdfgdfshsdhshdfdsfds
                         </Text>

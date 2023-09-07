@@ -52,7 +52,7 @@ const ProjectCard = ({ portfolio = false, project }: Props) => {
                     {project.title}
                 </Link>
                 <Text fontSize={14} color="gray.600">
-                    {project.description}
+                    {project.description.substring(0, 90)}
                 </Text>
                 <HStack spacing={3} flexWrap="wrap" my={1}>
                     {project.tags.map((tag, i) => (

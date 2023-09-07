@@ -41,6 +41,8 @@ export { default as TableContent } from "./task/TableContent";
 export { default as MobileTableContent } from "./task/MobileTableContent";
 export { default as Tasks } from "./task/Tasks";
 export { default as TaskDetails } from "./task/TaskDetails";
+export { default as TaskAction } from "./task/TaskAction";
+export { default as UpdateTask } from "./task/UpdateTask";
 
 export { default as AssignedUserCard } from "./user/AssignedUserCard";
 export { default as UserCard } from "./user/UserCard";
