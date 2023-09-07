@@ -4,6 +4,7 @@ import {
     Button,
     Divider,
     Flex,
+    HStack,
     Stack,
     Text,
 } from "@chakra-ui/react";
@@ -15,6 +16,8 @@ import moment from "moment";
 import { Task } from "../../domain/task";
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
+import { Status } from "../../enums/status.enum";
+import useChangeTaskStatus from "../../hooks/useChangeTaskStatus";
 
 interface Props {
     task?: Task;
@@ -26,6 +29,13 @@ const TaskDetails = ({ task, developer }: Props) => {
     const a = moment(task?.endDate);
     const b = moment(task?.startDate);
     const remaining = a.diff(b, "days");
+
+    const { mutate, isLoading } = useChangeTaskStatus(task?.taskIdentifier);
+
+    const handleStatus = (status: string) => {
+        mutate({ status } as Task);
+    };
+
     return (
         <Box fontWeight="medium">
             <Flex justifyContent="space-between" alignItems="center">
@@ -126,9 +136,60 @@ const TaskDetails = ({ task, developer }: Props) => {
             <Divider my={2} />
             {/* TODO: Change task status by developer */}
             {developer && (
-                <Button size="md" w="100%" fontFamily="monospace" fontSize={16}>
-                    Continue
-                </Button>
+                <>
+                    {task?.status === Status.TODO && (
+                        <Button
+                            size="md"
+                            w="100%"
+                            fontFamily="monospace"
+                            fontSize={16}
+                            isLoading={isLoading}
+                            isDisabled={isLoading}
+                            onClick={() => handleStatus(Status.PROGRESS)}
+                        >
+                            Progress
+                        </Button>
+                    )}
+                    {task?.status === Status.PROGRESS && (
+                        <HStack>
+                            <Button
+                                size="md"
+                                w="100%"
+                                fontFamily="monospace"
+                                fontSize={16}
+                                isLoading={isLoading}
+                                isDisabled={isLoading}
+                                onClick={() => handleStatus(Status.TODO)}
+                            >
+                                Todo
+                            </Button>
+                            <Button
+                                size="md"
+                                w="100%"
+                                fontFamily="monospace"
+                                fontSize={16}
+                                isLoading={isLoading}
+                                isDisabled={isLoading}
+                                onClick={() => handleStatus(Status.COMPLETED)}
+                            >
+                                Complete
+                            </Button>
+                        </HStack>
+                    )}
+                    {task?.status === Status.COMPLETED && (
+                        <Button
+                            size="md"
+                            w="100%"
+                            fontFamily="monospace"
+                            fontSize={16}
+                            isLoading={isLoading}
+                            isDisabled={isLoading}
+                            onClick={() => handleStatus(Status.PROGRESS)}
+                        >
+                            Progress
+                        </Button>
+                    )}
+                </>
             )}
         </Box>
     );
