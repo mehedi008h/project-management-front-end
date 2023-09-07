@@ -3,6 +3,7 @@ import { Button, GridItem, HStack, useDisclosure } from "@chakra-ui/react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { AlertDialog, Modal, UpdateTask } from "..";
 import useProjectStore from "../../store/useProjectStore";
+import useTaskDelete from "../../hooks/useTaskDelete";
 
 interface Props {
     taskIdentifier?: string;
@@ -12,6 +13,7 @@ const TaskAction = ({ taskIdentifier }: Props) => {
     const [modalType, setModalType] = useState("");
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { mutate, isLoading } = useTaskDelete(taskIdentifier!);
 
     // store task identifier in zustand
     const project = useProjectStore();
@@ -21,7 +23,12 @@ const TaskAction = ({ taskIdentifier }: Props) => {
         onOpen();
         setModalType(type);
     };
-    const handleDelete = () => {};
+
+    // delete task by project leader
+    const handleDelete = () => {
+        mutate();
+        onClose();
+    };
     return (
         <>
             <GridItem
@@ -63,7 +70,7 @@ const TaskAction = ({ taskIdentifier }: Props) => {
                     isOpen={isOpen}
                     onClose={onClose}
                     handleAction={handleDelete}
-                    loading={true}
+                    loading={isLoading}
                 />
             )}
         </>

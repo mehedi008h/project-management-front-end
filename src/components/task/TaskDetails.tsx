@@ -18,9 +18,10 @@ import { IoIosArrowForward } from "react-icons/io";
 
 interface Props {
     task?: Task;
+    developer?: boolean;
 }
 
-const TaskDetails = ({ task }: Props) => {
+const TaskDetails = ({ task, developer }: Props) => {
     // calculate days
     const a = moment(task?.endDate);
     const b = moment(task?.startDate);
@@ -123,6 +124,12 @@ const TaskDetails = ({ task }: Props) => {
                 </Box>
             </Flex>
             <Divider my={2} />
+            {/* TODO: Change task status by developer */}
+            {developer && (
+                <Button size="md" w="100%" fontFamily="monospace" fontSize={16}>
+                    Continue
+                </Button>
+            )}
         </Box>
     );
 };

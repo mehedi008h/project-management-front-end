@@ -19,6 +19,7 @@ import { Task } from "../../domain/task";
 import { Status } from "../../enums/status.enum";
 import moment from "moment";
 import { Priority } from "../../enums/priority.enum";
+import useAuth from "../../hooks/useAuth";
 
 interface Props {
     task?: Task;
@@ -28,6 +29,11 @@ interface Props {
 const TableContent = ({ task, projectLeader }: Props) => {
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { data: user } = useAuth();
+
+    // check task developer
+    const taskDeveloper: boolean =
+        user && task?.developer == user._id ? true : false;
 
     // calculate days
     const a = moment(task?.endDate);
@@ -70,7 +76,7 @@ const TableContent = ({ task, projectLeader }: Props) => {
                         <Text>{task?.taskIdentifier}</Text>
 
                         <IoCheckmarkDoneCircleSharp
-                            id="status"
+                            id={task?.taskIdentifier}
                             size={16}
                             color={
                                 task?.status === Status.COMPLETED
@@ -81,7 +87,7 @@ const TableContent = ({ task, projectLeader }: Props) => {
                             }
                         />
                         <Tooltip
-                            anchorId="status"
+                            anchorId={task?.taskIdentifier}
                             place="top"
                             content={task?.status.toUpperCase()}
                         />
@@ -93,31 +99,39 @@ const TableContent = ({ task, projectLeader }: Props) => {
                             <IoChatboxEllipsesOutline size={16} color="green" />
                             <Text>20</Text>
                         </Flex>
-                        <Flex
-                            gap={1}
-                            alignItems="center"
-                            cursor="pointer"
-                            _hover={{ color: "yellow" }}
-                        >
-                            <Text onClick={onOpen} cursor="pointer">
-                                Details
-                            </Text>
-                            {/*task details modal */}
-                            <Modal
-                                isOpen={isOpen}
-                                onClose={onClose}
-                                disabled={false}
-                                title="Task Details"
-                                actionLabel="Continue"
-                                onSubmit={() => ""}
-                                body={<TaskDetails task={task} />}
-                            />
-                            <IoIosArrowForward
-                                size={16}
-                                color="green"
-                                className="next_btn"
-                            />
-                        </Flex>
+                        {/* task details avaliable for project leader & task developer */}
+                        {taskDeveloper && projectLeader && (
+                            <Flex
+                                gap={1}
+                                alignItems="center"
+                                cursor="pointer"
+                                _hover={{ color: "yellow" }}
+                            >
+                                <Text onClick={onOpen} cursor="pointer">
+                                    Details
+                                </Text>
+                                {/*task details modal */}
+
+                                <Modal
+                                    isOpen={isOpen}
+                                    onClose={onClose}
+                                    disabled={false}
+                                    title="Task Details"
+                                    body={
+                                        <TaskDetails
+                                            task={task}
+                                            developer={taskDeveloper}
+                                        />
+                                    }
+                                />
+
+                                <IoIosArrowForward
+                                    size={16}
+                                    color="green"
+                                    className="next_btn"
+                                />
+                            </Flex>
+                        )}
                     </Flex>
                 </Flex>
             </GridItem>

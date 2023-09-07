@@ -17,11 +17,9 @@ const NewTask = () => {
     // get project identifier from zustand store
     const project = useProjectStore();
 
-    const {
-        mutate,
-
-        isLoading: createtaskLoading,
-    } = useAssignTask(project.projectId);
+    const { mutate, isLoading: createtaskLoading } = useAssignTask(
+        project.projectId
+    );
 
     // fetch project & project developers
     const { data } = useProject(project.projectId!);
@@ -31,6 +29,7 @@ const NewTask = () => {
     const {
         register,
         setValue,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm<FieldValues>({
@@ -64,8 +63,8 @@ const NewTask = () => {
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log("Data: " + JSON.stringify(data));
         mutate(data as Task);
+        reset();
     };
 
     return (
