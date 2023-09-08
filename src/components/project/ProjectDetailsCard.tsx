@@ -14,15 +14,23 @@ import { User } from "../../domain/user";
 interface Props {
     project: Project | undefined;
     developers: User[] | undefined;
+    totalTask: number | undefined;
+    projectLeader?: boolean;
     loading: boolean;
 }
 
-const ProjectDetailsCard = ({ project, developers, loading }: Props) => {
+const ProjectDetailsCard = ({
+    project,
+    developers,
+    totalTask,
+    projectLeader,
+    loading,
+}: Props) => {
     return (
         <Box my={5} bg="blackAlpha.500" p={4} borderRadius="md">
             <Flex justify="space-between" alignItems="center">
                 <Text>Project Identifier # {project?.projectIdentifier}</Text>
-                <ProjectDetailsBtn />
+                {projectLeader && <ProjectDetailsBtn />}
             </Flex>
 
             <Flex
@@ -122,7 +130,7 @@ const ProjectDetailsCard = ({ project, developers, loading }: Props) => {
                             >
                                 Task
                             </Text>{" "}
-                            (20)
+                            ({totalTask})
                         </Flex>
                     </Flex>
 

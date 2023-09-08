@@ -35,6 +35,7 @@ export { default as ProjectDetailsBtn } from "./project/ProjectDetailsBtn";
 export { default as ProjectConatiner } from "./project/ProjectConatiner";
 export { default as UserCardContainer } from "./project/UserCardContainer";
 export { default as UpdateProjectBtn } from "./project/UpdateProjectBtn";
+export { default as AssignDeveloper } from "./project/AssignDeveloper";
 
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";

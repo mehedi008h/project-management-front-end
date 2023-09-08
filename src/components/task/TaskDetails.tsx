@@ -5,6 +5,7 @@ import {
     Divider,
     Flex,
     HStack,
+    Spinner,
     Stack,
     Text,
 } from "@chakra-ui/react";
@@ -18,6 +19,7 @@ import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { Status } from "../../enums/status.enum";
 import useChangeTaskStatus from "../../hooks/useChangeTaskStatus";
+import useUserDetails from "../../hooks/useUserDetails";
 
 interface Props {
     task?: Task;
@@ -25,6 +27,9 @@ interface Props {
 }
 
 const TaskDetails = ({ task, developer }: Props) => {
+    const { data: leader, isLoading: leaderLoading } = useUserDetails(
+        task?.assigned as string
+    );
     // calculate days
     const a = moment(task?.endDate);
     const b = moment(task?.startDate);
@@ -124,15 +129,29 @@ const TaskDetails = ({ task, developer }: Props) => {
             <Divider my={2} />
             <Text>Assigned By</Text>
 
-            <Flex alignItems="center" gap={3} my={2}>
-                <Avatar name="Mehedi Hasan" size="sm" />
-                <Box>
-                    <Text fontSize={16}>Mehedi Hasan</Text>
-                    <Text fontSize={12} color="gray.300">
-                        Software Engineer
-                    </Text>
+            {leaderLoading ? (
+                <Box w="100%" textAlign="center">
+                    <Spinner color="red" mt={10} />
                 </Box>
-            </Flex>
+            ) : (
+                <Flex alignItems="center" gap={2} my={2}>
+                    <Avatar name={leader?.firstName} size="sm" />
+                    <Box>
+                        <Flex alignItems="center" gap={1}>
+                            <Text>
+                                {`${leader?.firstName}  ${leader?.lastName}`}
+                            </Text>
+                            <Text fontSize={12} color="gray.500">
+                                (@{leader?.username})
+                            </Text>
+                        </Flex>
+                        <Text fontSize={13} color="gray.500">
+                            {leader?.email}
+                        </Text>
+                    </Box>
+                </Flex>
+            )}
+
             <Divider my={2} />
             {/* TODO: Change task status by developer */}
             {developer && (

@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../service/apiClient";
 import { User } from "../domain/user";
 import { toast } from "react-hot-toast";
 
 const useAssignDeveloper = (projectIdentifier: string) => {
+    const queryClient = useQueryClient();
     const apiClient = new APIClient<User>(
         `/project/assign-developer/${projectIdentifier}`
     );
@@ -11,6 +12,7 @@ const useAssignDeveloper = (projectIdentifier: string) => {
         mutationFn: (user) => apiClient.put(user),
         onSuccess: (response) => {
             response.data;
+            queryClient.invalidateQueries(["project", projectIdentifier]);
             if (response.statusCode === 200) {
                 toast.success(response.message);
             } else {

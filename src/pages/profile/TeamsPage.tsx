@@ -1,12 +1,9 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { Empty, UserCard } from "../../components";
-import useTeammates from "../../hooks/useTeamMates";
-import { toast } from "react-hot-toast";
+import useTeammates from "../../hooks/useTeammates";
 
 const TeamsPage = () => {
-    const { data: teams, isLoading, error } = useTeammates();
-    // send error message
-    if (error) toast.error(error.message);
+    const { data: teams, isLoading } = useTeammates();
     return (
         <Grid
             templateColumns={{
@@ -25,7 +22,7 @@ const TeamsPage = () => {
                         <Empty text="Don't have team member yet" />
                     )}
                     {teams?.map((user) => (
-                        <GridItem key={user.id}>
+                        <GridItem key={user._id}>
                             <UserCard user={user} />
                         </GridItem>
                     ))}

@@ -43,6 +43,8 @@ const ProjectDetailsPage = () => {
                 <ProjectDetailsCard
                     project={project}
                     developers={developers}
+                    totalTask={tasks?.length}
+                    projectLeader={projectLeader}
                     loading={developerLoading}
                 />
             )}

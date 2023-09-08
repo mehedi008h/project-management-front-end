@@ -35,6 +35,8 @@ const TableContent = ({ task, projectLeader }: Props) => {
     const taskDeveloper: boolean =
         user && task?.developer == user._id ? true : false;
 
+    const access = projectLeader || taskDeveloper;
+
     // calculate days
     const a = moment(task?.endDate);
     const b = moment(task?.startDate);
@@ -100,7 +102,7 @@ const TableContent = ({ task, projectLeader }: Props) => {
                             <Text>20</Text>
                         </Flex>
                         {/* task details avaliable for project leader & task developer */}
-                        {taskDeveloper && projectLeader && (
+                        {access && (
                             <Flex
                                 gap={1}
                                 alignItems="center"

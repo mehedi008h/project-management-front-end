@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { EditProfileBtn, Invitation } from "..";
 import { PiMicrosoftTeamsLogoDuotone } from "react-icons/pi";
 import useAuth from "../../hooks/useAuth";
+import avatar from "../../assets/profile.png";
 
 const ProfileBar = () => {
     const { data: user } = useAuth();
@@ -64,7 +65,7 @@ const ProfileBar = () => {
             <Box position="relative">
                 <Avatar
                     name={user?.firstName}
-                    src={user?.photo.url}
+                    // src={user ? user?.photo.url : avatar}
                     size="2xl"
                 />
                 <Flex

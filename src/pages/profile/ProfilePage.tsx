@@ -33,7 +33,7 @@ const ProfilePage = () => {
                     height="200px"
                 >
                     <Image
-                        src={user?.photo.url ? user.photo.url : placeHolder}
+                        src={placeHolder}
                         w="100%"
                         h="100%"
                         rounded="md"

@@ -13,7 +13,7 @@ import {
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
-import { AlertDialog, Modal, UpdateProjectBtn } from "..";
+import { AlertDialog, AssignDeveloper, Modal, UpdateProjectBtn } from "..";
 import NewTask from "../task/NewTask";
 import useProjectDelete from "../../hooks/useProjectDelete";
 import useProjectStore from "../../store/useProjectStore";
@@ -110,6 +110,7 @@ const ProjectDetailsBtn = () => {
                     onClose={onClose}
                     disabled={false}
                     title="Assign Developer"
+                    body={<AssignDeveloper />}
                 />
             )}
             {/* modal  assignTask*/}

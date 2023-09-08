@@ -1,15 +1,15 @@
 import { Box, Spinner } from "@chakra-ui/react";
+import useTeammates from "../../hooks/useTeammates";
 import { AssignedUserCard, SearchInput } from "..";
-import useUsers from "../../hooks/useUsers";
 import useUserStore from "../../store/useUserStore";
 import { Types } from "../../enums/types.enum";
 
-const InviteNewMember = () => {
-    const { data: users, isLoading } = useUsers();
+const AssignDeveloper = () => {
+    const { data: users, isLoading } = useTeammates();
 
     // store type in store
     const userStore = useUserStore();
-    if (users) userStore.type = Types.SEND;
+    if (users) userStore.type = Types.ASSIGN;
 
     return (
         <Box pb={5}>
@@ -34,4 +34,4 @@ const InviteNewMember = () => {
     );
 };
 
-export default InviteNewMember;
+export default AssignDeveloper;

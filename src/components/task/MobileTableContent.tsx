@@ -76,8 +76,6 @@ const MobileTableContent = ({ task }: Props) => {
                     onClose={onClose}
                     disabled={false}
                     title="Task Details"
-                    actionLabel="Continue"
-                    onSubmit={() => ""}
                     body={<TaskDetails task={task} />}
                 />
             </HStack>

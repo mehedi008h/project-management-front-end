@@ -31,10 +31,10 @@ import useAuth from "../../hooks/useAuth";
 const EditProfileBtn = () => {
     const { data: user, isLoading: userLoading } = useAuth();
     const [step, setStep] = useState(STEPS.INFO);
-    const [skills, setSkills] = useState<string[]>([...user?.skills]);
+    const [skills, setSkills] = useState<string[]>([]);
     const [text, setText] = useState("");
     // image state
-    const [avatar, setAvatar] = useState(user?.photo.url);
+    const [avatar, setAvatar] = useState();
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
 
