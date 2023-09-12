@@ -1,14 +1,10 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { Heading, ProjectConatiner } from "..";
 import useProjects from "../../hooks/useProjects";
-import { toast } from "react-hot-toast";
 import { Status } from "../../enums/status.enum";
 
 const Projects = () => {
-    const { data: projects, isLoading, error } = useProjects();
-
-    // show error message
-    if (error) toast.error(error.message);
+    const { data: projects, isLoading } = useProjects();
 
     // todo projects
     const todos = projects?.filter((project) => project.status === Status.TODO);

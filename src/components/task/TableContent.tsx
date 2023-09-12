@@ -75,8 +75,6 @@ const TableContent = ({ task, projectLeader }: Props) => {
                     alignItems="center"
                 >
                     <Flex gap={2} alignItems="center">
-                        <Text>{task?.taskIdentifier}</Text>
-
                         <IoCheckmarkDoneCircleSharp
                             id={task?.taskIdentifier}
                             size={16}
@@ -94,7 +92,7 @@ const TableContent = ({ task, projectLeader }: Props) => {
                             content={task?.status.toUpperCase()}
                         />
 
-                        <Text>{task?.title.substring(0, 28)}</Text>
+                        <Text>{task?.title.substring(0, 40)}</Text>
                     </Flex>
                     <Flex pr={4} gap="3">
                         <Flex gap={1} alignItems="center">
@@ -147,9 +145,13 @@ const TableContent = ({ task, projectLeader }: Props) => {
                     justifyContent="start"
                     px={3}
                 >
-                    <Flex w="100%" alignItems="center" gap={1}>
+                    <Flex w="100%" alignItems="center" flexWrap="wrap" gap={1}>
                         {task?.tags.map((tag, i) => (
-                            <Badge key={i} colorScheme="yellow">
+                            <Badge
+                                key={i}
+                                colorScheme="yellow"
+                                fontFamily="monospace"
+                            >
                                 {tag}
                             </Badge>
                         ))}

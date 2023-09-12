@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Spinner } from "@chakra-ui/react";
 import {
     Container,
@@ -13,6 +14,7 @@ import useProjectTasks from "../hooks/useProjectTasks";
 import useProjectDeveloper from "../hooks/useProjectDeveloper";
 import useProjectStore from "../store/useProjectStore";
 import useAuth from "../hooks/useAuth";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const ProjectDetailsPage = () => {
     // get projectIdentifier from url
@@ -20,9 +22,16 @@ const ProjectDetailsPage = () => {
 
     // fetch project, project tasks and project developers data
     const { data: project, isLoading } = useProject(projectIdentifier!);
-    const { data: tasks, isLoading: taskLoading } = useProjectTasks(
-        projectIdentifier!
-    );
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isLoading: taskLoading,
+    } = useProjectTasks(projectIdentifier!);
+
+    const fetchedGamesCount =
+        data?.pages.reduce((total, page) => total + page.length, 0) || 0;
+
     const { data: developers, isLoading: developerLoading } =
         useProjectDeveloper(projectIdentifier!);
     const { data: user } = useAuth();
@@ -43,7 +52,7 @@ const ProjectDetailsPage = () => {
                 <ProjectDetailsCard
                     project={project}
                     developers={developers}
-                    totalTask={tasks?.length}
+                    totalTask={5}
                     projectLeader={projectLeader}
                     loading={developerLoading}
                 />
@@ -55,6 +64,7 @@ const ProjectDetailsPage = () => {
                     lg: "block",
                     md: "block",
                 }}
+                mb={3}
             >
                 <TaskTableHeading projectLeader={projectLeader} />
                 {taskLoading ? (
@@ -62,15 +72,28 @@ const ProjectDetailsPage = () => {
                         <Spinner color="red" mt={10} />
                     </Box>
                 ) : (
-                    <>
-                        {tasks?.map((task) => (
-                            <TableContent
-                                key={task._id}
-                                task={task}
-                                projectLeader={projectLeader}
-                            />
+                    <InfiniteScroll
+                        dataLength={fetchedGamesCount}
+                        hasMore={!!hasNextPage}
+                        next={() => fetchNextPage()}
+                        loader={
+                            <Box w="100%" textAlign="center">
+                                <Spinner color="red" mt={10} />
+                            </Box>
+                        }
+                    >
+                        {data?.pages.map((page, index) => (
+                            <React.Fragment key={index}>
+                                {page?.map((task) => (
+                                    <TableContent
+                                        key={task._id}
+                                        task={task}
+                                        projectLeader={projectLeader}
+                                    />
+                                ))}
+                            </React.Fragment>
                         ))}
-                    </>
+                    </InfiniteScroll>
                 )}
             </Box>
             {/* responsive */}
@@ -83,11 +106,27 @@ const ProjectDetailsPage = () => {
                         <Spinner color="red" mt={10} />
                     </Box>
                 ) : (
-                    <>
-                        {tasks?.map((task) => (
-                            <MobileTableContent key={task._id} task={task} />
+                    <InfiniteScroll
+                        dataLength={fetchedGamesCount}
+                        hasMore={!!hasNextPage}
+                        next={() => fetchNextPage()}
+                        loader={
+                            <Box w="100%" textAlign="center">
+                                <Spinner color="red" mt={10} />
+                            </Box>
+                        }
+                    >
+                        {data?.pages.map((page, index) => (
+                            <React.Fragment key={index}>
+                                {page?.map((task) => (
+                                    <MobileTableContent
+                                        key={task._id}
+                                        task={task}
+                                    />
+                                ))}
+                            </React.Fragment>
                         ))}
-                    </>
+                    </InfiniteScroll>
                 )}
             </Box>
         </Container>

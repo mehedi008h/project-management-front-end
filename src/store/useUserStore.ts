@@ -1,11 +1,19 @@
 import { create } from "zustand";
 
 interface UserQuery {
-    type: string;
+    searchText?: string;
 }
 
-const useUserStore = create<UserQuery>(() => ({
+interface UserQueryStore {
+    type: string;
+    userQuery: UserQuery;
+    setSearchText: (searchText: string) => void;
+}
+
+const useUserStore = create<UserQueryStore>((set) => ({
     type: "",
+    userQuery: {},
+    setSearchText: (searchText) => set(() => ({ userQuery: { searchText } })),
 }));
 
 export default useUserStore;

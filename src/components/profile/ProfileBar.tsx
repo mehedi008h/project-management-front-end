@@ -65,7 +65,7 @@ const ProfileBar = () => {
             <Box position="relative">
                 <Avatar
                     name={user?.firstName}
-                    // src={user ? user?.photo.url : avatar}
+                    src={ avatar}
                     size="2xl"
                 />
                 <Flex

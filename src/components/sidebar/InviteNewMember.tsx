@@ -1,19 +1,22 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Button, Spinner } from "@chakra-ui/react";
 import { AssignedUserCard, SearchInput } from "..";
 import useUsers from "../../hooks/useUsers";
 import useUserStore from "../../store/useUserStore";
 import { Types } from "../../enums/types.enum";
+import React from "react";
+import { IoReloadCircleOutline } from "react-icons/io5";
 
 const InviteNewMember = () => {
-    const { data: users, isLoading } = useUsers();
+    const { data, isLoading, fetchNextPage, isFetchingNextPage } = useUsers();
 
     // store type in store
     const userStore = useUserStore();
-    if (users) userStore.type = Types.SEND;
+    if (data) userStore.type = Types.SEND;
 
     return (
         <Box pb={5}>
             <SearchInput />
+
             {isLoading ? (
                 <Box w="100%" textAlign="center">
                     <Spinner color="red" mt={10} />
@@ -24,10 +27,30 @@ const InviteNewMember = () => {
                     mt={2}
                     maxHeight="60vh"
                     overflowY="scroll"
+                    width="100%"
                 >
-                    {users?.map((user) => (
-                        <AssignedUserCard key={user._id} user={user} />
+                    {data?.pages.map((page, index) => (
+                        <React.Fragment key={index}>
+                            {page?.map((user) => (
+                                <AssignedUserCard key={user._id} user={user} />
+                            ))}
+                        </React.Fragment>
                     ))}
+                    <Box textAlign="center">
+                        <Button
+                            disabled={isFetchingNextPage}
+                            onClick={() => fetchNextPage()}
+                            mt={3}
+                            rounded="full"
+                            size="sm"
+                        >
+                            {isFetchingNextPage ? (
+                                <Spinner color="red" size="sm" />
+                            ) : (
+                                <IoReloadCircleOutline size={20} />
+                            )}
+                        </Button>
+                    </Box>
                 </Box>
             )}
         </Box>

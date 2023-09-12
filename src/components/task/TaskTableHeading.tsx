@@ -42,7 +42,7 @@ const TaskTableHeading = ({ projectLeader }: Props) => {
                         justifyContent="start"
                         pl={3}
                     >
-                        Status{" "}
+                        Tags
                     </GridItem>
                 )}
 

@@ -5,13 +5,15 @@ import {
     AccordionPanel,
     Box,
 } from "@chakra-ui/react";
-import { MobileTableContent, TableContent } from "..";
+import { Empty, MobileTableContent, TableContent } from "..";
+import { Task } from "../../domain/task";
 
 interface Props {
     header: string;
+    tasks?: Task[];
 }
 
-const Tasks = ({ header }: Props) => {
+const Tasks = ({ header, tasks }: Props) => {
     return (
         <AccordionItem>
             <h2>
@@ -31,9 +33,10 @@ const Tasks = ({ header }: Props) => {
                         md: "block",
                     }}
                 >
-                    <TableContent />
-                    <TableContent />
-                    <TableContent />
+                    {tasks?.length === 0 && <Empty text="No task 😎" />}
+                    {tasks?.map((task) => (
+                        <TableContent key={task._id} task={task} />
+                    ))}
                 </Box>
                 <Box
                     display={{

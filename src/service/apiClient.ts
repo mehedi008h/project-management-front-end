@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 export interface FetchResponses<T> {
     statusCode: number;
@@ -41,8 +41,18 @@ class APIClient<T> {
             .get<FetchResponses<T>>(this.endpoint)
             .then((res) => res.data.data);
     };
+    getAllByQuery = async (config: AxiosRequestConfig) => {
+        return axiosInstance
+            .get<FetchResponses<T>>(this.endpoint, config)
+            .then((res) => res.data.data);
+    };
 
     getAllById = async (id: number | string) => {
+        return axiosInstance
+            .get<FetchResponses<T>>(this.endpoint + "/" + id)
+            .then((res) => res.data.data);
+    };
+    getAllByIdQuery = async (id: number | string) => {
         return axiosInstance
             .get<FetchResponses<T>>(this.endpoint + "/" + id)
             .then((res) => res.data.data);

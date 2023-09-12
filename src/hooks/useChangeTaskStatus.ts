@@ -15,6 +15,7 @@ const useChangeTaskStatus = (taskIdentifier?: string) => {
         onSuccess: (response) => {
             response.data;
             queryClient.invalidateQueries(["projectTasks", project.projectId]);
+            queryClient.invalidateQueries(["tasks"]);
             if (response.statusCode == 200) {
                 toast.success(response.message);
             } else {

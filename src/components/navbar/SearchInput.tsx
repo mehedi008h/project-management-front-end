@@ -1,32 +1,32 @@
-import { FieldValues, useForm } from "react-hook-form";
-import { InputField } from "..";
-import { BiSearch } from "react-icons/bi";
+import { useRef } from "react";
+import { BsSearch } from "react-icons/bs";
+import useUserStore from "../../store/useUserStore";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
 const SearchInput = () => {
-    const {
-        register,
+    const ref = useRef<HTMLInputElement>(null);
+    const setSearchText = useUserStore((s) => s.setSearchText);
 
-        formState: { errors },
-    } = useForm<FieldValues>({
-        defaultValues: {
-            email: "",
-            password: "",
-        },
-    });
-
-    // const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    //     console.log("Data: " + JSON.stringify(data));
-    // };
     return (
-        <InputField
-            id="searchText"
-            type="text"
-            placeHolder="Search ..."
-            register={register}
-            icon={<BiSearch />}
-            errors={errors}
-            required
-        />
+        <form
+            onSubmit={(event) => {
+                event.preventDefault();
+                if (ref.current) {
+                    setSearchText(ref.current.value);
+                }
+            }}
+        >
+            <InputGroup width="100%">
+                <InputLeftElement children={<BsSearch />} />
+                <Input
+                    ref={ref}
+                    borderRadius={20}
+                    placeholder="Search users..."
+                    variant="filled"
+                    width="100%"
+                />
+            </InputGroup>
+        </form>
     );
 };
 
