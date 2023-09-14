@@ -10,3 +10,4 @@ export { default as ProfileLayout } from "./profile/ProfileLayout";
 export { default as ChangePassword } from "./profile/ChangePassword";
 export { default as TeamsPage } from "./profile/TeamsPage";
 export { default as CalendarPage } from "./CalendarPage";
+export { default as ResetPasswordPage } from "./ResetPasswordPage";

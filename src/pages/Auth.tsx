@@ -13,12 +13,13 @@ import { AiFillGithub } from "react-icons/ai";
 import Container from "../components/common/Container";
 
 import logo from "../assets/logo.png";
-import { Login, Signup } from "../components";
+import { Forgot, Login, Signup } from "../components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Auth = () => {
     const [login, setLogin] = useState(true);
+    const [forgot, setForgot] = useState(false);
     return (
         <Container>
             {/* Logo  */}
@@ -27,6 +28,7 @@ const Auth = () => {
                     <Image src={logo} boxSize="30px" textAlign="center" />
                 </Box>
             </Link>
+
             <Flex
                 height="100%"
                 flexDirection={login ? "row" : "row-reverse"}
@@ -55,7 +57,12 @@ const Auth = () => {
                     height="100vh"
                 >
                     <Box
-                        width={{ base: "90%", md: "60%", lg: "60%", xl: "60%" }}
+                        width={{
+                            base: "90%",
+                            md: "60%",
+                            lg: "60%",
+                            xl: "60%",
+                        }}
                         marginX="auto"
                     >
                         <Box marginBottom="25px">
@@ -66,59 +73,68 @@ const Auth = () => {
                                 textAlign="center"
                             />
                         </Box>
+                        {forgot ? (
+                            <Forgot setForgot={setForgot} />
+                        ) : (
+                            <>
+                                {login ? (
+                                    <Login setForgot={setForgot} />
+                                ) : (
+                                    <Signup />
+                                )}
 
-                        {login ? <Login /> : <Signup />}
-
-                        <HStack gap="15px" padding="8">
-                            <Divider />
-                            <Text>OR</Text>
-                            <Divider />
-                        </HStack>
-                        <Button
-                            width="100%"
-                            variant="outline"
-                            leftIcon={<FcGoogle size={20} />}
-                            fontSize={16}
-                            fontWeight={500}
-                            fontFamily="monospace"
-                        >
-                            Login with Google
-                        </Button>
-                        <Button
-                            width="100%"
-                            marginTop="10px"
-                            variant="outline"
-                            leftIcon={<AiFillGithub size={20} />}
-                            fontSize={16}
-                            fontWeight={500}
-                            fontFamily="monospace"
-                        >
-                            Login with Github
-                        </Button>
-                        <HStack
-                            alignItems="center"
-                            justifyContent="center"
-                            marginTop={5}
-                        >
-                            <Text
-                                textAlign="center"
-                                fontSize={16}
-                                fontFamily="monospace"
-                            >
-                                {login
-                                    ? `Don't have an account?`
-                                    : `Already have an account!`}
-                            </Text>
-                            <Button
-                                variant="link"
-                                fontSize={16}
-                                fontWeight={500}
-                                fontFamily="monospace"
-                                onClick={() => setLogin(!login)}
-                            >
-                                {login ? `Signup` : `Login`}
-                            </Button>
-                        </HStack>
+                                <HStack gap="15px" padding="8">
+                                    <Divider />
+                                    <Text>OR</Text>
+                                    <Divider />
+                                </HStack>
+                                <Button
+                                    width="100%"
+                                    variant="outline"
+                                    leftIcon={<FcGoogle size={20} />}
+                                    fontSize={16}
+                                    fontWeight={500}
+                                    fontFamily="monospace"
+                                >
+                                    Login with Google
+                                </Button>
+                                <Button
+                                    width="100%"
+                                    marginTop="10px"
+                                    variant="outline"
+                                    leftIcon={<AiFillGithub size={20} />}
+                                    fontSize={16}
+                                    fontWeight={500}
+                                    fontFamily="monospace"
+                                >
+                                    Login with Github
+                                </Button>
+                                <HStack
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    marginTop={5}
+                                >
+                                    <Text
+                                        textAlign="center"
+                                        fontSize={16}
+                                        fontFamily="monospace"
+                                    >
+                                        {login
+                                            ? `Don't have an account?`
+                                            : `Already have an account!`}
+                                    </Text>
+                                    <Button
+                                        variant="link"
+                                        fontSize={16}
+                                        fontWeight={500}
+                                        fontFamily="monospace"
+                                        onClick={() => setLogin(!login)}
+                                    >
+                                        {login ? `Signup` : `Login`}
+                                    </Button>
+                                </HStack>
+                            </>
+                        )}
                     </Box>
                 </Flex>
             </Flex>

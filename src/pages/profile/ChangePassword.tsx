@@ -2,8 +2,11 @@ import { Box, Button, VStack } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FormHeading, InputField } from "../../components";
 import { FiLock } from "react-icons/fi";
+import useChangePassword from "../../hooks/useChangePassword";
+import { User } from "../../domain/user";
 
 const ChangePassword = () => {
+    const { mutate, isLoading } = useChangePassword();
     const {
         register,
         handleSubmit,
@@ -17,7 +20,7 @@ const ChangePassword = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log("Data: " + JSON.stringify(data));
+        mutate(data as User);
     };
     return (
         <Box p={5} bg="black" rounded="md">
@@ -64,6 +67,8 @@ const ChangePassword = () => {
                     marginTop="10px"
                     mx="auto"
                     onClick={handleSubmit(onSubmit)}
+                    isDisabled={isLoading}
+                    isLoading={isLoading}
                     bgGradient="linear(to-l, teal.600, teal.400)"
                     borderRadius="full"
                 >

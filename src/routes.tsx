@@ -9,6 +9,7 @@ import {
     ProfilePage,
     ProjectDetailsPage,
     ProjectPage,
+    ResetPasswordPage,
     TaskPage,
     TeamsPage,
 } from "./pages";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                 element: <CalendarPage />,
             },
         ],
+    },
+    {
+        path: "/reset-password/:token",
+        element: <ResetPasswordPage />,
     },
     {
         path: "/profile",

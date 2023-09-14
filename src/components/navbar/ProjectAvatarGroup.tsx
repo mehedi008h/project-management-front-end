@@ -20,7 +20,11 @@ const ProjectAvatarGroup = ({ size, loading, developers }: Props) => {
         <AvatarGroup size={size} max={4}>
             {developers &&
                 developers.map((developer) => (
-                    <Avatar key={developer._id} name={developer.firstName} />
+                    <Avatar
+                        key={developer._id}
+                        name={developer.firstName}
+                        src={developer.photo ? developer.photo.url : ""}
+                    />
                 ))}
         </AvatarGroup>
     );

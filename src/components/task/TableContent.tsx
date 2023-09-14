@@ -39,16 +39,25 @@ const TableContent = ({ task, projectLeader }: Props) => {
 
     // calculate days
     const a = moment(task?.endDate);
-    const b = moment(task?.startDate);
-    const remaining = a.diff(b, "days");
+    const b = moment();
+
+    const over = a.diff(b);
+    const remaining = moment(task?.endDate).endOf("day").fromNow();
 
     return (
         <Grid
             templateColumns="repeat(7, 1fr)"
             gap={2}
+            rounded="md"
             borderBottom="1px"
             borderColor="gray.800"
-            backgroundColor="blackAlpha.500"
+            backgroundColor={
+                task?.status !== Status.COMPLETED
+                    ? over > 0
+                        ? "blackAlpha.500"
+                        : "#4F0E18"
+                    : "blackAlpha.500"
+            }
         >
             <GridItem
                 colSpan={3}
@@ -172,7 +181,7 @@ const TableContent = ({ task, projectLeader }: Props) => {
                 <Badge px={4} py={1}>
                     <Flex alignItems="center" gap={2}>
                         <GiSandsOfTime size={15} />
-                        {remaining} days
+                        {remaining}
                     </Flex>
                 </Badge>
             </GridItem>

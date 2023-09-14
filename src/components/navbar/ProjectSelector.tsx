@@ -1,8 +1,13 @@
 import { Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { SelectOption } from "..";
+import { Project } from "../../domain/project";
 
-const ProjectSelector = () => {
+interface Props {
+    projects?: Project[];
+}
+
+const ProjectSelector = ({ projects }: Props) => {
     return (
         <Menu>
             <MenuButton
@@ -13,12 +18,17 @@ const ProjectSelector = () => {
                 display="flex"
                 alignItems="start"
             >
-                <SelectOption arrow />
+                <SelectOption arrow project={projects?.[0]} />
             </MenuButton>
 
             <MenuList w="100%" marginTop={5}>
-                <SelectOption arrow={false} />
-                <SelectOption arrow={false} />
+                {projects?.map((project) => (
+                    <SelectOption
+                        key={project._id}
+                        project={project}
+                        arrow={false}
+                    />
+                ))}
             </MenuList>
         </Menu>
     );

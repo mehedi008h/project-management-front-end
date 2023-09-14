@@ -14,6 +14,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
+import avatar from "../../assets/profile.png";
 
 const ProfileAvatar = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ProfileAvatar = () => {
                         >
                             <Avatar
                                 name={user?.firstName}
-                                // src={user && user.photo.url}
+                                src={user?.photo ? user.photo.url : avatar}
                                 size="md"
                                 cursor="pointer"
                             />
@@ -49,7 +50,7 @@ const ProfileAvatar = () => {
                             <HStack px={2} my={2}>
                                 <Avatar
                                     name={user?.firstName}
-                                    // src={user && user.photo.url}
+                                    src={user?.photo ? user.photo.url : avatar}
                                     size="md"
                                     cursor="pointer"
                                 />

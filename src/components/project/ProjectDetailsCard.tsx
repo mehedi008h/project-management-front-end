@@ -64,7 +64,7 @@ const ProjectDetailsCard = ({
                         w="100%"
                         h="100%"
                         rounded="md"
-                        objectFit="contain"
+                        objectFit="cover"
                     />
                 </Box>
                 {/* description  */}

@@ -29,7 +29,7 @@ const ProjectDetailsPage = () => {
         isLoading: taskLoading,
     } = useProjectTasks(projectIdentifier!);
 
-    const fetchedGamesCount =
+    const fetchedTaskCount =
         data?.pages.reduce((total, page) => total + page.length, 0) || 0;
 
     const { data: developers, isLoading: developerLoading } =
@@ -52,7 +52,7 @@ const ProjectDetailsPage = () => {
                 <ProjectDetailsCard
                     project={project}
                     developers={developers}
-                    totalTask={5}
+                    totalTask={fetchedTaskCount}
                     projectLeader={projectLeader}
                     loading={developerLoading}
                 />
@@ -73,7 +73,7 @@ const ProjectDetailsPage = () => {
                     </Box>
                 ) : (
                     <InfiniteScroll
-                        dataLength={fetchedGamesCount}
+                        dataLength={fetchedTaskCount}
                         hasMore={!!hasNextPage}
                         next={() => fetchNextPage()}
                         loader={
@@ -107,7 +107,7 @@ const ProjectDetailsPage = () => {
                     </Box>
                 ) : (
                     <InfiniteScroll
-                        dataLength={fetchedGamesCount}
+                        dataLength={fetchedTaskCount}
                         hasMore={!!hasNextPage}
                         next={() => fetchNextPage()}
                         loader={

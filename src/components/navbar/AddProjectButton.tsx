@@ -39,6 +39,7 @@ const AddProjectButton = () => {
         register,
         handleSubmit,
         setValue,
+        reset,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
@@ -92,6 +93,7 @@ const AddProjectButton = () => {
         }
         console.log("Data: " + JSON.stringify(data));
         mutate(data as Project);
+        reset();
     };
     const actionLabel = useMemo(() => {
         if (step === STEPS.IMAGES) {

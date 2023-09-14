@@ -1,12 +1,11 @@
 import { Box, Divider, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import { BiMessageRoundedDetail } from "react-icons/bi";
-
-import placeHolder from "../../assets/no-image-placeholder.webp";
 import { Awards, InfoItem, Skills } from "../../components";
 import { AiOutlinePhone } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import useAuth from "../../hooks/useAuth";
+import avatar from "../../assets/profile.png";
 
 const ProfilePage = () => {
     const { data: user } = useAuth();
@@ -33,7 +32,7 @@ const ProfilePage = () => {
                     height="200px"
                 >
                     <Image
-                        src={placeHolder}
+                        src={user?.photo ? user.photo.url : avatar}
                         w="100%"
                         h="100%"
                         rounded="md"

@@ -10,6 +10,8 @@ export { default as InviteNewMember } from "./sidebar/InviteNewMember";
 
 export { default as Login } from "./auth/Login";
 export { default as Signup } from "./auth/Signup";
+export { default as Forgot } from "./auth/Forgot";
+
 export { default as Sidebar } from "./common/Sidebar";
 export { default as Navbar } from "./common/Navbar";
 export { default as FormHeading } from "./common/Heading";
