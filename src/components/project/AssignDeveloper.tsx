@@ -3,6 +3,7 @@ import useTeammates from "../../hooks/useTeammates";
 import { AssignedUserCard, SearchInput } from "..";
 import useUserStore from "../../store/useUserStore";
 import { Types } from "../../enums/types.enum";
+import { SearchType } from "../../enums/search.enum";
 
 const AssignDeveloper = () => {
     const { data: users, isLoading } = useTeammates();
@@ -13,7 +14,7 @@ const AssignDeveloper = () => {
 
     return (
         <Box pb={5}>
-            <SearchInput />
+            <SearchInput type={SearchType.USER} />
             {isLoading ? (
                 <Box w="100%" textAlign="center">
                     <Spinner color="red" mt={10} />

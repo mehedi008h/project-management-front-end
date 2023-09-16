@@ -1,15 +1,18 @@
-import { Button, Flex, HStack } from "@chakra-ui/react";
+import { Button, Flex, HStack, useDisclosure } from "@chakra-ui/react";
 import {
     AiOutlineFilter,
     AiOutlineMenu,
     AiOutlineProject,
     AiOutlineSortAscending,
 } from "react-icons/ai";
-import { FilterItem } from "..";
+import { Filter, FilterItem, Modal } from "..";
 import { MdOutlineTask } from "react-icons/md";
 import { CgMenuGridO } from "react-icons/cg";
 
 const FilterMenu = () => {
+    // open & close modal
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
         <>
             <Flex
@@ -42,9 +45,18 @@ const FilterMenu = () => {
                         fontSize={14}
                     />
                     <FilterItem
+                        onOpen={onOpen}
                         icon={<AiOutlineFilter />}
                         text="Filter"
                         fontSize={14}
+                    />
+                    <Modal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        size="xl"
+                        disabled={false}
+                        title="Filter"
+                        body={<Filter />}
                     />
                 </HStack>
             </Flex>

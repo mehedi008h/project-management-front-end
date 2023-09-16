@@ -2,10 +2,17 @@ import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import useUserStore from "../../store/useUserStore";
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import useProjectStore from "../../store/useProjectStore";
+import { SearchType } from "../../enums/search.enum";
 
-const SearchInput = () => {
+interface Props {
+    type: string;
+}
+
+const SearchInput = ({ type }: Props) => {
     const ref = useRef<HTMLInputElement>(null);
-    const setSearchText = useUserStore((s) => s.setSearchText);
+    const setUserSearchText = useUserStore((s) => s.setSearchText);
+    const setProjectSearchText = useProjectStore((s) => s.setSearchText);
 
     return (
         <Box width="100%">
@@ -13,7 +20,12 @@ const SearchInput = () => {
                 onSubmit={(event) => {
                     event.preventDefault();
                     if (ref.current) {
-                        setSearchText(ref.current.value);
+                        if (type === SearchType.USER) {
+                            setUserSearchText(ref.current.value);
+                        }
+                        if (type === SearchType.PROJECT) {
+                            setProjectSearchText(ref.current.value);
+                        }
                     }
                 }}
             >
@@ -22,7 +34,7 @@ const SearchInput = () => {
                     <Input
                         ref={ref}
                         borderRadius={20}
-                        placeholder="Search users..."
+                        placeholder={`Search ${type}s ...`}
                         variant="filled"
                         width="100%"
                         color="gray.300"

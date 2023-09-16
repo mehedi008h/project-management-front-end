@@ -5,6 +5,7 @@ import useUserStore from "../../store/useUserStore";
 import { Types } from "../../enums/types.enum";
 import React from "react";
 import { IoReloadCircleOutline } from "react-icons/io5";
+import { SearchType } from "../../enums/search.enum";
 
 const InviteNewMember = () => {
     const { data, isLoading, fetchNextPage, isFetchingNextPage } = useUsers();
@@ -15,7 +16,7 @@ const InviteNewMember = () => {
 
     return (
         <Box pb={5}>
-            <SearchInput />
+            <SearchInput type={SearchType.USER} />
 
             {isLoading ? (
                 <Box w="100%" textAlign="center">

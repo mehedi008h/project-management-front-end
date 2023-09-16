@@ -1,6 +1,7 @@
 import { Box, Spinner } from "@chakra-ui/react";
 import { AssignedUserCard, SearchInput } from "..";
 import { User } from "../../domain/user";
+import { SearchType } from "../../enums/search.enum";
 
 interface Props {
     loading: boolean;
@@ -8,10 +9,10 @@ interface Props {
     btnText: string;
 }
 
-const UserCardContainer = ({ loading, users, btnText }: Props) => {
+const UserCardContainer = ({ loading, users }: Props) => {
     return (
         <Box pb={5}>
-            <SearchInput />
+            <SearchInput type={SearchType.USER} />
             {loading ? (
                 <Box w="100%" textAlign="center">
                     <Spinner color="red" mt={10} />
@@ -24,11 +25,7 @@ const UserCardContainer = ({ loading, users, btnText }: Props) => {
                     overflowY="scroll"
                 >
                     {users?.map((user) => (
-                        <AssignedUserCard
-                            key={user._id}
-                            btnText={btnText}
-                            user={user}
-                        />
+                        <AssignedUserCard key={user._id} user={user} />
                     ))}
                 </Box>
             )}

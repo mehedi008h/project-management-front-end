@@ -7,6 +7,7 @@ import {
     SearchInput,
 } from "..";
 import logo from "../../assets/logo.png";
+import { SearchType } from "../../enums/search.enum";
 
 const Navbar = () => {
     return (
@@ -53,7 +54,7 @@ const Navbar = () => {
                         marginTop={2}
                         rounded="md"
                     ></Box>
-                    <SearchInput />
+                    <SearchInput type={SearchType.PROJECT} />
                     <AddProjectButton />
                 </HStack>
                 <ProfileAvatar />

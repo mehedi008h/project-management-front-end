@@ -30,7 +30,6 @@ export { default as MobileNavDrawer } from "./navbar/MobileNavDrawer";
 export { default as FilterMenu } from "./project/FilterMenu";
 export { default as FilterItem } from "./project/FilterItem";
 export { default as Heading } from "./project/Heading";
-export { default as Projects } from "./project/Projects";
 export { default as ProjectCard } from "./project/ProjectCard";
 export { default as ProjectDetailsCard } from "./project/ProjectDetailsCard";
 export { default as ProjectDetailsBtn } from "./project/ProjectDetailsBtn";
@@ -38,6 +37,10 @@ export { default as ProjectConatiner } from "./project/ProjectConatiner";
 export { default as UserCardContainer } from "./project/UserCardContainer";
 export { default as UpdateProjectBtn } from "./project/UpdateProjectBtn";
 export { default as AssignDeveloper } from "./project/AssignDeveloper";
+export { default as Filter } from "./project/Filter";
+export { default as CompletedProject } from "./project/CompletedProject";
+export { default as TodoProject } from "./project/TodoProject";
+export { default as ProgressProject } from "./project/ProgressProject";
 
 export { default as TaskTableHeading } from "./task/TaskTableHeading";
 export { default as TableContent } from "./task/TableContent";
