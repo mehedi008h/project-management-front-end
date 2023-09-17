@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { LuTimerReset } from "react-icons/lu";
 import { BsCalendarWeek } from "react-icons/bs";
@@ -95,7 +95,17 @@ const Sidebar = () => {
                 </Link>
                 <Flex flexDirection="column" gap={1} marginTop={10}>
                     {routes.map((route) => (
-                        <Link key={route.href} to={route.href}>
+                        <NavLink
+                            key={route.href}
+                            to={route.href}
+                            style={({ isActive }) => {
+                                return {
+                                    background: isActive ? "black" : "",
+                                    color: isActive ? "white" : "gray",
+                                    borderRadius: "7px",
+                                };
+                            }}
+                        >
                             <Flex
                                 alignItems="center"
                                 gap={3}
@@ -103,7 +113,6 @@ const Sidebar = () => {
                                 fontWeight="medium"
                                 cursor="pointer"
                                 padding={3}
-                                color="gray.400"
                                 rounded="md"
                                 _hover={{
                                     color: "white",
@@ -114,7 +123,7 @@ const Sidebar = () => {
                                 <route.icon size={22} />
                                 {route.label}
                             </Flex>
-                        </Link>
+                        </NavLink>
                     ))}
                 </Flex>
             </Box>

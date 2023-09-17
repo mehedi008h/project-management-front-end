@@ -13,8 +13,8 @@ const useProgressProjects = () => {
                 params: {
                     search: projectQuery.searchText,
                     page: pageParam,
-                    tags: projectQuery.tags,
-                    developers: projectQuery.developerIdentifiers,
+                    tags: projectQuery.tag,
+                    developers: projectQuery.developerIdentifier,
                 },
             }),
         keepPreviousData: true,

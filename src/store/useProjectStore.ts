@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
 interface ProjectQuery {
-    developerIdentifiers?: string[];
-    tags?: string[];
+    developerIdentifier?: string;
+    tag?: string;
     searchText?: string;
 }
 interface ProjectQueryStore {
@@ -10,8 +10,10 @@ interface ProjectQueryStore {
     taskId: string;
     projectQuery: ProjectQuery;
     setSearchText: (searchText: string) => void;
-    setDeveloperIdentifiers: (developerIdentifiers: string[]) => void;
-    setTags: (tags: string[]) => void;
+    setDeveloperIdentifier: (developerIdentifier: string) => void;
+    setTag: (tag: string) => void;
+    clearSearchText: () => void;
+    clearFilter: () => void;
 }
 
 const useProjectStore = create<ProjectQueryStore>((set) => ({
@@ -20,20 +22,35 @@ const useProjectStore = create<ProjectQueryStore>((set) => ({
     projectQuery: {},
     setSearchText: (searchText) =>
         set(() => ({ projectQuery: { searchText } })),
-    setDeveloperIdentifiers: (developerIdentifiers) =>
+    setDeveloperIdentifier: (developerIdentifier) =>
         set((store) => ({
             projectQuery: {
                 ...store.projectQuery,
-                developerIdentifiers,
+                developerIdentifier,
                 searchText: undefined,
             },
         })),
-    setTags: (tags) =>
+    setTag: (tag) =>
         set((store) => ({
             projectQuery: {
                 ...store.projectQuery,
-                tags,
+                tag,
                 searchText: undefined,
+            },
+        })),
+    clearSearchText: () =>
+        set((store) => ({
+            projectQuery: {
+                ...store.projectQuery,
+                searchText: undefined,
+            },
+        })),
+    clearFilter: () =>
+        set((store) => ({
+            projectQuery: {
+                ...store.projectQuery,
+                tag: undefined,
+                developerIdentifier: undefined,
             },
         })),
 }));
