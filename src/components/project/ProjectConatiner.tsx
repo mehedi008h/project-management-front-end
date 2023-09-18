@@ -1,16 +1,12 @@
 import { VStack } from "@chakra-ui/react";
-import { ProjectCard, ProjectSkeleton } from "..";
+import { ProjectCard } from "..";
 import { Project } from "../../domain/project";
 
 interface Props {
-    loading: boolean;
     projects: Project[] | undefined;
 }
 
-const ProjectConatiner = ({ loading, projects }: Props) => {
-    // If loading
-    if (loading) return [1, 2].map((item) => <ProjectSkeleton key={item} />);
-
+const ProjectConatiner = ({ projects }: Props) => {
     return (
         <VStack spacing={3}>
             {projects &&

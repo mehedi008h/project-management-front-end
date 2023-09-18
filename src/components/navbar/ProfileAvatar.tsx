@@ -30,18 +30,12 @@ const ProfileAvatar = () => {
                     {isLoading ? (
                         <SkeletonCircle size="11" />
                     ) : (
-                        <Box
-                            bgGradient="linear(to-r, teal.500, green.500)"
-                            p={0.5}
-                            rounded="full"
-                        >
-                            <Avatar
-                                name={user?.firstName}
-                                src={user?.photo ? user.photo.url : avatar}
-                                size="md"
-                                cursor="pointer"
-                            />
-                        </Box>
+                        <Avatar
+                            name={user?.firstName}
+                            src={user?.photo ? user.photo.url : avatar}
+                            size="md"
+                            cursor="pointer"
+                        />
                     )}
                 </MenuButton>
                 {!isLoading && (

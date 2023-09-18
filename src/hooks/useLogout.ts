@@ -14,14 +14,10 @@ const useLogout = () => {
     const queryClient = useQueryClient();
     const apiClient = new APIClient<FetchResponse>("/auth/logout");
     return useMutation<FetchResponse, ErrorResponse>(() => apiClient.get(), {
-        onSuccess: (response) => {
+        onSuccess: () => {
             queryClient.setQueryData(["user"], null);
+
             navigate("/");
-            if (response.statusCode == 200) {
-                toast.success(response.message);
-            } else {
-                toast.error(response.message);
-            }
         },
         onError: (error) => {
             toast.error(error.response.data.message);

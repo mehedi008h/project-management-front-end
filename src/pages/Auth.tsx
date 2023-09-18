@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
+import { useGoogleLogin } from "@react-oauth/google";
 
 import Container from "../components/common/Container";
 
@@ -16,10 +17,24 @@ import logo from "../assets/logo.png";
 import { Forgot, Login, Signup } from "../components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useGoogleAuth from "../hooks/useGoogleAuth";
 
 const Auth = () => {
     const [login, setLogin] = useState(true);
     const [forgot, setForgot] = useState(false);
+
+    const { mutate, isLoading: googleLoading } = useGoogleAuth();
+
+    const googleLogin = useGoogleLogin({
+        flow: "auth-code",
+        onSuccess: async ({ code }) => {
+            mutate(code as string);
+        },
+        onError: () => {
+            console.log("Login Failed");
+        },
+    });
+
     return (
         <Container>
             {/* Logo  */}
@@ -82,19 +97,21 @@ const Auth = () => {
                                 ) : (
                                     <Signup />
                                 )}
-
                                 <HStack gap="15px" padding="8">
                                     <Divider />
                                     <Text>OR</Text>
                                     <Divider />
                                 </HStack>
+
                                 <Button
+                                    onClick={() => googleLogin()}
                                     width="100%"
                                     variant="outline"
                                     leftIcon={<FcGoogle size={20} />}
                                     fontSize={16}
                                     fontWeight={500}
                                     fontFamily="monospace"
+                                    isLoading={googleLoading}
                                 >
                                     Login with Google
                                 </Button>

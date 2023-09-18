@@ -1,6 +1,6 @@
 import React from "react";
 import useCompletedProjects from "../../hooks/useCompletedProject";
-import { Empty, Heading, ProjectConatiner } from "..";
+import { Empty, Heading, ProjectConatiner, ProjectSkeleton } from "..";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Box, Spinner } from "@chakra-ui/react";
 
@@ -16,24 +16,24 @@ const CompletedProject = () => {
     return (
         <React.Fragment>
             <Heading text="Completed" total={0} loading={isLoading} />
-            <InfiniteScroll
-                dataLength={fetchedProjectCount}
-                hasMore={!!hasNextPage}
-                next={() => fetchNextPage()}
-                loader={
-                    <Box w="100%" textAlign="center">
-                        <Spinner color="red" mt={10} />
-                    </Box>
-                }
-            >
-                {data?.pages.map((page, i) => (
-                    <ProjectConatiner
-                        key={i}
-                        projects={page}
-                        loading={isLoading}
-                    />
-                ))}
-            </InfiniteScroll>
+            {isLoading ? (
+                <ProjectSkeleton />
+            ) : (
+                <InfiniteScroll
+                    dataLength={fetchedProjectCount}
+                    hasMore={!!hasNextPage}
+                    next={() => fetchNextPage()}
+                    loader={
+                        <Box w="100%" textAlign="center">
+                            <Spinner color="red" mt={10} />
+                        </Box>
+                    }
+                >
+                    {data?.pages.map((page, i) => (
+                        <ProjectConatiner key={i} projects={page} />
+                    ))}
+                </InfiniteScroll>
+            )}
         </React.Fragment>
     );
 };
