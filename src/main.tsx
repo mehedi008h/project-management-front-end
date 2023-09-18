@@ -13,13 +13,14 @@ import { Toaster } from "react-hot-toast";
 
 // Create a client
 const queryClient = new QueryClient();
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <ChakraProvider theme={theme}>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <Toaster />
-            <GoogleOAuthProvider clientId="114489666800-jqgg0tnh2jbe7inu8e30c79iukgivies.apps.googleusercontent.com">
+            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <QueryClientProvider client={queryClient}>
                     <RouterProvider router={router} />
                     <ReactQueryDevtools />
