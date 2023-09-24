@@ -1,8 +1,14 @@
-import { VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
+import { FormHeading } from "../../components";
 
 const PortfolioPage = () => {
     return (
-        <>
+        <Box p={5} bg="black" rounded="md" h="70vh">
+            <FormHeading
+                title="All of your effort and success"
+                textSize="2xl"
+                subtitle="Your hardwork make you more stronger"
+            />
             <VStack
                 spacing={3}
                 display={{ base: "none", lg: "flex", md: "flex", xl: "flex" }}
@@ -19,7 +25,7 @@ const PortfolioPage = () => {
                 <ProjectCard />
                 <ProjectCard /> */}
             </VStack>
-        </>
+        </Box>
     );
 };
 

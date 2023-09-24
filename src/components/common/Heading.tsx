@@ -5,18 +5,14 @@ interface Props {
     subtitle?: string;
     center?: boolean;
     icon?: React.ReactNode;
+    textSize?: string;
 }
 
-const Heading = ({ title, subtitle, center, icon }: Props) => {
+const Heading = ({ title, subtitle, center, icon, textSize = "xl" }: Props) => {
     return (
         <Box textAlign={center ? "center" : "start"}>
             <HStack spacing={2}>
-                <Text
-                    fontSize="xl"
-                    fontWeight="normal"
-                    color="gray.200"
-                    fontFamily="monospace"
-                >
+                <Text fontSize={textSize} fontWeight="normal" color="gray.200">
                     {title}
                 </Text>
                 {icon}

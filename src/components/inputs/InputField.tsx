@@ -20,6 +20,7 @@ interface Props {
     type?: string;
     disabled?: boolean;
     required?: boolean;
+    rounded?: string;
     icon: React.ReactNode;
     password?: boolean;
     register: UseFormRegister<FieldValues>;
@@ -33,6 +34,7 @@ const InputField = ({
     placeHolder,
     type,
     disabled,
+    rounded = "md",
     required,
     icon,
     password,
@@ -44,21 +46,22 @@ const InputField = ({
     return (
         <Box textAlign="start" width={"100%"}>
             <HStack alignItems="center" mb="8px">
-                <Text>{label}</Text>
+                <Text color="gray.400">{label}</Text>
                 {value && (
                     <Tag fontFamily="monospace" colorScheme="messenger">
                         {value}
                     </Tag>
                 )}
             </HStack>
-            <InputGroup>
+            <InputGroup rounded={rounded}>
                 <InputLeftElement
                     pointerEvents="none"
-                    color="gray.300"
+                    color="gray.400"
                     fontSize="1.2em"
                     children={icon}
                 />
                 <Input
+                    rounded={rounded}
                     id={id}
                     placeholder={placeHolder}
                     type={show && type === "password" ? "text" : type}
@@ -74,7 +77,7 @@ const InputField = ({
                     _hover={{ borderColor: "teal" }}
                 />
                 {password && (
-                    <InputRightElement>
+                    <InputRightElement color="gray.500">
                         {show ? (
                             <AiOutlineEyeInvisible
                                 onClick={handleClick}

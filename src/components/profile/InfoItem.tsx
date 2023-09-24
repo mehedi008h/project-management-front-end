@@ -13,7 +13,7 @@ const InfoItem = ({ text, icon }: Props) => {
             gap={3}
             flex={1}
             fontWeight="medium"
-            color="gray.200"
+            color="gray.300"
             width="100%"
             fontSize={14}
         >

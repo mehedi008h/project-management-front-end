@@ -1,4 +1,11 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Image,
+    Text,
+    chakra,
+    shouldForwardProp,
+} from "@chakra-ui/react";
 import { Link, NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { LuTimerReset } from "react-icons/lu";
@@ -12,8 +19,24 @@ import {
 } from "react-icons/ai";
 import logo from "../../assets/logo.png";
 import { InviteBtn } from "..";
+import {
+    MdKeyboardDoubleArrowLeft,
+    MdKeyboardDoubleArrowRight,
+} from "react-icons/md";
+import useSidebar from "../../store/useSidebar";
+import { motion, isValidMotionProp } from "framer-motion";
 
 const Sidebar = () => {
+    // handle sidebar toogle
+    const handleSidebar = useSidebar();
+
+    const ChakraBox = chakra(motion.div, {
+        /**
+         * Allow motion props and non-Chakra props to be forwarded.
+         */
+        shouldForwardProp: (prop) =>
+            isValidMotionProp(prop) || shouldForwardProp(prop),
+    });
     const routes = [
         {
             label: "Dashboard",
@@ -70,14 +93,37 @@ const Sidebar = () => {
         },
     ];
     return (
-        <Box
+        <ChakraBox
+            animate={{
+                width: handleSidebar.toogle ? "250px" : "70px",
+
+                transition: {
+                    duration: 0.5,
+                    type: "spring",
+                    damping: 10,
+                },
+            }}
             height="100vh"
-            width="250px"
             paddingY={4}
             borderRight="1px"
             borderColor="gray.700"
             position="fixed"
         >
+            <Box position="absolute" right={2} top={1} transition="all">
+                {handleSidebar.toogle ? (
+                    <MdKeyboardDoubleArrowLeft
+                        onClick={handleSidebar.onClose}
+                        size={21}
+                        color="gray"
+                    />
+                ) : (
+                    <MdKeyboardDoubleArrowRight
+                        onClick={handleSidebar.onOpen}
+                        size={21}
+                        color="gray"
+                    />
+                )}
+            </Box>
             <Box paddingX={3} paddingY={2}>
                 <Link to={"/"}>
                     <Flex
@@ -85,15 +131,29 @@ const Sidebar = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Box height={12} width={12}>
+                        <Box
+                            height={handleSidebar.toogle ? 12 : 8}
+                            width={handleSidebar.toogle ? 12 : 8}
+                            mt={handleSidebar.toogle ? 0 : 3}
+                        >
                             <Image src={logo} />
                         </Box>
-                        <Text fontSize="2xl" fontWeight="bold" marginTop={2}>
-                            Genius
-                        </Text>
+                        {handleSidebar.toogle && (
+                            <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                marginTop={2}
+                            >
+                                Genius
+                            </Text>
+                        )}
                     </Flex>
                 </Link>
-                <Flex flexDirection="column" gap={1} marginTop={10}>
+                <Flex
+                    flexDirection="column"
+                    gap={1}
+                    marginTop={handleSidebar.toogle ? 10 : 20}
+                >
                     {routes.map((route) => (
                         <NavLink
                             key={route.href}
@@ -109,7 +169,6 @@ const Sidebar = () => {
                             <Flex
                                 alignItems="center"
                                 gap={3}
-                                flex={1}
                                 fontWeight="medium"
                                 cursor="pointer"
                                 padding={3}
@@ -121,16 +180,22 @@ const Sidebar = () => {
                                 transition="all"
                             >
                                 <route.icon size={22} />
-                                {route.label}
+
+                                {handleSidebar.toogle && route.label}
                             </Flex>
                         </NavLink>
                     ))}
                 </Flex>
             </Box>
-            <Box position="absolute" bottom={5} px={5} w="100%">
-                <InviteBtn />
+            <Box
+                position="absolute"
+                bottom={5}
+                px={handleSidebar.toogle ? 5 : 2}
+                w="100%"
+            >
+                <InviteBtn toogle={handleSidebar.toogle} />
             </Box>
-        </Box>
+        </ChakraBox>
     );
 };
 

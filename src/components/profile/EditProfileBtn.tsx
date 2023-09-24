@@ -280,17 +280,26 @@ const EditProfileBtn = () => {
     }
     return (
         <>
-            <Button
+            <Flex
                 onClick={onOpen}
-                leftIcon={<TbMoodEdit size={20} />}
-                rounded="full"
-                size="sm"
-                px={3}
-                bgGradient="linear(to-r, teal.500, green.500)"
-                _hover={{ bgGradient: "linear(to-r, teal.600, green.600)" }}
+                alignItems="center"
+                gap={3}
+                flex={1}
+                fontWeight="medium"
+                cursor="pointer"
+                padding={2}
+                color="gray.400"
+                rounded="md"
+                width="100%"
+                _hover={{
+                    color: "white",
+                    backgroundColor: "#121212",
+                }}
+                transition="all"
             >
+                <TbMoodEdit size={22} />
                 Update Profile
-            </Button>
+            </Flex>
             <Modal
                 isOpen={isOpen}
                 onClose={onClose}

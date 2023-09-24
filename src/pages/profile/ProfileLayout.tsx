@@ -13,20 +13,30 @@ const ProfileLayout = () => {
                 }}
                 templateColumns={{
                     base: "1fr",
-                    lg: "300px 1fr",
+                    lg: "250px 1fr",
                 }}
-                px={{ base: 0, lg: 5, md: 5, xl: 5 }}
                 w={{ base: "100%", lg: "70%", md: "70%", xl: "70%" }}
                 marginX="auto"
+                backgroundColor="black"
+                h="80vh"
+                rounded="lg"
+                shadow="dark-lg"
             >
                 <Show above="lg">
                     <GridItem area="aside">
                         <ProfileBar />
                     </GridItem>
                 </Show>
-                <GridItem area="main" w="100%">
+                <GridItem
+                    area="main"
+                    w="100%"
+                    h="80vh"
+                    overflowY="scroll"
+                    className="hide-scroll-bar"
+                    scrollBehavior="smooth"
+                >
                     <MobileProfileMenu />
-                    <Box px={{ base: 0, lg: 4, md: 4, xl: 4 }}>
+                    <Box w="100%">
                         <Outlet />
                     </Box>
                 </GridItem>

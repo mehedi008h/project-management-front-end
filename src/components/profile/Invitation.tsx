@@ -44,7 +44,7 @@ const Invitation = () => {
                 flex={1}
                 fontWeight="medium"
                 cursor="pointer"
-                padding={3}
+                padding={2}
                 color="gray.400"
                 rounded="md"
                 width="100%"

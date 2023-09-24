@@ -2,19 +2,22 @@ import {
     Avatar,
     Box,
     Flex,
-    HStack,
+    Grid,
+    GridItem,
     Menu,
     MenuButton,
     MenuGroup,
-    MenuItem,
     MenuList,
     SkeletonCircle,
+    Spinner,
     Text,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
 import avatar from "../../assets/profile.png";
+import { CiSettings } from "react-icons/ci";
+import { IoLogOutOutline } from "react-icons/io5";
 
 const ProfileAvatar = () => {
     const navigate = useNavigate();
@@ -39,35 +42,95 @@ const ProfileAvatar = () => {
                     )}
                 </MenuButton>
                 {!isLoading && (
-                    <MenuList px={5}>
-                        <MenuGroup title="Profile">
-                            <HStack px={2} my={2}>
-                                <Avatar
-                                    name={user?.firstName}
-                                    src={user?.photo ? user.photo.url : avatar}
-                                    size="md"
-                                    cursor="pointer"
-                                />
-                                <Box>
-                                    <Flex alignItems="center" gap={1}>
-                                        <Text>
-                                            {`${user?.firstName}  ${user?.lastName}`}
-                                        </Text>
+                    <MenuList backgroundColor="gray.800">
+                        <MenuGroup title="Profile" fontFamily="monospace">
+                            <Grid
+                                templateColumns={"70px 1fr"}
+                                alignItems="center"
+                                px={5}
+                                my={2}
+                            >
+                                <GridItem>
+                                    <Avatar
+                                        name={user?.firstName}
+                                        src={
+                                            user?.photo
+                                                ? user.photo.url
+                                                : avatar
+                                        }
+                                        size="md"
+                                        cursor="pointer"
+                                    />
+                                </GridItem>
+                                <GridItem>
+                                    <Box>
+                                        <Flex alignItems="center" gap={1}>
+                                            <Text>
+                                                {`${user?.firstName}  ${user?.lastName}`}
+                                            </Text>
+                                            <Text
+                                                fontSize={12}
+                                                color="gray.500"
+                                            >
+                                                (@{user?.username})
+                                            </Text>
+                                        </Flex>
                                         <Text fontSize={12} color="gray.500">
-                                            (@{user?.username})
+                                            Software Engineer
                                         </Text>
-                                    </Flex>
-                                    <Text fontSize={12} color="gray.500">
-                                        Software Engineer
-                                    </Text>
-                                </Box>
-                            </HStack>
-                            <Link to="/profile">
-                                <MenuItem>My Account</MenuItem>
-                            </Link>
-                            <MenuItem onClick={() => logout()}>
-                                {logoutLoding ? "Loading" : "Logout"}
-                            </MenuItem>
+                                    </Box>
+                                </GridItem>
+                            </Grid>
+                            <Grid
+                                templateColumns={"70px 1fr"}
+                                alignItems="center"
+                                px={5}
+                                mt={3}
+                                py={3}
+                                color="gray.500"
+                                transition="all"
+                                _hover={{
+                                    color: "white",
+                                    backgroundColor: "black",
+                                }}
+                            >
+                                <GridItem ps={3}>
+                                    <CiSettings size={25} />
+                                </GridItem>
+                                <GridItem>
+                                    <Link to="/profile">
+                                        <Text fontSize={14}>
+                                            Manage Account
+                                        </Text>
+                                    </Link>
+                                </GridItem>
+                            </Grid>
+                            <Grid
+                                onClick={() => logout()}
+                                templateColumns={"70px 1fr"}
+                                alignItems="center"
+                                px={5}
+                                py={3}
+                                mb={2}
+                                color="gray.500"
+                                cursor="pointer"
+                                transition="all"
+                                _hover={{
+                                    color: "white",
+                                    backgroundColor: "black",
+                                }}
+                            >
+                                <GridItem ps={3}>
+                                    {logoutLoding ? (
+                                        <Spinner size="sm" color="red.500" />
+                                    ) : (
+                                        <IoLogOutOutline size={25} />
+                                    )}
+                                </GridItem>
+                                <GridItem>
+                                    <Text fontSize={14}>Sign out</Text>
+                                </GridItem>
+                            </Grid>
                         </MenuGroup>
                     </MenuList>
                 )}

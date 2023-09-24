@@ -17,6 +17,7 @@ const Navbar = () => {
             justifyContent="space-between"
             alignItems="center"
             marginBottom={6}
+            paddingX={4}
         >
             <Box
                 display={{
