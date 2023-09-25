@@ -4,9 +4,10 @@ import { MobileProfileMenu, Navbar, ProfileBar } from "../../components";
 
 const ProfileLayout = () => {
     return (
-        <Box px={3} width="100%" h="100vh" className="profile_bg">
+        <Box width="100%" h="100vh" className="profile_bg">
             <Navbar />
             <Grid
+                px={3}
                 templateAreas={{
                     base: `"main"`,
                     lg: `"aside main"`,

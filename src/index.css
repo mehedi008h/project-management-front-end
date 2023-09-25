@@ -74,3 +74,8 @@
 .profile_bg {
     background-image: url("./assets/star-bg.svg");
 }
+
+.date {
+    background-color: black !important;
+    width: 100%;
+}

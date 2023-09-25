@@ -1,13 +1,13 @@
-import { Flex, Text, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { BsSend } from "react-icons/bs";
-import { InviteNewMember, Modal } from "..";
+import useInviteStore from "../../store/useInviteStore";
 
 interface Props {
     toogle?: boolean;
 }
 const InviteBtn = ({ toogle = false }: Props) => {
     // open & close modal
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { onOpen } = useInviteStore();
     return (
         <Flex
             onClick={onOpen}
@@ -24,16 +24,6 @@ const InviteBtn = ({ toogle = false }: Props) => {
                 <Text fontFamily="monospace" fontSize="large">
                     Invite Teammember
                 </Text>
-            )}
-
-            {isOpen && (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    disabled={false}
-                    title="Invite Teammember"
-                    body={<InviteNewMember />}
-                />
             )}
         </Flex>
     );

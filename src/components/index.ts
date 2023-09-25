@@ -4,6 +4,7 @@ export { default as TextareaField } from "./inputs/TextareaField";
 export { default as ImageUpload } from "./inputs/ImageUpload";
 export { default as SelectField } from "./inputs/SelectField";
 export { default as SelectTags } from "./inputs/SelectTags";
+export { default as Calendar } from "./inputs/Calendar";
 
 export { default as InviteBtn } from "./sidebar/InviteBtn";
 export { default as InviteNewMember } from "./sidebar/InviteNewMember";
@@ -55,6 +56,10 @@ export { default as UserCard } from "./user/UserCard";
 
 export { default as Modal } from "./modals/ModalView";
 export { default as AlertDialog } from "./modals/AlertDialogModal";
+export { default as ModalsProvider } from "./modals/ModalsProvider";
+export { default as CreateProjectModal } from "./modals/CreateProjectModal";
+export { default as ProfileUpdateModal } from "./modals/ProfileUpdateModal";
+export { default as InviteModal } from "./modals/InviteModal";
 
 export { default as StatusCard } from "./dashboard/StatusCard";
 export { default as Widgets } from "./dashboard/Widgets";
@@ -77,3 +82,6 @@ export { default as AddEvent } from "./calendar/AddEvent";
 
 export { default as ProjectSkeleton } from "./loader/ProjectSkeleton";
 export { default as ProjectDetailsSkeleton } from "./loader/ProjectDetailsSkeleton";
+
+export { default as Home } from "./home/Home";
+export { default as NewUserHome } from "./home/NewUserHome";

@@ -37,6 +37,7 @@ const Sidebar = () => {
         shouldForwardProp: (prop) =>
             isValidMotionProp(prop) || shouldForwardProp(prop),
     });
+
     const routes = [
         {
             label: "Dashboard",

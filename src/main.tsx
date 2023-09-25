@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import { ModalsProvider } from "./components/index.ts";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <QueryClientProvider client={queryClient}>
                     <RouterProvider router={router} />
+                    <ModalsProvider />
                     <ReactQueryDevtools />
                 </QueryClientProvider>
             </GoogleOAuthProvider>
