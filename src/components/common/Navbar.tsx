@@ -8,8 +8,13 @@ import {
 } from "..";
 import logo from "../../assets/logo.png";
 import { SearchType } from "../../enums/search.enum";
+import useProjectLength from "../../hooks/useProjectLength";
 
 const Navbar = () => {
+    const { data: projects, isLoading } = useProjectLength();
+    const projectLength =
+        !isLoading && projects && projects?.length > 0 ? true : false;
+
     return (
         <Flex
             height="80px"
@@ -29,7 +34,21 @@ const Navbar = () => {
                 w="100%"
                 paddingRight="15px"
             >
-                <NavProject />
+                {projectLength ? (
+                    <NavProject />
+                ) : (
+                    <Box
+                        display={{
+                            base: "none",
+                            xl: "block",
+                            md: "block",
+                            lg: "block",
+                        }}
+                        w="100%"
+                    >
+                        <Image src={logo} boxSize={10} />
+                    </Box>
+                )}
             </Box>
             <Box
                 display={{ base: "block", xl: "none", md: "none", lg: "none" }}
@@ -47,15 +66,21 @@ const Navbar = () => {
                         lg: "flex",
                     }}
                     w="100%"
+                    justifyContent="end"
                 >
-                    <Box
-                        h={8}
-                        w="1px"
-                        backgroundColor="teal"
-                        marginTop={2}
-                        rounded="md"
-                    ></Box>
-                    <SearchInput type={SearchType.PROJECT} />
+                    {projectLength && (
+                        <>
+                            <Box
+                                h={8}
+                                w="1px"
+                                backgroundColor="teal"
+                                marginTop={2}
+                                rounded="md"
+                            ></Box>
+                            <SearchInput type={SearchType.PROJECT} />
+                        </>
+                    )}
+
                     <AddProjectButton />
                 </HStack>
                 <ProfileAvatar />
