@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient, { FetchResponse } from "../service/apiClient";
+import { User } from "../domain/user";
 import { toast } from "react-hot-toast";
-import { Project } from "../domain/project";
 
-const useCreateProject = () => {
+const useRemoveDeveloper = (projectIdentifier: string) => {
     const queryClient = useQueryClient();
-    const apiClient = new APIClient<Project>("/project");
-    return useMutation<FetchResponse<Project>, FetchResponse<Error>, Project>({
-        mutationFn: (data) => apiClient.post(data),
+    const apiClient = new APIClient<User>(
+        `/project/remove-developer/${projectIdentifier}`
+    );
+    return useMutation<FetchResponse<User>, FetchResponse<Error>, User>({
+        mutationFn: (user) => apiClient.put(user),
         onSuccess: (response) => {
             response.data;
-            queryClient.invalidateQueries(["projects"]);
-            queryClient.invalidateQueries(["projectsLength"]);
+            queryClient.invalidateQueries(["project", projectIdentifier]);
             if (response.statusCode === 200) {
                 toast.success(response.message);
             } else {
@@ -24,4 +25,4 @@ const useCreateProject = () => {
     });
 };
 
-export default useCreateProject;
+export default useRemoveDeveloper;

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Range } from "react-date-range";
 import { formatISO } from "date-fns";
 import {
@@ -22,10 +22,15 @@ import {
     TextareaField,
 } from "..";
 import { LiaHeadingSolid } from "react-icons/lia";
-import useCreateProject from "../../hooks/useCreateProject";
-import { Project } from "../../domain/project";
 import useProjectStore from "../../store/useProjectStore";
+import useProject from "../../hooks/useProject";
+import { Status } from "../../enums/status.enum";
+import useProjectUpdate from "../../hooks/useProjectUpdate";
+import { Project } from "../../domain/project";
+import useUpdateProjectStore from "../../store/useUpdateProjectStore";
 import { AiFillTags } from "react-icons/ai";
+import { BiLoader } from "react-icons/bi";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 
 enum STEPS {
     INFO = 0,
@@ -34,33 +39,45 @@ enum STEPS {
     IMAGES = 3,
 }
 
-const CreateProjectModal = () => {
+const UpdateProjectModal = () => {
+    // get project identifier from zustand
+    const projectStore = useProjectStore();
+    const { data: project } = useProject(projectStore.projectId!);
+
     const [step, setStep] = useState(STEPS.INFO);
     const [tags, setTags] = useState<string[]>([]);
     const [tagValue, setTagValue] = useState<string>("");
-    // image state
-    const [avatar, setAvatar] = useState("");
+    const [projectStatus, setStatus] = useState("");
     const [dateRange, setDateRange] = useState<Range>({
         startDate: new Date(),
         endDate: new Date(),
         key: "selection",
     });
+    // image state
+    const [avatar, setAvatar] = useState();
     // open & close modal
-    const { isOpen, onClose } = useProjectStore();
-    const { mutate, isLoading } = useCreateProject();
+    const { isOpen, onClose } = useUpdateProjectStore();
+
+    const { mutate, isLoading: updateProjectLoading } = useProjectUpdate(
+        projectStore.projectId
+    );
+
     const {
         register,
         handleSubmit,
-        setValue,
         reset,
+        setValue,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
+            _id: "",
+            projectIdentifier: "",
             title: "",
             description: "",
             photo: avatar,
             startDate: "",
             endDate: "",
+            status: "",
             tags: tags,
         },
     });
@@ -71,14 +88,6 @@ const CreateProjectModal = () => {
             shouldTouch: true,
             shouldValidate: true,
         });
-    };
-
-    const handleTags = (e: any) => {
-        if (e.key === "Enter" || (e.key === "," && tagValue)) {
-            setTags([...tags, tagValue]);
-            setCustomValue("tags", [...tags, tagValue]);
-            setTagValue("");
-        }
     };
 
     // upload photo
@@ -95,19 +104,18 @@ const CreateProjectModal = () => {
         reader.readAsDataURL(e.target.files[0]);
     };
 
-    const onBack = () => {
-        setStep((value) => value - 1);
-    };
-
-    const onNext = () => {
-        setStep((value) => value + 1);
+    const handleTags = (e: any) => {
+        if (e.key === "Enter" || (e.key === "," && tagValue)) {
+            setTags([...tags, tagValue]);
+            setCustomValue("tags", [...tags, tagValue]);
+            setTagValue("");
+        }
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         if (step !== STEPS.IMAGES) {
             return onNext();
         }
-
         if (dateRange.startDate) {
             data.startDate = formatISO(dateRange.startDate);
         }
@@ -115,10 +123,25 @@ const CreateProjectModal = () => {
         if (dateRange.endDate) {
             data.endDate = formatISO(dateRange.endDate);
         }
-        console.log("Data: " + JSON.stringify(data));
+
         mutate(data as Project);
-        reset();
     };
+
+    useEffect(() => {
+        if (project) {
+            reset({
+                _id: project._id,
+                projectIdentifier: project.projectIdentifier,
+                title: project.title,
+                startDate: project.startDate,
+                endDate: project.endDate,
+                description: project.description,
+                status: project.status,
+                tags: project.tags,
+            });
+        }
+    }, [project, reset]);
+
     const actionLabel = useMemo(() => {
         if (step === STEPS.IMAGES) {
             return "Create";
@@ -126,6 +149,14 @@ const CreateProjectModal = () => {
 
         return "Next";
     }, [step]);
+
+    const onBack = () => {
+        setStep((value) => value - 1);
+    };
+
+    const onNext = () => {
+        setStep((value) => value + 1);
+    };
 
     const secondaryActionLabel = useMemo(() => {
         if (step === STEPS.INFO) {
@@ -138,7 +169,7 @@ const CreateProjectModal = () => {
     let bodyContent = (
         <Flex flexDirection="column" gap={8}>
             <FormHeading
-                title="Share some basics about your project"
+                title="Update some basics about your project"
                 subtitle="What amenities do you have?"
             />
             <VStack spacing={5}>
@@ -182,6 +213,7 @@ const CreateProjectModal = () => {
                     title="How would you describe your project?"
                     subtitle="Short and sweet works best!"
                 />
+
                 <Calendar
                     onChange={(value) => setDateRange(value.selection)}
                     value={dateRange}
@@ -196,6 +228,55 @@ const CreateProjectModal = () => {
                     title="Which of these best describes your project?"
                     subtitle="Pick some categories"
                 />
+                {/* status  */}
+                <Box>
+                    <HStack alignItems="center" spacing={2}>
+                        <BiLoader size={22} />
+                        <Text>Project Status</Text>
+                    </HStack>
+                    <Text my={2} fontSize={14} color="gray.500">
+                        Plase update project status
+                    </Text>
+                    <HStack my={3}>
+                        {[Status.TODO, Status.PROGRESS, Status.COMPLETED].map(
+                            (status) => (
+                                <Flex
+                                    px={5}
+                                    py={1}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    gap={3}
+                                    rounded="full"
+                                    border="1px"
+                                    backgroundColor="transparent"
+                                    color={
+                                        status === projectStatus
+                                            ? status === Status.COMPLETED
+                                                ? "green"
+                                                : status === Status.PROGRESS
+                                                ? "yellow"
+                                                : status === Status.TODO
+                                                ? "red"
+                                                : "gray.500"
+                                            : "gray.500"
+                                    }
+                                    cursor="pointer"
+                                    _hover={{
+                                        color: "maroon",
+                                    }}
+                                    onClick={() => {
+                                        setStatus(status);
+                                        setCustomValue("status", status);
+                                    }}
+                                >
+                                    <IoCheckmarkDoneCircleSharp size={23} />
+                                    <Text>{status.toUpperCase()}</Text>
+                                </Flex>
+                            )
+                        )}
+                    </HStack>
+                </Box>
+
                 {/* tags  */}
                 <Box>
                     <HStack alignItems="center" spacing={2}>
@@ -269,8 +350,8 @@ const CreateProjectModal = () => {
             onClose={onClose}
             size="2xl"
             disabled={false}
-            loading={isLoading}
-            title="Create Project"
+            loading={updateProjectLoading}
+            title="Update Project"
             actionLabel={actionLabel}
             onSubmit={handleSubmit(onSubmit)}
             secondaryActionLabel={secondaryActionLabel}
@@ -280,4 +361,4 @@ const CreateProjectModal = () => {
     );
 };
 
-export default CreateProjectModal;
+export default UpdateProjectModal;

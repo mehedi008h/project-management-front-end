@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import { Empty, FormHeading, UserCard } from "../../components";
 import useTeammates from "../../hooks/useTeammates";
 
@@ -13,7 +13,14 @@ const TeamsPage = () => {
             />
 
             {isLoading ? (
-                "Loading"
+                <Box
+                    w="100%"
+                    h="60vh"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Spinner color="red.500" />
+                </Box>
             ) : (
                 <>
                     <Box
@@ -25,23 +32,24 @@ const TeamsPage = () => {
                         {teams?.length === 0 && (
                             <Empty text="Don't have team member yet" />
                         )}
+                        <Grid
+                            templateColumns={{
+                                xl: "repeat(2, 1fr)",
+                                lg: "repeat(2, 1fr)",
+                                md: "repeat(2, 1fr)",
+                                base: "repeat(1, 1fr)",
+                            }}
+                            gap={3}
+                            width="100%"
+                            mt={3}
+                        >
+                            {teams?.map((user) => (
+                                <GridItem key={user._id}>
+                                    <UserCard user={user} />
+                                </GridItem>
+                            ))}
+                        </Grid>
                     </Box>
-                    <Grid
-                        templateColumns={{
-                            xl: "repeat(2, 1fr)",
-                            lg: "repeat(2, 1fr)",
-                            md: "repeat(2, 1fr)",
-                            base: "repeat(1, 1fr)",
-                        }}
-                        gap={3}
-                        width="100%"
-                    >
-                        {teams?.map((user) => (
-                            <GridItem key={user._id}>
-                                <UserCard user={user} />
-                            </GridItem>
-                        ))}
-                    </Grid>
                 </>
             )}
         </Box>

@@ -3,27 +3,35 @@ import { DateRange, Range, RangeKeyDict } from "react-date-range";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-
 interface Props {
     value: Range;
     onChange: (value: RangeKeyDict) => void;
     disabledDates?: Date[];
+    minDate?: Date;
+    maxDate?: Date;
 }
 
-const DatePicker = ({ value, onChange, disabledDates }: Props) => {
+const DatePicker = ({
+    value,
+    onChange,
+    disabledDates,
+    maxDate = undefined,
+    minDate = new Date(),
+}: Props) => {
     return (
-        <Box w="100%">
+        <Box>
             <DateRange
-                className="date"
-                rangeColors={["#262626"]}
+                rangeColors={["maroon"]}
                 ranges={[value]}
                 date={new Date()}
                 onChange={onChange}
-                direction="vertical"
                 showDateDisplay={false}
-                minDate={new Date()}
+                minDate={minDate}
+                maxDate={maxDate}
                 disabledDates={disabledDates}
-                fixedHeight
+                months={2}
+                direction="horizontal"
+                className="date"
             />
         </Box>
     );

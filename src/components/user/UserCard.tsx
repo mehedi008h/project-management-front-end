@@ -12,10 +12,11 @@ const UserCard = ({ user }: Props) => {
             flexDirection="row"
             alignItems="center"
             gap={4}
-            bg="black"
             p={3}
             rounded="md"
             width="100%"
+            border="2px"
+            borderColor="gray.700"
         >
             <Avatar name={user.firstName} size="xl" />
             <Box>

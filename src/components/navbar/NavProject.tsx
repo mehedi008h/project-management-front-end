@@ -1,11 +1,13 @@
 import { Box, Flex } from "@chakra-ui/react";
 
 import { ProjectAvatarGroup, ProjectSelector } from "..";
+import useProjectLength from "../../hooks/useProjectLength";
+import useProjectDeveloper from "../../hooks/useProjectDeveloper";
 
 const NavProject = () => {
-    // const { data: developers, isLoading: developerLoading } =
-    //     useProjectDeveloper(projects?.[0]?.projectIdentifier as string);
-
+    const { data: projects } = useProjectLength();
+    const { data: developers, isLoading: developerLoading } =
+        useProjectDeveloper(projects?.[0].projectIdentifier as string);
     return (
         <Flex
             w="100%"
@@ -17,7 +19,11 @@ const NavProject = () => {
                 <ProjectSelector />
             </Box>
             <Box>
-                <ProjectAvatarGroup size="sm" loading={false} />
+                <ProjectAvatarGroup
+                    size="sm"
+                    loading={developerLoading}
+                    developers={developers}
+                />
             </Box>
         </Flex>
     );

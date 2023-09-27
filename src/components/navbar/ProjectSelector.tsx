@@ -11,10 +11,12 @@ import { AiOutlineArrowDown } from "react-icons/ai";
 import { SelectOption } from "..";
 import useProjects from "../../hooks/useProjects";
 import { IoReloadCircleOutline } from "react-icons/io5";
+import useProjectLength from "../../hooks/useProjectLength";
 
 const ProjectSelector = () => {
     const { data, isLoading, fetchNextPage, isFetchingNextPage } =
         useProjects();
+    const { data: projects } = useProjectLength();
 
     return (
         <Menu>
@@ -26,7 +28,7 @@ const ProjectSelector = () => {
                 display="flex"
                 alignItems="start"
             >
-                <SelectOption arrow />
+                <SelectOption arrow project={projects?.[0]} />
             </MenuButton>
 
             <>

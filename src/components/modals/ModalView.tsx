@@ -56,16 +56,22 @@ const ModalView = ({
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} size={size}>
-            <ModalOverlay />
+            <ModalOverlay backdropBlur="3xl" backdropBrightness={3} />
             <ModalContent>
-                <ModalHeader fontFamily="monospace" fontSize="2xl">
+                <ModalHeader
+                    backgroundColor="#0D1117"
+                    fontFamily="monospace"
+                    fontSize="2xl"
+                >
                     {title}
                 </ModalHeader>
                 <ModalCloseButton />
                 <Divider />
-                <ModalBody>{body}</ModalBody>
+                <ModalBody py={8} backgroundColor="#0D1117">
+                    {body}
+                </ModalBody>
                 {onSubmit && actionLabel && (
-                    <ModalFooter>
+                    <ModalFooter backgroundColor="#0D1117">
                         {secondaryAction && secondaryActionLabel && (
                             <Button
                                 size="md"

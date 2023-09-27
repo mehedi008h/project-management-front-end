@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
     Box,
     Button,
@@ -13,16 +12,20 @@ import {
 import { BiMenuAltRight } from "react-icons/bi";
 import { CiMenuKebab } from "react-icons/ci";
 
-import { AlertDialog, AssignDeveloper, Modal, UpdateProjectBtn } from "..";
-import NewTask from "../task/NewTask";
+import { AlertDialog } from "..";
 import useProjectDelete from "../../hooks/useProjectDelete";
 import useProjectStore from "../../store/useProjectStore";
 import { useNavigate } from "react-router-dom";
+import useTaskStore from "../../store/useTaskStore";
+import useUpdateProjectStore from "../../store/useUpdateProjectStore";
+import useAssignDeveloperStore from "../../store/useAssignDeveloperStore";
 
 const ProjectDetailsBtn = () => {
-    const [modalType, setModalType] = useState("");
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { onOpen: openTaskModal } = useTaskStore();
+    const { onOpen: openUpdateProjectModal } = useUpdateProjectStore();
+    const { onOpen: openAssignDeveloperModal } = useAssignDeveloperStore();
 
     // get project identifier from zustand
     const projectStore = useProjectStore();
@@ -30,11 +33,6 @@ const ProjectDetailsBtn = () => {
     // delete project
     const { mutate, isLoading } = useProjectDelete(projectStore.projectId);
     const navigate = useNavigate();
-
-    const handleModal = (type: string) => {
-        onOpen();
-        setModalType(type);
-    };
 
     const handleDelete = () => {
         mutate();
@@ -58,25 +56,27 @@ const ProjectDetailsBtn = () => {
                 variant="outline"
             >
                 <Button
-                    onClick={() => handleModal("assignDeveloper")}
+                    onClick={openAssignDeveloperModal}
                     fontWeight="normal"
                     fontSize={14}
                 >
                     Assign Developer
                 </Button>
                 <Button
-                    onClick={() => handleModal("assignTask")}
+                    onClick={openTaskModal}
                     fontWeight="normal"
                     fontSize={14}
                 >
                     Add Task
                 </Button>
-                <UpdateProjectBtn />
                 <Button
-                    onClick={() => handleModal("deleteProject")}
+                    onClick={openUpdateProjectModal}
                     fontWeight="normal"
                     fontSize={14}
                 >
+                    Update Project
+                </Button>
+                <Button onClick={onOpen} fontWeight="normal" fontSize={14}>
                     Delete Project
                 </Button>
             </ButtonGroup>
@@ -103,38 +103,16 @@ const ProjectDetailsBtn = () => {
                 </Menu>
             </Box>
 
-            {/* modal  assignDeveloper*/}
-            {modalType === "assignDeveloper" && (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    disabled={false}
-                    title="Assign Developer"
-                    body={<AssignDeveloper />}
-                />
-            )}
-            {/* modal  assignTask*/}
-            {modalType === "assignTask" && (
-                <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    size="2xl"
-                    disabled={false}
-                    title="Assign Task"
-                    body={<NewTask />}
-                />
-            )}
             {/* modal  deleteProject*/}
-            {modalType === "deleteProject" && (
-                <AlertDialog
-                    title="Delete Project ?"
-                    body="Your project will be deleted"
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    handleAction={handleDelete}
-                    loading={isLoading}
-                />
-            )}
+
+            <AlertDialog
+                title="Delete Project ?"
+                body="Your project will be deleted"
+                isOpen={isOpen}
+                onClose={onClose}
+                handleAction={handleDelete}
+                loading={isLoading}
+            />
         </>
     );
 };

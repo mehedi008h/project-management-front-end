@@ -5,6 +5,7 @@ import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import useProjectStore from "../../store/useProjectStore";
 import { SearchType } from "../../enums/search.enum";
 import { MdClear } from "react-icons/md";
+import useAssignDeveloperStore from "../../store/useAssignDeveloperStore";
 
 interface Props {
     type: string;
@@ -15,6 +16,9 @@ const SearchInput = ({ type }: Props) => {
     const projectQuery = useProjectStore((s) => s.projectQuery);
     const setUserSearchText = useUserStore((s) => s.setSearchText);
     const setProjectSearchText = useProjectStore((s) => s.setSearchText);
+    const setDeveloperSearchText = useAssignDeveloperStore(
+        (s) => s.setSearchText
+    );
     const clearSearchText = useProjectStore((s) => s.clearSearchText);
 
     const handleClearSearch = () => {
@@ -33,6 +37,9 @@ const SearchInput = ({ type }: Props) => {
                     }
                     if (type === SearchType.PROJECT) {
                         setProjectSearchText(text);
+                    }
+                    if (type === SearchType.DEVELOPER) {
+                        setDeveloperSearchText(text);
                     }
                 }}
             >

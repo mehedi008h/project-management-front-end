@@ -36,8 +36,6 @@ export { default as ProjectDetailsCard } from "./project/ProjectDetailsCard";
 export { default as ProjectDetailsBtn } from "./project/ProjectDetailsBtn";
 export { default as ProjectConatiner } from "./project/ProjectConatiner";
 export { default as UserCardContainer } from "./project/UserCardContainer";
-export { default as UpdateProjectBtn } from "./project/UpdateProjectBtn";
-export { default as AssignDeveloper } from "./project/AssignDeveloper";
 export { default as Filter } from "./project/Filter";
 export { default as CompletedProject } from "./project/CompletedProject";
 export { default as TodoProject } from "./project/TodoProject";
@@ -49,7 +47,6 @@ export { default as MobileTableContent } from "./task/MobileTableContent";
 export { default as Tasks } from "./task/Tasks";
 export { default as TaskDetails } from "./task/TaskDetails";
 export { default as TaskAction } from "./task/TaskAction";
-export { default as UpdateTask } from "./task/UpdateTask";
 
 export { default as AssignedUserCard } from "./user/AssignedUserCard";
 export { default as UserCard } from "./user/UserCard";
@@ -60,6 +57,10 @@ export { default as ModalsProvider } from "./modals/ModalsProvider";
 export { default as CreateProjectModal } from "./modals/CreateProjectModal";
 export { default as ProfileUpdateModal } from "./modals/ProfileUpdateModal";
 export { default as InviteModal } from "./modals/InviteModal";
+export { default as UpdateProjectModal } from "./modals/UpdateProjectModal";
+export { default as AssignTaskModal } from "./modals/AssignTaskModal";
+export { default as UpdateTaskModal } from "./modals/UpdateTaskModal";
+export { default as AssignDeveloperModal } from "./modals/AssignDeveloperModal";
 
 export { default as StatusCard } from "./dashboard/StatusCard";
 export { default as Widgets } from "./dashboard/Widgets";

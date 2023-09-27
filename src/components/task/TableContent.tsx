@@ -29,6 +29,7 @@ interface Props {
 const TableContent = ({ task, projectLeader }: Props) => {
     // open & close modal
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     const { data: user } = useAuth();
 
     // check task developer

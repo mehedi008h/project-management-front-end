@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-    Button,
+    Box,
     Flex,
     HStack,
     Input,
     Tag,
     TagCloseButton,
     TagLabel,
+    Text,
     VStack,
-    useDisclosure,
 } from "@chakra-ui/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FormHeading, ImageUpload, InputField, Modal, TextareaField } from "..";
@@ -28,13 +28,15 @@ import useProfileUpdate from "../../hooks/useProfileUpdate";
 import { User } from "../../domain/user";
 import useAuth from "../../hooks/useAuth";
 import useUserStore from "../../store/useUserStore";
+import { MdLocalActivity } from "react-icons/md";
 
 const ProfileUpdateModal = () => {
     const { data: user, isLoading: userLoading } = useAuth();
     const [step, setStep] = useState(STEPS.INFO);
     const [skills, setSkills] = useState<string[]>([]);
-    const [text, setText] = useState("");
-    // image state
+
+    const [skillValue, setSkillValue] = useState<string>("");
+    // image stskill
     const [avatar, setAvatar] = useState();
     // open & close modal
     const { isOpen, onClose } = useUserStore();
@@ -61,6 +63,7 @@ const ProfileUpdateModal = () => {
 
     useEffect(() => {
         if (user) {
+            setSkills(user.skills);
             reset({
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -79,6 +82,14 @@ const ProfileUpdateModal = () => {
             shouldTouch: true,
             shouldValidate: true,
         });
+    };
+
+    const handleTags = (e: any) => {
+        if (e.key === "Enter" || (e.key === "," && skillValue)) {
+            setSkills([...skills, skillValue]);
+            setCustomValue("skills", [...skills, skillValue]);
+            setSkillValue("");
+        }
     };
 
     // upload photo
@@ -101,11 +112,6 @@ const ProfileUpdateModal = () => {
 
     const onNext = () => {
         setStep((value) => value + 1);
-    };
-
-    const handleTags = () => {
-        setSkills([...skills, text]);
-        setCustomValue("skills", [...skills, text]);
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -234,48 +240,72 @@ const ProfileUpdateModal = () => {
                     title="Which of these best describes your skills?"
                     subtitle="Add some skills"
                 />
-                <HStack>
-                    <Input
-                        onChange={(e) => setText(e.target.value)}
-                        borderColor={"teal.200"}
+                {/* skills  */}
+                <Box>
+                    <HStack alignItems="center" spacing={2}>
+                        <MdLocalActivity size={22} />
+                        <Text>Skills</Text>
+                    </HStack>
+                    <Text my={2} fontSize={14} color="gray.500">
+                        Plase enter or add a comma after each tag
+                    </Text>
+                    <HStack
                         border="1px"
-                        color="gray.600"
-                        fontSize={15}
+                        rounded="md"
+                        borderColor="gray.600"
                         backgroundColor="transparent"
-                        variant="filled"
                         _focus={{ borderColor: "teal" }}
                         _hover={{ borderColor: "teal" }}
-                    />
-                    <Button
-                        onClick={handleTags}
-                        fontFamily="monospace"
-                        fontSize={18}
+                        flexWrap="wrap"
+                        p={2}
                     >
-                        Add
-                    </Button>
-                </HStack>
-                <HStack>
-                    {skills.map((skill, i) => (
-                        <Tag
-                            size="md"
-                            key={i}
-                            borderRadius="full"
-                            variant="solid"
-                            colorScheme="green"
-                            px={3}
-                            py={1}
-                        >
-                            <TagLabel>{skill}</TagLabel>
-                            <TagCloseButton
-                                onClick={() =>
-                                    setSkills(
-                                        skills.filter((item) => item !== skill)
-                                    )
-                                }
-                            />
-                        </Tag>
-                    ))}
-                </HStack>
+                        {skills.map((skill, i) => (
+                            <Tag
+                                size="md"
+                                key={i}
+                                borderRadius="md"
+                                variant="solid"
+                                colorScheme="gray"
+                                width="fit-content"
+                                px={2}
+                                py={1}
+                            >
+                                <TagLabel>{skill.toUpperCase()}</TagLabel>
+                                <Box
+                                    ms={1}
+                                    h={4}
+                                    w="1px"
+                                    backgroundColor="gray.400"
+                                    rounded="md"
+                                ></Box>
+                                <TagCloseButton
+                                    onClick={() =>
+                                        setSkills(
+                                            skills.filter(
+                                                (item) => item !== skill
+                                            )
+                                        )
+                                    }
+                                />
+                            </Tag>
+                        ))}
+                        <Input
+                            onChange={(e) => setSkillValue(e.target.value)}
+                            onKeyDown={handleTags}
+                            value={skillValue}
+                            type="text"
+                            background="transparent"
+                            color="gray.600"
+                            fontSize={15}
+                            style={{
+                                outline: "none",
+                            }}
+                            border="none"
+                            w="min-content"
+                            variant="unstyled"
+                        />
+                    </HStack>
+                </Box>
             </Flex>
         );
     }
@@ -284,8 +314,8 @@ const ProfileUpdateModal = () => {
             isOpen={isOpen}
             onClose={onClose}
             size="2xl"
-            loading={isLoading}
-            disabled={isLoading}
+            loading={isLoading || userLoading}
+            disabled={isLoading || userLoading}
             title="Update Profile"
             actionLabel={actionLabel}
             onSubmit={handleSubmit(onSubmit)}

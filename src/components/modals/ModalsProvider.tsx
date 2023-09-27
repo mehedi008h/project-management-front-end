@@ -1,4 +1,12 @@
-import { CreateProjectModal, InviteModal, ProfileUpdateModal } from "..";
+import {
+    AssignDeveloperModal,
+    AssignTaskModal,
+    CreateProjectModal,
+    InviteModal,
+    ProfileUpdateModal,
+    UpdateProjectModal,
+    UpdateTaskModal,
+} from "..";
 
 const ModalsProvider = () => {
     return (
@@ -6,6 +14,10 @@ const ModalsProvider = () => {
             <CreateProjectModal />
             <ProfileUpdateModal />
             <InviteModal />
+            <UpdateProjectModal />
+            <AssignTaskModal />
+            <UpdateTaskModal />
+            <AssignDeveloperModal />
         </>
     );
 };

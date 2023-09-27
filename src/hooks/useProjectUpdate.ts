@@ -11,6 +11,7 @@ const useProjectUpdate = (projectIdentifier: string) => {
         onSuccess: (response) => {
             response.data;
             queryClient.invalidateQueries(["project", projectIdentifier]);
+            queryClient.invalidateQueries(["projectsLength"]);
             if (response.statusCode == 200) {
                 toast.success(response.message);
             } else {
