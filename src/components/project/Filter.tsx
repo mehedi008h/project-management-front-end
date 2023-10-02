@@ -1,3 +1,4 @@
+import React from "react";
 import {
     Avatar,
     Box,
@@ -6,6 +7,7 @@ import {
     HStack,
     SkeletonCircle,
     SkeletonText,
+    Spinner,
     Tag,
     Text,
     VStack,
@@ -19,6 +21,7 @@ import useTeammates from "../../hooks/useTeammates";
 import { IoIosArrowForward } from "react-icons/io";
 import useProjectStore from "../../store/useProjectStore";
 import { FcClearFilters } from "react-icons/fc";
+import { IoReloadCircleOutline } from "react-icons/io5";
 
 const Filter = () => {
     // project store
@@ -35,7 +38,12 @@ const Filter = () => {
 
     // get tags & team members
     const { data: tags, isLoading: tagsLoading } = useGetTags();
-    const { data: teams, isLoading: teamLoading } = useTeammates();
+    const {
+        data,
+        isLoading: teamLoading,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = useTeammates();
 
     // apply filter & store in project store
     const handleFilter = () => {
@@ -135,42 +143,70 @@ const Filter = () => {
                         <>{teamLoder}</>
                     ) : (
                         <>
-                            {teams?.map((team) => (
-                                <HStack
-                                    key={team._id}
-                                    px={4}
-                                    py={2}
-                                    rounded="full"
-                                    cursor="pointer"
-                                    _hover={{ shadow: "md" }}
-                                    border="1px"
-                                    bg="gray.900"
-                                    borderColor={
-                                        developer === team._id
-                                            ? "#0D85A2"
-                                            : "gray.900"
-                                    }
-                                    onClick={() =>
-                                        setDedeloper(
-                                            developer?.includes(team._id)
-                                                ? ""
-                                                : team._id
-                                        )
-                                    }
-                                >
-                                    <Avatar name={team.firstName} size="sm" />
-                                    <Box>
-                                        <Text fontSize={14}>
-                                            {team.firstName} {team.lastName}
-                                        </Text>
-                                        <Text fontSize={12} color="gray.400">
-                                            @{team.username}
-                                        </Text>
-                                    </Box>
-                                </HStack>
+                            {data?.pages.map((page, index) => (
+                                <React.Fragment key={index}>
+                                    {page?.map((team) => (
+                                        <HStack
+                                            key={team._id}
+                                            px={4}
+                                            py={2}
+                                            rounded="full"
+                                            cursor="pointer"
+                                            _hover={{ shadow: "md" }}
+                                            border="1px"
+                                            bg="gray.900"
+                                            borderColor={
+                                                developer === team._id
+                                                    ? "#0D85A2"
+                                                    : "gray.900"
+                                            }
+                                            onClick={() =>
+                                                setDedeloper(
+                                                    developer?.includes(
+                                                        team._id
+                                                    )
+                                                        ? ""
+                                                        : team._id
+                                                )
+                                            }
+                                        >
+                                            <Avatar
+                                                name={team.firstName}
+                                                size="sm"
+                                            />
+                                            <Box>
+                                                <Text fontSize={14}>
+                                                    {team.firstName}{" "}
+                                                    {team.lastName}
+                                                </Text>
+                                                <Text
+                                                    fontSize={12}
+                                                    color="gray.400"
+                                                >
+                                                    @{team.username}
+                                                </Text>
+                                            </Box>
+                                        </HStack>
+                                    ))}
+                                </React.Fragment>
                             ))}
                         </>
                     )}
+                    <Box textAlign="center">
+                        <Button
+                            disabled={isFetchingNextPage}
+                            onClick={() => fetchNextPage()}
+                            mt={3}
+                            rounded="full"
+                            size="sm"
+                        >
+                            {isFetchingNextPage ? (
+                                <Spinner color="red" size="sm" />
+                            ) : (
+                                <IoReloadCircleOutline size={20} />
+                            )}
+                        </Button>
+                    </Box>
                 </Flex>
             </Box>
             <HStack spacing={3} justifyContent="end" w="100%" mb={3}>

@@ -129,6 +129,7 @@ const UpdateProjectModal = () => {
 
     useEffect(() => {
         if (project) {
+            setTags(project.tags);
             reset({
                 _id: project._id,
                 projectIdentifier: project.projectIdentifier,

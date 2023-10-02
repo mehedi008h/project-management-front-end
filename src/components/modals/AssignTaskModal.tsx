@@ -19,7 +19,6 @@ import useProject from "../../hooks/useProject";
 import useProjectDeveloper from "../../hooks/useProjectDeveloper";
 import useAssignTask from "../../hooks/useAssignTask";
 import { Task } from "../../domain/task";
-import useTaskStore from "../../store/useTaskStore";
 
 enum STEPS {
     INFO = 0,
@@ -27,7 +26,12 @@ enum STEPS {
     DEVELOPER = 2,
 }
 
-const AssignTaskModal = () => {
+interface Props {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const AssignTaskModal = ({ isOpen, onClose }: Props) => {
     const [step, setStep] = useState(STEPS.INFO);
     const [tags, setTags] = useState<string[]>([]);
     const [taskDeveloper, setTaskDeveloper] = useState<string>("");
@@ -38,10 +42,9 @@ const AssignTaskModal = () => {
     });
     // get project identifier from zustand store
     const project = useProjectStore();
-    const { isOpen, onClose } = useTaskStore();
 
     const { mutate, isLoading: createtaskLoading } = useAssignTask(
-        project.projectId
+        project.projectId!
     );
 
     // fetch project & project developers

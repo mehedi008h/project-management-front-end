@@ -51,10 +51,10 @@ const UpdateTaskModal = () => {
     const { isOpenUpdate, onCloseUpdate } = useTaskStore();
 
     // fetch project & project developers
-    const { data: projectDetails } = useProject(project.projectId!);
-    const { data: task, isLoading: taskLoading } = useTask(project.taskId);
+    const { data: projectDetails } = useProject(project.projectId);
+    const { data: task, isLoading: taskLoading } = useTask(project.taskId!);
     const { data: developers, isLoading: developerLoading } =
-        useProjectDeveloper(project.projectId!);
+        useProjectDeveloper(project.projectId);
 
     const { mutate: updateTask, isLoading: taskUpdateLoading } = useTaskUpdate(
         project.projectId
@@ -81,7 +81,8 @@ const UpdateTaskModal = () => {
     });
 
     useEffect(() => {
-        if (!taskLoading && task) {
+        if (task) {
+            setTags(task.tags);
             reset({
                 _id: task._id,
                 taskIdentifier: task.taskIdentifier,
@@ -94,7 +95,7 @@ const UpdateTaskModal = () => {
                 priority: task.priority,
             });
         }
-    }, [task, reset, taskLoading]);
+    }, [task, reset]);
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -194,7 +195,9 @@ const UpdateTaskModal = () => {
                     <option value="">Choose Priority</option>
                     {[Priority.LOW, Priority.MEDIUM, Priority.HIGH]?.map(
                         (priority) => (
-                            <option value={priority}>{priority}</option>
+                            <option key={priority} value={priority}>
+                                {priority}
+                            </option>
                         )
                     )}
                 </SelectField>
@@ -262,6 +265,7 @@ const UpdateTaskModal = () => {
                     <HStack w="100%" flexWrap="wrap" spacing={3}>
                         {projectDetails?.tags.map((tag, i) => (
                             <Badge
+                                key={i}
                                 onClick={() => handleTags(tag)}
                                 colorScheme={
                                     tags.find(
@@ -276,7 +280,6 @@ const UpdateTaskModal = () => {
                                 py={1}
                                 rounded="full"
                                 cursor="pointer"
-                                key={i}
                             >
                                 {tag}
                             </Badge>

@@ -6,13 +6,15 @@ import useUserStore from "../../store/useUserStore";
 import { Types } from "../../enums/types.enum";
 import { SearchType } from "../../enums/search.enum";
 import { IoReloadCircleOutline } from "react-icons/io5";
-import useAssignDeveloperStore from "../../store/useAssignDeveloperStore";
 
-const AssignDeveloperModal = () => {
+interface Props {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+const AssignDeveloperModal = ({ isOpen, onClose }: Props) => {
     const { data, isLoading, fetchNextPage, isFetchingNextPage } =
         useTeammates();
-
-    const { isOpen, onClose } = useAssignDeveloperStore();
 
     // store type in store
     const userStore = useUserStore();

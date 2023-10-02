@@ -1,6 +1,6 @@
 import { Button, GridItem, HStack, useDisclosure } from "@chakra-ui/react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { AlertDialog } from "..";
+import { AlertDialog, UpdateTaskModal } from "..";
 import useProjectStore from "../../store/useProjectStore";
 import useTaskDelete from "../../hooks/useTaskDelete";
 import useTaskStore from "../../store/useTaskStore";
@@ -48,7 +48,6 @@ const TaskAction = ({ taskIdentifier }: Props) => {
             </GridItem>
 
             {/* modal  deleteProject*/}
-
             <AlertDialog
                 title="Delete Task ?"
                 body="Your task will be deleted"
@@ -57,6 +56,7 @@ const TaskAction = ({ taskIdentifier }: Props) => {
                 handleAction={handleDelete}
                 loading={isLoading}
             />
+            <UpdateTaskModal />
         </>
     );
 };

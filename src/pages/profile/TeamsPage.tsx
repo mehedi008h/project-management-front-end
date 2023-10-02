@@ -1,5 +1,6 @@
+import React from "react";
 import { Box, Grid, GridItem, Spinner } from "@chakra-ui/react";
-import { Empty, FormHeading, UserCard } from "../../components";
+import { FormHeading, UserCard } from "../../components";
 import useTeammates from "../../hooks/useTeammates";
 
 const TeamsPage = () => {
@@ -29,9 +30,9 @@ const TeamsPage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {teams?.length === 0 && (
+                        {/* {teams?.length === 0 && (
                             <Empty text="Don't have team member yet" />
-                        )}
+                        )} */}
                         <Grid
                             templateColumns={{
                                 xl: "repeat(2, 1fr)",
@@ -43,10 +44,14 @@ const TeamsPage = () => {
                             width="100%"
                             mt={3}
                         >
-                            {teams?.map((user) => (
-                                <GridItem key={user._id}>
-                                    <UserCard user={user} />
-                                </GridItem>
+                            {teams?.pages.map((page, index) => (
+                                <React.Fragment key={index}>
+                                    {page?.map((user) => (
+                                        <GridItem key={user._id}>
+                                            <UserCard user={user} />
+                                        </GridItem>
+                                    ))}
+                                </React.Fragment>
                             ))}
                         </Grid>
                     </Box>
