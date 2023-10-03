@@ -47,10 +47,20 @@ class APIClient<T> {
             .then((res) => res.data.data);
     };
 
-    getAllById = async (id: number | string) => {
+    getByQuery = async (config: AxiosRequestConfig) => {
         return axiosInstance
-            .get<FetchResponses<T>>(this.endpoint + "/" + id)
+            .get<FetchResponse<T>>(this.endpoint, config)
             .then((res) => res.data.data);
+    };
+
+    getAllById = async (id: number | string) => {
+        if (id) {
+            return axiosInstance
+                .get<FetchResponses<T>>(this.endpoint + "/" + id)
+                .then((res) => res.data.data);
+        } else {
+            return [];
+        }
     };
     getAllByIdQuery = async (id: number | string) => {
         return axiosInstance

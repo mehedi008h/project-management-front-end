@@ -1,56 +1,71 @@
-import { Box, Text } from "@chakra-ui/react";
-import { PieChart, Pie, ResponsiveContainer } from "recharts";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import { DashboardTask } from "../../domain/dashboard";
 
-const data01 = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-];
-const data02 = [
-    { name: "A1", value: 100 },
-    { name: "A2", value: 300 },
-    { name: "B1", value: 100 },
-    { name: "B2", value: 80 },
-    { name: "B3", value: 40 },
-    { name: "B4", value: 30 },
-    { name: "B5", value: 50 },
-    { name: "C1", value: 100 },
-    { name: "C2", value: 200 },
-    { name: "D1", value: 150 },
-    { name: "D2", value: 50 },
-];
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const TaskStatusGraph = () => {
+interface Props {
+    dashboardTasks?: DashboardTask;
+}
+
+const TaskStatusGraph = ({ dashboardTasks }: Props) => {
+    const completeTask =
+        dashboardTasks &&
+        percentage(
+            dashboardTasks.completedTasks.length,
+            dashboardTasks.tasks.length
+        );
+    const incompleteTask =
+        dashboardTasks &&
+        percentage(
+            dashboardTasks.incompletedTask.length,
+            dashboardTasks.tasks.length
+        );
+    const overdueTask =
+        dashboardTasks &&
+        percentage(
+            dashboardTasks.overDueTasks.length,
+            dashboardTasks.tasks.length
+        );
+
+    const data = {
+        labels: ["Incompleted", "Overdue", "Completed"],
+        datasets: [
+            {
+                label: "# of Votes",
+                data: [incompleteTask, overdueTask, completeTask],
+                backgroundColor: [
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(255, 206, 86, 0.2)",
+                    "rgba(75, 192, 192, 0.2)",
+                ],
+                borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
     return (
-        <Box width="100%" height="300px" p={3}>
-            <Text fontSize="large" fontWeight="medium">
+        <Box width="100%" height="400px" p={3}>
+            <Text fontSize="large" fontWeight="medium" color="gray.300">
                 All Task by completion status
             </Text>
-            <ResponsiveContainer width="100%" height="100%">
-                <PieChart width={400} height={400}>
-                    <Pie
-                        data={data01}
-                        dataKey="value"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={60}
-                        fill="#8884d8"
-                    />
-                    <Pie
-                        data={data02}
-                        dataKey="value"
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={70}
-                        outerRadius={90}
-                        fill="#82ca9d"
-                        label
-                    />
-                </PieChart>
-            </ResponsiveContainer>
+            <Flex w="full" justifyContent="center">
+                <Box w="300px" h="300px" mt={5}>
+                    <Pie data={data} />
+                </Box>
+            </Flex>
         </Box>
     );
+};
+
+const percentage = (length: number, all: number) => {
+    const total = (length / all) * 100;
+    return total;
 };
 
 export default TaskStatusGraph;

@@ -14,6 +14,7 @@ import {
     TeamsPage,
 } from "./pages";
 import PortfolioPage from "./pages/profile/PortfolioPage";
+import { CommingSoon } from "./components";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,26 @@ const router = createBrowserRouter([
             {
                 path: "/calendar",
                 element: <CalendarPage />,
+            },
+            {
+                path: "/inbox",
+                element: <CommingSoon />,
+            },
+            {
+                path: "/portfolio",
+                element: <CommingSoon />,
+            },
+            {
+                path: "/time-management",
+                element: <CommingSoon />,
+            },
+            {
+                path: "/reports",
+                element: <CommingSoon />,
+            },
+            {
+                path: "/settings",
+                element: <CommingSoon />,
             },
         ],
     },

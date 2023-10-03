@@ -4,6 +4,9 @@ interface TaskStore {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
+    projectIdentifier: string;
+
+    setProjectIdentifier: (identifier: string) => void;
 
     // update
     isOpenUpdate: boolean;
@@ -13,8 +16,11 @@ interface TaskStore {
 
 const useTaskStore = create<TaskStore>((set) => ({
     isOpen: false,
+    projectIdentifier: "",
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
+    setProjectIdentifier: (identifier) =>
+        set(() => ({ projectIdentifier: identifier })),
 
     // update
     isOpenUpdate: false,

@@ -18,9 +18,9 @@ export { default as Navbar } from "./common/Navbar";
 export { default as FormHeading } from "./common/Heading";
 export { default as HomeLoading } from "./common/HomeLoading";
 export { default as Empty } from "./common/Empty";
+export { default as CommingSoon } from "./common/CommingSoon";
 
 export { default as SearchInput } from "./navbar/SearchInput";
-export { default as ProjectSelector } from "./navbar/ProjectSelector";
 export { default as NavProject } from "./navbar/NavProject";
 export { default as ProjectAvatarGroup } from "./navbar/ProjectAvatarGroup";
 export { default as SelectOption } from "./navbar/SelectOption";

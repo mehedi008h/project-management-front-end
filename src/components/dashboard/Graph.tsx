@@ -5,8 +5,10 @@ import {
     TaskAreachart,
     TaskStatusGraph,
 } from "..";
+import useDashboardTask from "../../hooks/useDashboardTask";
 
 const Graph = () => {
+    const { data: dashboard } = useDashboardTask();
     return (
         <Grid
             templateColumns={{
@@ -23,16 +25,16 @@ const Graph = () => {
                 border="1px"
                 rounded="md"
                 borderColor="gray.600"
-                height="300px"
+                height="400px"
                 width="100%"
             >
-                <TaskStatusGraph />
+                <TaskStatusGraph dashboardTasks={dashboard} />
             </GridItem>
             <GridItem
                 border="1px"
                 rounded="md"
                 borderColor="gray.600"
-                height="300px"
+                height="400px"
                 width="100%"
             >
                 <IncompleteTaskGraph />

@@ -4,7 +4,7 @@ import { User } from "../../domain/user";
 interface Props {
     size: string;
     loading: boolean;
-    developers?: User[] | undefined;
+    developers?: User[] | undefined | null;
 }
 
 const ProjectAvatarGroup = ({ size, loading, developers }: Props) => {

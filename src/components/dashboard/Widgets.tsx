@@ -1,8 +1,10 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { StatusCard } from "..";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import useDashboardTask from "../../hooks/useDashboardTask";
 
 const Widgets = () => {
+    const { data: tasks } = useDashboardTask();
     return (
         <Grid
             templateColumns={{
@@ -16,7 +18,7 @@ const Widgets = () => {
             <GridItem>
                 <StatusCard
                     text="Completed Tasks"
-                    count={120}
+                    count={tasks?.completedTasks.length}
                     icon={
                         <IoCheckmarkDoneCircleSharp size={25} color="green" />
                     }
@@ -25,21 +27,21 @@ const Widgets = () => {
             <GridItem>
                 <StatusCard
                     text="Incompleted Tasks"
-                    count={120}
+                    count={tasks?.incompletedTask.length}
                     icon={<IoCheckmarkDoneCircleSharp size={25} color="red" />}
                 />
             </GridItem>
             <GridItem>
                 <StatusCard
                     text="Overdue Tasks"
-                    count={120}
+                    count={tasks?.overDueTasks.length}
                     icon={
                         <IoCheckmarkDoneCircleSharp size={25} color="maroon" />
                     }
                 />
             </GridItem>
             <GridItem>
-                <StatusCard text="All Tasks" count={120} />
+                <StatusCard text="All Tasks" count={tasks?.tasks.length} />
             </GridItem>
         </Grid>
     );

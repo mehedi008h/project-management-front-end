@@ -60,6 +60,8 @@ const UpdateTaskModal = () => {
         project.projectId
     );
 
+    console.log("Task Developer : ", taskDeveloper);
+
     const {
         register,
         setValue,
@@ -119,8 +121,8 @@ const UpdateTaskModal = () => {
 
     // set developer
     const handleDeveloper = (id: string) => {
-        setTaskDeveloper(id);
         setCustomValue("developer", id);
+        setTaskDeveloper(id);
     };
 
     // submit task
