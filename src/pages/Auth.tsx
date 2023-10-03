@@ -19,6 +19,7 @@ import { Forgot, Login, Signup } from "../components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useGoogleAuth from "../hooks/useGoogleAuth";
+import toast from "react-hot-toast";
 
 const Auth = () => {
     const [login, setLogin] = useState(true);
@@ -32,7 +33,7 @@ const Auth = () => {
             mutate(code as string);
         },
         onError: () => {
-            console.log("Login Failed");
+            toast.error("Something went wrong");
         },
     });
 
