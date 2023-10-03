@@ -14,6 +14,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Container from "../components/common/Container";
 
 import logo from "../assets/logo.png";
+import screen from "../assets/Work in progress-pana.svg";
 import { Forgot, Login, Signup } from "../components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -49,7 +50,9 @@ const Auth = () => {
                 flexDirection={login ? "row" : "row-reverse"}
                 transition="all 0.13s ease-in-out"
             >
-                <Box
+                <Flex
+                    justifyContent="center"
+                    alignItems="center"
                     display={{
                         base: "none",
                         md: "flex",
@@ -57,8 +60,12 @@ const Auth = () => {
                         xl: "flex",
                     }}
                     width="100%"
-                    backgroundColor="teal.800"
-                ></Box>
+                    bg="teal.700"
+                >
+                    <Box h="400px" w="400px">
+                        <Image src={screen} h="full" w="full" />
+                    </Box>
+                </Flex>
                 <Flex
                     width="100%"
                     justifyItems="center"

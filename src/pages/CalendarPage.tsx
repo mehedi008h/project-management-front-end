@@ -120,6 +120,8 @@ const CalendarPage = () => {
             )}
             {deleteEvent && (
                 <AlertDialog
+                    loading={false}
+                    handleAction={() => ""}
                     isOpen={isOpen}
                     onClose={onClose}
                     body="You want to delete this Event!"

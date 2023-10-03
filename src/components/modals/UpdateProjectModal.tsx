@@ -54,7 +54,7 @@ const UpdateProjectModal = () => {
         key: "selection",
     });
     // image state
-    const [avatar, setAvatar] = useState();
+    const [avatar, setAvatar] = useState<string>("");
     // open & close modal
     const { isOpen, onClose } = useUpdateProjectStore();
 

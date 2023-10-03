@@ -60,8 +60,6 @@ const UpdateTaskModal = () => {
         project.projectId
     );
 
-    console.log("Task Developer : ", taskDeveloper);
-
     const {
         register,
         setValue,
@@ -167,7 +165,7 @@ const UpdateTaskModal = () => {
         return "Back";
     }, [step]);
 
-    const disable = developerLoading || taskUpdateLoading;
+    const disable = developerLoading || taskUpdateLoading || taskLoading;
 
     let bodyContent = (
         <Flex flexDirection="column" gap={8}>

@@ -22,8 +22,10 @@ export interface ErrorResponse {
     };
 }
 
+const REST_API = import.meta.env.VITE_REST_API;
+
 export const axiosInstance = axios.create({
-    baseURL: " http://localhost:8000/api/v1",
+    baseURL: `${REST_API}/api/v1`,
     withCredentials: true,
 });
 

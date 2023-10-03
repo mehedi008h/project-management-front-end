@@ -37,7 +37,7 @@ const ProfileUpdateModal = () => {
 
     const [skillValue, setSkillValue] = useState<string>("");
     // image stskill
-    const [avatar, setAvatar] = useState();
+    const [avatar, setAvatar] = useState<string>("");
     // open & close modal
     const { isOpen, onClose } = useUserStore();
 
