@@ -55,3 +55,19 @@ yarn run dev
 VITE_GOOGLE_CLIENT_ID =
 VITE_REST_API =
 ```
+
+### Project Page
+
+<img src="./src/assets/Screenshot (24).png" alt="Project Page" title="Project Page">
+
+### Project Details Page
+
+<img src="./src/assets/Screenshot (23).png" alt="Project Details Page" title="Project Details Page">
+
+### Task Page
+
+<img src="./src/assets/Screenshot (25).png" alt="Project Details Page" title="Project Details Page">
+
+### Profile Page
+
+<img src="./src/assets/Screenshot (26).png" alt="Project Details Page" title="Project Details Page">
